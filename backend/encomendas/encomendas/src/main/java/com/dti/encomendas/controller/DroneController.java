@@ -2,15 +2,13 @@ package com.dti.encomendas.controller;
 
 import com.dti.encomendas.dto.DroneDTO;
 import com.dti.encomendas.enums.StatusDrone;
+import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.repository.DroneRepository;
 import com.dti.encomendas.service.DroneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/drones")
@@ -29,5 +27,14 @@ public class DroneController {
 
         droneService.save(novo);
         return ResponseEntity.ok(novo);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Drone> getDrone(@PathVariable Long id) {
+        if (droneService.getDroneById(id).isEmpty()) {
+            throw new NotFoundException("Drone não encontrado");
+        }
+        Drone drone = droneService.getDroneById(id).get();
+        return ResponseEntity.ok(drone);
     }
 }
