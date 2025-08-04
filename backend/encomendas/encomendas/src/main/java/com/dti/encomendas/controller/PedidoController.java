@@ -18,7 +18,13 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping
-    public ResponseEntity<List<Pedido>> criarPedidos(@RequestBody ArrayList<Pedido> pedidos) {
-        
+    public ResponseEntity<Pedido> criarPedido(@RequestBody Pedido pedido) {
+        Pedido novo = new Pedido();
+        novo.setPeso(pedido.getPeso());
+        novo.setPrioridade(pedido.getPrioridade());
+        novo.setLocalizacao(pedido.getLocalizacao());
+
+        pedidoService.save(novo); 
+        return ResponseEntity.ok(novo);
     }
 }
