@@ -1,6 +1,7 @@
 package com.dti.encomendas.controller;
 
 import com.dti.encomendas.model.Pedido;
+import com.dti.encomendas.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class PedidoController {
         novo.setPrioridade(pedido.getPrioridade());
         novo.setLocalizacao(pedido.getLocalizacao());
 
-        pedidoService.save(novo); 
+        pedidoService.save(novo);
         return ResponseEntity.ok(novo);
     }
 }
