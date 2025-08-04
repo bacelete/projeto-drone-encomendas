@@ -11,11 +11,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class DroneDTO {
-    private Long id;
     private double pesoMax;
     private double kmMax;
     private int bateria;
-    private List<Pedido> pedidos;
 
     public DroneDTO() {}
 }
