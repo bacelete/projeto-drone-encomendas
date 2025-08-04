@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -26,6 +29,12 @@ public class Drone {
 
     @Enumerated(EnumType.STRING)
     private StatusDrone status;
+
+    @OneToMany(mappedBy = "drone")
+    private List<Pedido> pedidos;
+
+    private LocalDateTime inicio;
+    private LocalDateTime fim;
 
     public Drone() {}
 

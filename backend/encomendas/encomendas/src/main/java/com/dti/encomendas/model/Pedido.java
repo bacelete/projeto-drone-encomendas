@@ -1,10 +1,13 @@
 package com.dti.encomendas.model;
 
 import com.dti.encomendas.enums.PrioridadePedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -16,10 +19,17 @@ public class Pedido {
     private Long id;
 
     private double peso;
+
+    @Enumerated(EnumType.STRING)
     private PrioridadePedido prioridade;
 
     @Embedded
-    private Localizacao localizacao; 
+    private Localizacao localizacao;
+
+    @ManyToOne
+    @JoinColumn(name="id_drone", nullable = false)
+    @JsonIgnore
+    private Drone drone;
 
     public Pedido() {}
 }
