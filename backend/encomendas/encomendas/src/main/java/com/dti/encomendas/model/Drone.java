@@ -1,5 +1,6 @@
 package com.dti.encomendas.model;
 
+import com.dti.encomendas.enums.StatusDrone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
