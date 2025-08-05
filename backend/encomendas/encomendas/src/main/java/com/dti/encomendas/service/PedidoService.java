@@ -37,17 +37,11 @@ public class PedidoService {
         Map<Drone, Double> mapDronePeso = new HashMap<>();
         Map<Drone, Double> mapDroneKm = new HashMap<>();
 
-        System.out.println();
-
-        for (Drone drone : dronesDisponiveis) {
-            //salva os estados em um map;
-            mapDronePedidos.put(drone, new ArrayList<>());
-            mapDroneKm.put(drone, drone.getKmMax()); //comeca com o kmMax;
-            mapDronePeso.put(drone, drone.getPesoMax()); //comeca com o pesoMax
-        }
+        setarValoresMapDrone(dronesDisponiveis, mapDronePedidos, mapDronePeso, mapDroneKm);
 
         for (Pedido pedido : pedidos) {
             System.out.println("[INFO] Verificando pedido...");
+            System.out.println(pedido.toString());
 
             int x = pedido.getLocalizacao().getX();
             int y = pedido.getLocalizacao().getY();
@@ -56,26 +50,8 @@ public class PedidoService {
                 throw new ExistsLocalizacaoException("Localização já existente!");
             }
 
-            double distancia = calculaDistancia(x, y);
+            double distancia = calcularDistancia(x, y);
 
-            for (Drone drone : dronesDisponiveis) {
-                List<Pedido> pedidosAlocados = mapDronePedidos.get(drone);
-
-                double pesoRestante = mapDronePeso.get(drone);
-                double kmRestante = mapDroneKm.get(drone);
-                
-                if (pedido.getPeso() <= pesoRestante && (distancia <= kmRestante)) {
-                    pedido.setDrone(drone);
-                    pedidosAlocados.add(pedido);
-
-                    mapDronePeso.put(drone, pesoRestante - pedido.getPeso());
-                    mapDroneKm.put(drone, kmRestante - distancia);
-                    mapDronePedidos.put(drone, pedidosAlocados); //atualiza os pedidos no map, ele substitui o valor;
-
-                    pedidoRepository.save(pedido);
-                }
-
-            }
         }
 
         for (Drone drone : dronesDisponiveis) {
@@ -91,8 +67,20 @@ public class PedidoService {
         return droneRepository.findAllByStatus(StatusDrone.IDLE);
     }
 
-    private double calculaDistancia(int x, int y) {
+    private double calcularDistancia(int x, int y) {
         return 2 * Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //(0,0) é a base;
+    }
+
+    private void setarValoresMapDrone(List<Drone> dronesDisponiveis,
+                                         Map<Drone, List<Pedido>> mapPedidos,
+                                         Map<Drone, Double> mapKm,
+                                         Map<Drone, Double> mapPeso) {
+        for (Drone drone : dronesDisponiveis) {
+            //salva os estados em um map;
+            mapPedidos.put(drone, new ArrayList<>());
+            mapKm.put(drone, drone.getKmMax()); //comeca com o kmMax;
+            mapPeso.put(drone, drone.getPesoMax()); //comeca com o pesoMax
+        }
     }
 
 }
