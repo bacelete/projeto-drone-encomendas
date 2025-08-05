@@ -19,13 +19,8 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping
-    public ResponseEntity<Pedido> criarPedido(@RequestBody Pedido pedido) {
-        Pedido novo = new Pedido();
-        novo.setPeso(pedido.getPeso());
-        novo.setPrioridade(pedido.getPrioridade());
-        novo.setLocalizacao(pedido.getLocalizacao());
-
-        pedidoService.save(novo);
-        return ResponseEntity.ok(novo);
+    public ResponseEntity<String> criarPedidos(@RequestBody ArrayList<Pedido> pedidos) {
+        pedidoService.save(pedidos);
+        return ResponseEntity.ok("Pedidos alocados!");
     }
 }

@@ -1,15 +1,108 @@
 package com.dti.encomendas.service;
 
+import com.dti.encomendas.enums.StatusDrone;
+import com.dti.encomendas.exception.ExistsLocalizacaoException;
+import com.dti.encomendas.exception.NotFoundException;
+import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Pedido;
+import com.dti.encomendas.repository.DroneRepository;
 import com.dti.encomendas.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public void save(Pedido pedido) { pedidoRepository.save(pedido); }
+    @Autowired
+    private DroneRepository droneRepository;
+
+    public void save(ArrayList<Pedido> pedidos) {
+        List<Drone> dronesDisponiveis = findDronesDisponiveis();
+
+        if (dronesDisponiveis.isEmpty()) {
+            throw new NotFoundException("Não há drones disponíveis!");
+        }
+
+        dronesDisponiveis.forEach(drone -> System.out.println(drone.toString()));
+
+        Map<Drone, List<Pedido>> mapDronePedidos = new HashMap<>();
+        Map<Drone, Double> mapDronePeso = new HashMap<>();
+        Map<Drone, Double> mapDroneKm = new HashMap<>();
+
+        System.out.println();
+
+        for (Drone drone : dronesDisponiveis) {
+            //salva os estados em um map;
+            mapDronePedidos.put(drone, new ArrayList<>());
+            mapDroneKm.put(drone, drone.getKmMax()); //comeca com o kmMax;
+            mapDronePeso.put(drone, drone.getPesoMax()); //comeca com o pesoMax
+        }
+
+        for (Pedido pedido : pedidos) {
+            System.out.println("[INFO] Verificando pedido...");
+
+            int x = pedido.getLocalizacao().getX();
+            int y = pedido.getLocalizacao().getY();
+
+            if (pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(x, y)) {
+                throw new ExistsLocalizacaoException("Localização já existente!");
+            }
+
+            double distancia = 2 * Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //(0,0) é a base;
+
+            System.out.println("=== Pedido ===");
+            System.out.println("Peso: " + pedido.getPeso());
+            System.out.println("Destino: (" + x + ", " + y + ")");
+            System.out.println("Distância total (ida e volta): " + distancia);
+            System.out.println();
+
+            for (Drone drone : dronesDisponiveis) {
+                List<Pedido> pedidosAlocados = mapDronePedidos.get(drone);
+
+                System.out.printf("[INFO] Drone ID: "+drone.getId()+"\n");
+                double pesoRestante = mapDronePeso.get(drone);
+                System.out.println("Peso disponível no drone: "+pesoRestante);
+                double kmRestante = mapDroneKm.get(drone);
+                System.out.println("Alcance restante no drone: "+kmRestante);
+
+                System.out.println();
+
+                System.out.println(pedido.getPeso() <= pesoRestante && (distancia <= kmRestante));
+                System.out.println();
+
+                if (pedido.getPeso() <= pesoRestante && (distancia <= kmRestante)) {
+                    pedido.setDrone(drone);
+                    pedidosAlocados.add(pedido);
+
+                    mapDronePeso.put(drone, pesoRestante - pedido.getPeso());
+                    mapDroneKm.put(drone, kmRestante - distancia);
+                    mapDronePedidos.put(drone, pedidosAlocados); //atualiza os pedidos no map, ele substitui o valor;
+
+                    pedidoRepository.save(pedido);
+                }
+
+            }
+        }
+
+        for (Drone drone : dronesDisponiveis) {
+            drone.setPedidos(mapDronePedidos.get(drone));
+            drone.setInicio(LocalDateTime.now());
+            drone.setStatus(StatusDrone.EM_VOO);
+            droneRepository.save(drone);
+        }
+
+    }
+
+    private List<Drone> findDronesDisponiveis() {
+        return droneRepository.findAllByStatus(StatusDrone.IDLE);
+    }
 
 }

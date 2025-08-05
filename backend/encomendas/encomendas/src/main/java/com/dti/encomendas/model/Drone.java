@@ -38,4 +38,13 @@ public class Drone {
 
     public Drone() {}
 
+    @Override
+    public String toString() {
+        return "ID: "+id+
+                "| Peso Max: "+pesoMax+
+                "| Km Max: "+kmMax+
+                "| Bateria: "+bateria+"%"+
+                "| Status: "+status;
+    }
+
 }

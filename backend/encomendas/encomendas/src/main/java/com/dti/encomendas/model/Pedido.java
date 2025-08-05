@@ -31,5 +31,13 @@ public class Pedido {
     @JsonIgnore
     private Drone drone;
 
+    @Override
+    public String toString() {
+        return "ID: "+id+
+                "| Peso: "+peso+
+                "| Prioridade: "+prioridade+
+                "| Localizacao: ("+localizacao.getX()+", "+localizacao.getY()+")";
+    }
+
     public Pedido() {}
 }
