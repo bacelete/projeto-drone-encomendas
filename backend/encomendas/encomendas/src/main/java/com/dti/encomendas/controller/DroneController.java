@@ -25,7 +25,7 @@ public class DroneController {
         novo.setPesoMax(droneDTO.getPesoMax());
         novo.setStatus(StatusDrone.IDLE);
 
-        droneService.save(novo);
+        droneService.create(novo);
         return ResponseEntity.ok(novo);
     }
 

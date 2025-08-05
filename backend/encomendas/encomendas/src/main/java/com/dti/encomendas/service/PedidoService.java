@@ -24,6 +24,9 @@ public class PedidoService {
     @Autowired
     private DroneRepository droneRepository;
 
+    @Autowired
+    private DroneService droneService;
+
     public void save(ArrayList<Pedido> pedidos) {
         List<Drone> dronesDisponiveis = findDronesDisponiveis();
 
@@ -40,17 +43,11 @@ public class PedidoService {
         setarValoresMapDrone(dronesDisponiveis, mapDronePedidos, mapDronePeso, mapDroneKm);
         alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
-        for (Drone drone : dronesDisponiveis) {
-            drone.setPedidos(mapDronePedidos.get(drone));
-            drone.setInicio(LocalDateTime.now());
-            drone.setStatus(StatusDrone.EM_VOO);
-            droneRepository.save(drone);
-        }
-
+        droneService.iniciarEntregas(dronesDisponiveis, mapDronePedidos);
     }
 
     private List<Drone> findDronesDisponiveis() {
-        return droneRepository.findAllByStatus(StatusDrone.IDLE);
+        return droneService.getDroneByStatus(StatusDrone.IDLE); 
     }
 
     private double calcularDistancia(int x, int y) {
@@ -74,7 +71,7 @@ public class PedidoService {
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso) {
         for (Pedido pedido : pedidos) {
-
+            System.out.println(pedido);
             int x = pedido.getLocalizacao().getX();
             int y = pedido.getLocalizacao().getY();
 
@@ -91,7 +88,8 @@ public class PedidoService {
                 double kmRestante = mapKm.get(drone);
 
                 if (satisfazCondicao(pedido.getPeso(), pesoRestante, distancia, kmRestante)) {
-                    
+                    System.out.println(pedido.toString());
+
                     pedido.setDrone(drone);
                     pedidosAlocados.add(pedido);
 
@@ -100,7 +98,6 @@ public class PedidoService {
                     mapPedidos.put(drone, pedidosAlocados); //atualiza os pedidos no map, ele substitui o valor;
 
                     pedidoRepository.save(pedido);
-                    break;
                 }
 
             }
@@ -109,7 +106,7 @@ public class PedidoService {
     }
 
     private boolean satisfazCondicao(double peso, double pesoRestante, double distancia, double kmRestante) {
-        return peso <= pesoRestante && (distancia <= kmRestante);
+        return (peso <= pesoRestante) && (distancia <= kmRestante);
     }
 
 }
