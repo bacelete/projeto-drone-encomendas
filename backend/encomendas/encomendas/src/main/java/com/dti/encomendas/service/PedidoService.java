@@ -38,21 +38,7 @@ public class PedidoService {
         Map<Drone, Double> mapDroneKm = new HashMap<>();
 
         setarValoresMapDrone(dronesDisponiveis, mapDronePedidos, mapDronePeso, mapDroneKm);
-
-        for (Pedido pedido : pedidos) {
-            System.out.println("[INFO] Verificando pedido...");
-            System.out.println(pedido.toString());
-
-            int x = pedido.getLocalizacao().getX();
-            int y = pedido.getLocalizacao().getY();
-
-            if (pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(x, y)) {
-                throw new ExistsLocalizacaoException("Localização já existente!");
-            }
-
-            double distancia = calcularDistancia(x, y);
-
-        }
+        alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
         for (Drone drone : dronesDisponiveis) {
             drone.setPedidos(mapDronePedidos.get(drone));
@@ -72,15 +58,58 @@ public class PedidoService {
     }
 
     private void setarValoresMapDrone(List<Drone> dronesDisponiveis,
-                                         Map<Drone, List<Pedido>> mapPedidos,
-                                         Map<Drone, Double> mapKm,
-                                         Map<Drone, Double> mapPeso) {
+                                      Map<Drone, List<Pedido>> mapPedidos,
+                                      Map<Drone, Double> mapKm,
+                                      Map<Drone, Double> mapPeso) {
         for (Drone drone : dronesDisponiveis) {
             //salva os estados em um map;
             mapPedidos.put(drone, new ArrayList<>());
             mapKm.put(drone, drone.getKmMax()); //comeca com o kmMax;
             mapPeso.put(drone, drone.getPesoMax()); //comeca com o pesoMax
         }
+    }
+
+    private void alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
+                               Map<Drone, List<Pedido>> mapPedidos,
+                               Map<Drone, Double> mapKm,
+                               Map<Drone, Double> mapPeso) {
+        for (Pedido pedido : pedidos) {
+
+            int x = pedido.getLocalizacao().getX();
+            int y = pedido.getLocalizacao().getY();
+
+            if (pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(x, y)) {
+                throw new ExistsLocalizacaoException("Localização já existente!");
+            }
+
+            double distancia = calcularDistancia(x, y);
+
+            for (Drone drone : drones) {
+                List<Pedido> pedidosAlocados = mapPedidos.get(drone);
+
+                double pesoRestante = mapPeso.get(drone);
+                double kmRestante = mapKm.get(drone);
+
+                if (satisfazCondicao(pedido.getPeso(), pesoRestante, distancia, kmRestante)) {
+                    
+                    pedido.setDrone(drone);
+                    pedidosAlocados.add(pedido);
+
+                    mapPeso.put(drone, pesoRestante - pedido.getPeso());
+                    mapKm.put(drone, kmRestante - distancia);
+                    mapPedidos.put(drone, pedidosAlocados); //atualiza os pedidos no map, ele substitui o valor;
+
+                    pedidoRepository.save(pedido);
+                    break;
+                }
+
+            }
+        }
+
+    }
+
+    private boolean satisfazCondicao(double peso, double pesoRestante, double distancia, double kmRestante) {
+        return peso <= pesoRestante && (distancia <= kmRestante);
     }
 
 }
