@@ -34,7 +34,7 @@ public class PedidoService {
             throw new NotFoundException("Não há drones disponíveis!");
         }
 
-        dronesDisponiveis.forEach(drone -> System.out.println(drone.toString()));
+        dronesDisponiveis.forEach(drone -> System.out.println(drone.toString())); //debug;
 
         Map<Drone, List<Pedido>> mapDronePedidos = new HashMap<>();
         Map<Drone, Double> mapDronePeso = new HashMap<>();
@@ -47,7 +47,7 @@ public class PedidoService {
     }
 
     private List<Drone> findDronesDisponiveis() {
-        return droneService.getDroneByStatus(StatusDrone.IDLE); 
+        return droneService.getDroneByStatus(StatusDrone.IDLE);
     }
 
     private double calcularDistancia(int x, int y) {
@@ -71,15 +71,17 @@ public class PedidoService {
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso) {
         for (Pedido pedido : pedidos) {
-            System.out.println(pedido);
+            System.out.println(pedido); //debug;
+
             int x = pedido.getLocalizacao().getX();
             int y = pedido.getLocalizacao().getY();
+            double pesoPedido = pedido.getPeso();
 
             if (pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(x, y)) {
                 throw new ExistsLocalizacaoException("Localização já existente!");
             }
 
-            double distancia = calcularDistancia(x, y);
+            double distanciaPedido = calcularDistancia(x, y);
 
             for (Drone drone : drones) {
                 List<Pedido> pedidosAlocados = mapPedidos.get(drone);
@@ -87,14 +89,14 @@ public class PedidoService {
                 double pesoRestante = mapPeso.get(drone);
                 double kmRestante = mapKm.get(drone);
 
-                if (satisfazCondicao(pedido.getPeso(), pesoRestante, distancia, kmRestante)) {
-                    System.out.println(pedido.toString());
+                if (satisfazCondicao(pesoPedido, pesoRestante, distanciaPedido, kmRestante)) {
+                    System.out.println(pedido.toString()); //debug;
 
                     pedido.setDrone(drone);
                     pedidosAlocados.add(pedido);
 
-                    mapPeso.put(drone, pesoRestante - pedido.getPeso());
-                    mapKm.put(drone, kmRestante - distancia);
+                    mapPeso.put(drone, pesoRestante - pesoPedido);
+                    mapKm.put(drone, kmRestante - distanciaPedido);
                     mapPedidos.put(drone, pedidosAlocados); //atualiza os pedidos no map, ele substitui o valor;
 
                     pedidoRepository.save(pedido);
@@ -105,8 +107,8 @@ public class PedidoService {
 
     }
 
-    private boolean satisfazCondicao(double peso, double pesoRestante, double distancia, double kmRestante) {
-        return (peso <= pesoRestante) && (distancia <= kmRestante);
+    private boolean satisfazCondicao(double pesoPedido, double pesoRestante, double distanciaPedido, double kmRestante) {
+        return (pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante);
     }
 
 }

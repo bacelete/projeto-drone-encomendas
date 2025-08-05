@@ -35,6 +35,6 @@ public class DroneService {
     }
 
     public List<Drone> getDroneByStatus(StatusDrone status) {
-        return droneRepository.findAllByStatus(StatusDrone.IDLE);
+        return droneRepository.findAllByStatus(status);
     }
 }
