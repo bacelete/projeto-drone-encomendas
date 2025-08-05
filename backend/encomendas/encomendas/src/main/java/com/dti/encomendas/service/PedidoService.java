@@ -56,28 +56,14 @@ public class PedidoService {
                 throw new ExistsLocalizacaoException("Localização já existente!");
             }
 
-            double distancia = 2 * Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //(0,0) é a base;
-
-            System.out.println("=== Pedido ===");
-            System.out.println("Peso: " + pedido.getPeso());
-            System.out.println("Destino: (" + x + ", " + y + ")");
-            System.out.println("Distância total (ida e volta): " + distancia);
-            System.out.println();
+            double distancia = calculaDistancia(x, y);
 
             for (Drone drone : dronesDisponiveis) {
                 List<Pedido> pedidosAlocados = mapDronePedidos.get(drone);
 
-                System.out.printf("[INFO] Drone ID: "+drone.getId()+"\n");
                 double pesoRestante = mapDronePeso.get(drone);
-                System.out.println("Peso disponível no drone: "+pesoRestante);
                 double kmRestante = mapDroneKm.get(drone);
-                System.out.println("Alcance restante no drone: "+kmRestante);
-
-                System.out.println();
-
-                System.out.println(pedido.getPeso() <= pesoRestante && (distancia <= kmRestante));
-                System.out.println();
-
+                
                 if (pedido.getPeso() <= pesoRestante && (distancia <= kmRestante)) {
                     pedido.setDrone(drone);
                     pedidosAlocados.add(pedido);
@@ -103,6 +89,10 @@ public class PedidoService {
 
     private List<Drone> findDronesDisponiveis() {
         return droneRepository.findAllByStatus(StatusDrone.IDLE);
+    }
+
+    private double calculaDistancia(int x, int y) {
+        return 2 * Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //(0,0) é a base;
     }
 
 }
