@@ -19,4 +19,10 @@ public class RestExceptionHandler {
         ErrorMessage errorMessage = new ErrorMessage(HttpStatus.METHOD_NOT_ALLOWED, exception.getMessage());
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorMessage);
     }
+
+    @ExceptionHandler(value = AboveDroneCapacity.class)
+    public ResponseEntity<ErrorMessage> aboveDroneCapacityException(AboveDroneCapacity exception) {
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+    }
 }

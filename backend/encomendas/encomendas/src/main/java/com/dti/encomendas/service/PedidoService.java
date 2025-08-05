@@ -1,6 +1,7 @@
 package com.dti.encomendas.service;
 
 import com.dti.encomendas.enums.StatusDrone;
+import com.dti.encomendas.exception.AboveDroneCapacity;
 import com.dti.encomendas.exception.ExistsLocalizacaoException;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
@@ -40,7 +41,7 @@ public class PedidoService {
         Map<Drone, Double> mapDronePeso = new HashMap<>();
         Map<Drone, Double> mapDroneKm = new HashMap<>();
 
-        setarValoresMapDrone(dronesDisponiveis, mapDronePedidos, mapDronePeso, mapDroneKm);
+        setarValoresIniciaisMapDrone(dronesDisponiveis, mapDronePedidos, mapDronePeso, mapDroneKm);
         alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
         droneService.iniciarEntregas(dronesDisponiveis, mapDronePedidos);
@@ -54,7 +55,7 @@ public class PedidoService {
         return 2 * Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //(0,0) é a base;
     }
 
-    private void setarValoresMapDrone(List<Drone> dronesDisponiveis,
+    private void setarValoresIniciaisMapDrone(List<Drone> dronesDisponiveis,
                                       Map<Drone, List<Pedido>> mapPedidos,
                                       Map<Drone, Double> mapKm,
                                       Map<Drone, Double> mapPeso) {
@@ -76,6 +77,7 @@ public class PedidoService {
             int x = pedido.getLocalizacao().getX();
             int y = pedido.getLocalizacao().getY();
             double pesoPedido = pedido.getPeso();
+            boolean pedidoAlocado = false;
 
             if (pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(x, y)) {
                 throw new ExistsLocalizacaoException("Localização já existente!");
@@ -94,6 +96,7 @@ public class PedidoService {
 
                     pedido.setDrone(drone);
                     pedidosAlocados.add(pedido);
+                    pedidoAlocado = true;
 
                     mapPeso.put(drone, pesoRestante - pesoPedido);
                     mapKm.put(drone, kmRestante - distanciaPedido);
@@ -103,6 +106,12 @@ public class PedidoService {
                 }
 
             }
+
+            if (!pedidoAlocado) {
+                throw new AboveDroneCapacity("Pedido ID: "+pedido.getId()+" foi rejeitado pois " +
+                        "excedeu as capacidades dos drones disponíveis"); 
+            }
+
         }
 
     }

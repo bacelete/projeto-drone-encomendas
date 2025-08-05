@@ -17,6 +17,8 @@ public class DroneService {
     @Autowired
     private DroneRepository droneRepository;
 
+    private static final double VELOCIDADE_MEDIA = 80;
+
     public void create(Drone drone) {
         droneRepository.save(drone);
     }
@@ -32,6 +34,10 @@ public class DroneService {
             drone.setStatus(StatusDrone.EM_VOO);
             droneRepository.save(drone);
         }
+    }
+
+    private double calcularTempoEstimado(double distancia) {
+        return distancia/VELOCIDADE_MEDIA;
     }
 
     public List<Drone> getDroneByStatus(StatusDrone status) {
