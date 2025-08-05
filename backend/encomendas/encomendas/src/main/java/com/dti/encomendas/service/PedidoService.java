@@ -103,13 +103,13 @@ public class PedidoService {
                     mapPedidos.put(drone, pedidosAlocados); //atualiza os pedidos no map, ele substitui o valor;
 
                     pedidoRepository.save(pedido);
+                    break; //impede de alocar para mais de um drone; 
                 }
 
             }
 
             if (!pedidoAlocado) {
-                throw new AboveDroneCapacity("Pedido ID: "+pedido.getId()+" foi rejeitado pois " +
-                        "excedeu as capacidades dos drones disponíveis"); 
+                throw new AboveDroneCapacity("Pedido foi rejeitado pois excedeu as capacidades dos drones disponíveis");
             }
 
         }
@@ -119,5 +119,7 @@ public class PedidoService {
     private boolean satisfazCondicao(double pesoPedido, double pesoRestante, double distanciaPedido, double kmRestante) {
         return (pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante);
     }
+
+    public List<Pedido> getPedidos() { return pedidoRepository.findAll(); }
 
 }

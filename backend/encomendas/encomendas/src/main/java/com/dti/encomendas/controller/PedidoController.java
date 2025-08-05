@@ -1,5 +1,6 @@
 package com.dti.encomendas.controller;
 
+import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
