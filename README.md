@@ -73,7 +73,10 @@ Se há um drone disponível: <br>
 - É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido);`
 
 ### Lógica de Entregas
-Realizada através da função `public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos)`.
+**Quem faz?**<br>
+A lógica de entregas ficou sob a responsabilidade da classe **DroneService**. A função `public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos)` deverá ser chamada.<br><br>
+**O que faz?**<br>
+Seta os pedidos para os drones e chama a função de gerenciar o tempo. 
 
 - A função percorre de drone em drone através do `mapDronePedidos.keySet()`, que retorna um obj. do tipo `Set`.
 - Ela busca os pedidos alocados para aquele drone através do **Repository** do pedido, na seguinte linha: `List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone)` pois o mapDronePedidos retorna uma lista do tipo **PedidoDTO**, e não **Pedido**, como esperamos.
