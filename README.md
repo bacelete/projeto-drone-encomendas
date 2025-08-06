@@ -3,7 +3,7 @@
 ## 📌 Descrição
 Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando regras de capacidade, distância e prioridade de entrega. O sistema aloca os pacotes nos drones com o menor número de viagens possível, respeitando as regras.
 
-## ✅ Funcionalidades (rascunho)
+## ✅ Funcionalidades
 - [x] Cadastro de pedidos
 - [x] Cadastro de drones
 - [x] Ordenação dos pedidos por peso
