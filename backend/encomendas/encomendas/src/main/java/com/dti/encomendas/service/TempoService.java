@@ -39,9 +39,6 @@ public class TempoService {
             double distanciaTotal = Calculo.calcularDistanciaTotalPedidos(drone, entregas);
             long tempoEstimado = calcularTempoTotalEntrega(distanciaTotal);
 
-            System.out.println("Distância total dos pedidos desse drone: "+distanciaTotal);
-            System.out.println("Tempo estimado dos pedidos desse drone: "+tempoEstimado);
-
             try {
                 Thread.sleep(tempoEstimado);
             }
@@ -49,11 +46,28 @@ public class TempoService {
                 e.printStackTrace();
             }
 
-            drone.setFim(LocalDateTime.now());
-            drone.setStatus(StatusDrone.IDLE);
-            droneRepository.save(drone);
+            entregarPedido(drone);
+            finalizarVoo(drone);
         }
 
+    }
+
+    private void entregarPedido(Drone drone) {
+        drone.setStatus(StatusDrone.ENTREGANDO);
+        droneRepository.save(drone);
+
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+    }
+
+    private void finalizarVoo(Drone drone) {
+        drone.setStatus(StatusDrone.IDLE);
+        drone.setFim(LocalDateTime.now());
+        droneRepository.save(drone);
     }
 
     private long calcularTempoTotalEntrega(double distancia) {
