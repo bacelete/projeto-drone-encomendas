@@ -14,7 +14,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 ## 🧠 Tecnologias utilizadas
 - Java 21 + Spring Boot 3.4.3
 - JPA + Hibernate
-- MySQL (ou outro)
+- MySQL
 - ...
 
 ## 🚀 Como executar
