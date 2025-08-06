@@ -1,5 +1,6 @@
 package com.dti.encomendas.controller;
 
+import com.dti.encomendas.dto.PedidosResponseDTO;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.service.PedidoService;
@@ -20,8 +21,8 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping
-    public ResponseEntity<String> criarPedidos(@RequestBody ArrayList<Pedido> pedidos) {
-        pedidoService.save(pedidos);
-        return ResponseEntity.ok("Pedido(s) alocado(s) para entrega!");
+    public ResponseEntity<PedidosResponseDTO> criarPedidos(@RequestBody ArrayList<Pedido> pedidos) {
+        PedidosResponseDTO pedidosResponseDTO = pedidoService.save(pedidos);
+        return ResponseEntity.ok(pedidosResponseDTO);
     }
 }

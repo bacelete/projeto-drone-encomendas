@@ -1,5 +1,6 @@
 package com.dti.encomendas.service;
 
+import com.dti.encomendas.dto.PedidosResponseDTO;
 import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.exception.AboveDroneCapacityException;
 import com.dti.encomendas.exception.ExistsLocalizacaoException;
@@ -24,7 +25,7 @@ public class PedidoService {
     @Autowired
     private DroneService droneService;
 
-    public void save(ArrayList<Pedido> pedidos) {
+    public PedidosResponseDTO save(ArrayList<Pedido> pedidos) {
         List<Drone> dronesDisponiveis = findDronesDisponiveis();
 
         if (dronesDisponiveis.isEmpty()) {
@@ -38,20 +39,11 @@ public class PedidoService {
         Map<Drone, Double> mapDroneKm = new HashMap<>();
 
         setarValoresIniciaisMapDrone(dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
-        alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
-
-        System.out.println("===== Entregas =====");
-        int i = 1;
-        for (Drone drone : dronesDisponiveis) {
-            System.out.println("Drone ["+i+"]: ");
-            List<Pedido> entregas = mapDronePedidos.get(drone);
-            for (Pedido p : entregas) {
-                System.out.println(p.toString());
-            }
-            i++;
-        }
+        List<Pedido> entregas = alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
         droneService.iniciarEntregas(dronesDisponiveis, mapDronePedidos);
+
+        return new PedidosResponseDTO(entregas);
     }
 
     private List<Drone> findDronesDisponiveis() {
@@ -74,7 +66,7 @@ public class PedidoService {
         }
     }
 
-    private void alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
+    private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
                                Map<Drone, List<Pedido>> mapPedidos,
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso) {
@@ -116,10 +108,8 @@ public class PedidoService {
 
         }
 
-        if (!pedidosAlocados.isEmpty()) {
-            pedidoRepository.saveAll(pedidosAlocados);
-        }
-
+        pedidoRepository.saveAll(pedidosAlocados);
+        return pedidosAlocados;
     }
 
 
