@@ -38,7 +38,7 @@ Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos),
 - `Map<Drone, Double> mapDroneKm = new HashMap<>()`<br>
 
 > Por que **PedidoDTO** em **Map<Drone, List<PedidoDTO>>**?<br>
-> Foi utilizado o DTO do Pedido pois eu precisava setar a **distância** calculada em algum lugar, já que a entidade Pedido não possui esse campo. A distância é necessária para calcular o tempo estimado da entrega, o controle da bateria do drone, etc. 
+> Foi utilizado o DTO do Pedido pois eu precisava setar a **distância** calculada em algum lugar, já que a entidade Pedido não possui esse campo. A distância é necessária para calcular o tempo estimado da entrega, é usada no controle da bateria do drone, etc. 
 
 **2. Distância do Pedido**<br>
 Calculada apartir da função `private double calcularDistancia(int x, int y)`<br>
