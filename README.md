@@ -33,9 +33,9 @@ Cada pedido com seu respectivo peso e distância, deve ser alocado para um drone
 **1. O Uso de Map**<br>
 Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos), foi utilizado uma estratégia baseada na interface **Map** do Java. Foi utilizado essa estratégia pois assim, para cada pedido que respeite as condições daquele drone, o estado do peso e alcance do drone são atualizados para o próximo pedido. No projeto são instanciados três estruturas do tipo map: 
 
-- Map<Drone, List<Pedido>> mapDronePedidos = new HashMap<>();
-- Map<Drone, Double> mapDronePeso = new HashMap<>();
-- Map<Drone, Double> mapDroneKm = new HashMap<>();
+- `Map<Drone, List<Pedido>> mapDronePedidos = new HashMap<>()`
+- `Map<Drone, Double> mapDronePeso = new HashMap<>()`
+- `Map<Drone, Double> mapDroneKm = new HashMap<>()`
 
 **2. Distância do Pedido**<br>
 Para o cálculo da distância de um pedido, tomei como referência as coordenadas **(0, 0)** como a "base" dos drones, assim, usei a fórmula da distância entre dois pontos, porém adaptada para este contexto. Isto é: <br>
