@@ -56,7 +56,7 @@ Para cada pedido enviado na requisição (array de pedidos), é avaliado se há 
 `(pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)`<br><br>
 Se há um drone disponível: <br>
 - É sétado esse drone ao pedido através da linha `pedido.setDrone(drone)`
-- É adicionado esse pedido a lista de pedidos alocados no `mapPedidos.get(drone).add(pedido).
+- É adicionado esse pedido a lista de pedidos alocados no `mapPedidos.get(drone).add(pedido).`
 - É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido);`
 
 ## 📸 Prints (opcional por enquanto)
