@@ -4,7 +4,6 @@ import com.dti.encomendas.dto.DroneDTO;
 import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
-import com.dti.encomendas.repository.DroneRepository;
 import com.dti.encomendas.service.DroneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,7 @@ public class DroneController {
         novo.setPesoMax(droneDTO.getPesoMax());
         novo.setStatus(StatusDrone.IDLE);
 
-        droneService.create(novo);
+        droneService.save(novo);
         return ResponseEntity.ok(novo);
     }
 

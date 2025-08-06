@@ -120,7 +120,7 @@ public class PedidoService {
         pedidoDTO.setLocalizacao(pedido.getLocalizacao());
         pedidoDTO.setPrioridade(pedido.getPrioridade());
 
-        pedidoDTO.setDistancia(distancia);
+        pedidoDTO.setDistancia(distancia); //*IMPORTANTE
 
         return pedidoDTO;
     }
