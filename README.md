@@ -38,7 +38,7 @@ A lógica de alocação ficou sob a responsabilidade da classe **ProdutoService*
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso)` deverá ser chamada. <br><br>
 **O que faz?**<br>
-Cada pedido com seu respectivo peso e distância, deve ser alocado para um drone disponível que possui capacidade e alcance possível para aquele pedido. Vale ressaltar que o sistema respeita a lógica de realizar o **menor número de viagens possíveis** e no contexto desse projeto, os drones priorizam os pedidos com o **maior peso** para realizar as entregas, conforme descrito na lógica de ordenação acima.<br>
+Cada pedido com seu respectivo peso e distância, deve ser alocado para um drone disponível que possui capacidade e alcance possível para aquele pedido e se baseando no **menor número de viagens possíveis**.
 
 **1. O Uso de Map**<br>
 Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos), foi utilizado uma estratégia baseada na interface **Map** do Java. Foi utilizado essa estratégia pois assim, para cada pedido que respeite as condições daquele drone, o estado do peso e alcance do drone são atualizados para o próximo pedido. No projeto são instanciados três estruturas do tipo map: 
