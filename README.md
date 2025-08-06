@@ -25,7 +25,10 @@ Explicação dos pacotes e organização
 
 ## 🔍 Lógicas Aplicadas
 ### Lógica de ordenação:
-Para a ordenação dos pedidos, foi utilizado a interface **Comparator** do **Collections.sort** do Java, que me permitiu fazer uma ordenação customizada com base no array de pedidos. A lógica de ordenação ficou sob a responsabilidade da classe **Sort**, criada no pacote utils na estrutura do meu projeto.<br><br>Para a ordenação dos pedidos, a função **void ordenarPedidosPorPeso(List<Pedido> pedido)** deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.
+**Quem faz?**<br>
+A lógica de ordenação ficou sob a responsabilidade da classe **Sort**, criada no pacote **utils** na estrutura do meu projeto.<br><br>
+**O que faz?**<br>
+Para a ordenação dos pedidos, a função **void ordenarPedidosPorPeso(List<Pedido> pedido)** deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.<br>
 
 ### Lógica de alocação de pedidos:
 Cada pedido com seu respectivo peso e distância, deve ser alocado para um drone disponível que possui capacidade e alcance possível para aquele pedido. Vale ressaltar que o sistema respeita a lógica de realizar o **menor número de viagens possíveis** e no contexto desse projeto, os drones priorizam os pedidos com o **maior peso** para realizar as entregas, conforme descrito na lógica de ordenação acima.<br>
@@ -76,7 +79,7 @@ Realizada pelo método <br>
 public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)`
 
 - A função percorre cada drone do `Map<Drone, List<PedidoDTO>> entregas` e seta o tempo de início da entrega como `LocalDateTime.now()`
-- O tempo estimado de entrega dos pedidos de cada drone é calculado a partir do método `private long calcularTempoTotalEntrega(double distancia)`, onde o parâmetro distância é a soma das distâncias dos pedidos. Além disso, tomei como base que a velocidade média dos drones é constante e de 80km/h.
+- O tempo estimado de entrega dos pedidos de cada drone é calculado a partir do método `private long calcularTempoTotalEntrega(double distancia)`, onde o parâmetro distância é a soma das distâncias dos pedidos. Além disso, tomei como base que a velocidade média dos drones é constante e de **80km/h**.
 - Utilização de `Thread.sleep(tempoEstimado)` para simulação do tempo de vôo e o mesmo para a entrega do pedido e para o estado IDLE do drone.
 > Velocidade média representada como `public static final long VELOCIDADE_MEDIA = 80`
 
