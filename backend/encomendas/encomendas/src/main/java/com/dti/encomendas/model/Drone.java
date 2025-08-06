@@ -33,8 +33,8 @@ public class Drone {
     @OneToMany(mappedBy = "drone")
     private List<Pedido> pedidos;
 
-    private LocalDateTime inicio;
-    private LocalDateTime fim;
+    @OneToMany(mappedBy = "drone")
+    private List<Entrega> entregas;
 
     public Drone() {}
 

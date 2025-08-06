@@ -4,6 +4,7 @@ import com.dti.encomendas.dto.PedidoDTO;
 import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
+import com.dti.encomendas.model.Entrega;
 import com.dti.encomendas.repository.DroneRepository;
 import com.dti.encomendas.utils.Calculo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,25 @@ public class TempoService {
     @Autowired
     private DroneRepository droneRepository;
 
+    @Autowired
+    private EntregaService entregaService;
+
     @Async
-    public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)
+    public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> pedidos)
     {
-        Set<Drone> drones = entregas.keySet();
+        Set<Drone> drones = pedidos.keySet();
 
         if (drones.isEmpty()) {
             throw new NotFoundException("Não há drones alocados para entregas!");
         }
 
         for (Drone drone : drones) {
-            drone.setInicio(LocalDateTime.now());
+
+            Entrega entrega = entregaService.criarEntrega(drone);
             drone.setStatus(StatusDrone.EM_VOO);
             droneRepository.save(drone);
 
-            double distanciaTotal = Calculo.calcularDistanciaTotalPedidos(drone, entregas);
+            double distanciaTotal = Calculo.calcularDistanciaTotalPedidos(drone, pedidos);
             long tempoEstimado = calcularTempoTotalEntrega(distanciaTotal);
 
             try {
@@ -47,7 +52,7 @@ public class TempoService {
             }
 
             entregarPedido(drone);
-            finalizarVoo(drone);
+            finalizarVoo(drone, entrega);
         }
 
     }
@@ -65,11 +70,12 @@ public class TempoService {
 
     }
 
-    private void finalizarVoo(Drone drone) {
+    private void finalizarVoo(Drone drone, Entrega entrega) {
         System.out.println("Drone: "+drone.getId()+" entregou o pedido com sucesso!");
         drone.setStatus(StatusDrone.IDLE);
-        drone.setFim(LocalDateTime.now());
+
         droneRepository.save(drone);
+        entregaService.finalizarEntrega(entrega);
     }
 
     private long calcularTempoTotalEntrega(double distancia) {

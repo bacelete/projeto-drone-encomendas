@@ -3,6 +3,7 @@ package com.dti.encomendas.service;
 import com.dti.encomendas.dto.PedidoDTO;
 import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.model.Drone;
+import com.dti.encomendas.model.Entrega;
 import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.repository.DroneRepository;
 import com.dti.encomendas.repository.PedidoRepository;
@@ -44,6 +45,7 @@ public class DroneService {
             List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone);
             drone.setPedidos(pedidosReais);
         }
+
         tempoService.gerenciarTempoDeVoo(mapDronePedidos);
     }
 
