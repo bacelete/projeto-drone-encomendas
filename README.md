@@ -27,6 +27,15 @@ Explicação dos pacotes e organização
 ### Lógica de ordenação:
 Para a ordenação dos pedidos, foi utilizado a interface **Comparator** do **Collections.sort** do Java, que me permitiu fazer uma ordenação customizada com base no array de pedidos. A lógica de ordenação ficou sob a responsabilidade da classe **Sort**, criada no pacote utils na estrutura do meu projeto.<br><br>Para a ordenação dos pedidos, a função **void ordenarPedidosPorPeso(List<Pedido> pedido)** deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.
 
+### Lógica de alocação de pedidos:
+Cada pedido com seu respectivo peso e distância, deve ser alocado para um drone disponível que possui capacidade e alcance possível para aquele pedido. Vale ressaltar que o sistema respeita a lógica de realizar o menor número de viagens possíveis e no contexto desse projeto, os drones priorizam os pedidos com o **maior peso** para realizar as entregas, conforme descrito na lógica de ordenação acima.<br><br>
+
+Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos), foi utilizado uma estratégia baseada na interface **Map** do Java. Foi utilizado essa estratégia pois assim, para cada pedido que respeite as condições daquele drone, o estado do peso e alcance do drone são atualizados para o próximo pedido. No projeto são instanciados três estruturas do tipo map: 
+
+- Map<Drone, List<Pedido>> mapDronePedidos = new HashMap<>();
+- Map<Drone, Double> mapDronePeso = new HashMap<>();
+- Map<Drone, Double> mapDroneKm = new HashMap<>();
+
 ## 📸 Prints (opcional por enquanto)
 
 ## 👨‍💻 Autor
