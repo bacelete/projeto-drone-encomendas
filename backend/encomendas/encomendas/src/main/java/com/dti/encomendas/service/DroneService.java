@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class DroneService {
@@ -24,7 +25,7 @@ public class DroneService {
     @Autowired
     private TempoService tempoService;
 
-    public static final double VELOCIDADE_MEDIA = 80;
+    public static final long VELOCIDADE_MEDIA = 80;
 
     public void save(Drone drone) {
         droneRepository.save(drone);
@@ -34,15 +35,15 @@ public class DroneService {
         return droneRepository.findById(id);
     }
 
-    public void iniciarEntregas(List<Drone> drones, Map<Drone, List<PedidoDTO>> mapDronePedidos) {
+    public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos) {
+        Set<Drone> drones = mapDronePedidos.keySet();
+
         for (Drone drone : drones) {
             //busca os pedidos pelo repository do pedido pois o drone.setPedidos() espera List<Pedido> e nao List<PedidoDTO>
             List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone);
             drone.setPedidos(pedidosReais);
-            droneRepository.save(drone);
-
-            tempoService.gerenciarTempoDeVoo(drone, mapDronePedidos);
         }
+        tempoService.gerenciarTempoDeVoo(mapDronePedidos);
     }
 
 

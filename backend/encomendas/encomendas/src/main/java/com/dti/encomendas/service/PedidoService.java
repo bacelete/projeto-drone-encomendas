@@ -41,7 +41,7 @@ public class PedidoService {
 
         List<Pedido> entregas = alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
-        droneService.iniciarEntregas(dronesDisponiveis, mapDronePedidos);
+        droneService.iniciarEntregas(mapDronePedidos);
         return new PedidosResponseDTO(entregas);
     }
 
@@ -107,6 +107,10 @@ public class PedidoService {
 
             }
 
+        }
+
+        if (pedidosAlocados.isEmpty()) {
+            throw new NotFoundException("Não há pedidos alocados!");
         }
 
         pedidoRepository.saveAll(pedidosAlocados);
