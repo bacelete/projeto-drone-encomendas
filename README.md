@@ -21,7 +21,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 ⚠️ Instruções provisórias
 
 ## 📂 Estrutura do projeto
-Explicação dos pacotes e organização
+<img width="549" height="631" alt="image" src="https://github.com/user-attachments/assets/72b093c8-c645-4bd3-87f3-1fb87c2eb08e" />
 
 ## 🔍 Lógicas Aplicadas
 ### Lógica de ordenação:
