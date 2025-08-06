@@ -1,13 +1,17 @@
 package com.dti.encomendas.service;
 
+import com.dti.encomendas.dto.PedidoDTO;
 import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.repository.DroneRepository;
+import com.dti.encomendas.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,6 +20,9 @@ import java.util.Optional;
 public class DroneService {
     @Autowired
     private DroneRepository droneRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     private static final double VELOCIDADE_MEDIA = 80;
 
@@ -27,9 +34,12 @@ public class DroneService {
         return droneRepository.findById(id);
     }
 
-    public void iniciarEntregas(List<Drone> drones, Map<Drone, List<Pedido>> mapDronePedidos) {
+    public void iniciarEntregas(List<Drone> drones, Map<Drone, List<PedidoDTO>> mapDronePedidos) {
         for (Drone drone : drones) {
-            drone.setPedidos(mapDronePedidos.get(drone));
+            //busca os pedidos pelo repository do pedido pois o drone.setPedidos() espera List<Pedido> e nao List<PedidoDTO>
+            List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone);
+            drone.setPedidos(pedidosReais);
+
             gerenciarTempoDeVoo(drone);
             droneRepository.save(drone);
         }
@@ -39,11 +49,14 @@ public class DroneService {
         return distancia/VELOCIDADE_MEDIA;
     }
 
+    @Async
     private void gerenciarTempoDeVoo(Drone drone)
     {
         drone.setInicio(LocalDateTime.now());
         drone.setStatus(StatusDrone.EM_VOO);
 
+        List<Pedido> pedidos = drone.getPedidos();
+        
     }
 
     private void simularBateriaDrone(Drone drone) {

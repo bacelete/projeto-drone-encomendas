@@ -1,5 +1,6 @@
 package com.dti.encomendas.service;
 
+import com.dti.encomendas.dto.PedidoDTO;
 import com.dti.encomendas.dto.PedidosResponseDTO;
 import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.exception.ExistsLocalizacaoException;
@@ -31,7 +32,7 @@ public class PedidoService {
 
         dronesDisponiveis.forEach(drone -> System.out.println(drone.toString())); //debug;
 
-        Map<Drone, List<Pedido>> mapDronePedidos = new HashMap<>();
+        Map<Drone, List<PedidoDTO>> mapDronePedidos = new HashMap<>();
         Map<Drone, Double> mapDronePeso = new HashMap<>();
         Map<Drone, Double> mapDroneKm = new HashMap<>();
 
@@ -53,7 +54,7 @@ public class PedidoService {
     }
 
     private void setarValoresIniciaisMapDrone(List<Drone> dronesDisponiveis,
-                                      Map<Drone, List<Pedido>> mapPedidos,
+                                      Map<Drone, List<PedidoDTO>> mapPedidos,
                                       Map<Drone, Double> mapKm,
                                       Map<Drone, Double> mapPeso) {
         for (Drone drone : dronesDisponiveis) {
@@ -69,7 +70,7 @@ public class PedidoService {
     }
 
     private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
-                               Map<Drone, List<Pedido>> mapPedidos,
+                               Map<Drone, List<PedidoDTO>> mapPedidos,
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso) {
         List<Pedido> pedidosAlocados = new ArrayList<>();
@@ -85,22 +86,20 @@ public class PedidoService {
                 throw new ExistsLocalizacaoException("Localização já existente!");
             }
 
-            double distanciaPedido = calcularDistancia(x, y);
-            System.out.println("Distância do pedido: "+distanciaPedido);
+            double distancia = calcularDistancia(x, y);
+            PedidoDTO pedidoDTO = gerarPedidoComDistancia(pedido, distancia); //pedido com distancia setada;
 
             for (Drone drone : drones) {
                 double pesoRestante = mapPeso.get(drone);
                 double kmRestante = mapKm.get(drone);
 
-                System.out.println(kmRestante);
-
-                if ((pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)) {
+                if ((pesoPedido <= pesoRestante) && (distancia <= kmRestante)) {
                     System.out.println(pedido); //debug;
                     pedido.setDrone(drone);
 
-                    mapPedidos.get(drone).add(pedido);
+                    mapPedidos.get(drone).add(pedidoDTO);
                     mapPeso.put(drone, pesoRestante - pesoPedido);
-                    mapKm.put(drone, kmRestante - distanciaPedido);
+                    mapKm.put(drone, kmRestante - distancia);
 
                     pedidosAlocados.add(pedido);
                     break; //impede de alocar para mais de um drone;
@@ -112,6 +111,18 @@ public class PedidoService {
 
         pedidoRepository.saveAll(pedidosAlocados);
         return pedidosAlocados;
+    }
+
+    private PedidoDTO gerarPedidoComDistancia(Pedido pedido, double distancia) {
+        PedidoDTO pedidoDTO = new PedidoDTO();
+        pedidoDTO.setId(pedido.getId());
+        pedidoDTO.setPeso(pedido.getPeso());
+        pedidoDTO.setLocalizacao(pedido.getLocalizacao());
+        pedidoDTO.setPrioridade(pedido.getPrioridade());
+
+        pedidoDTO.setDistancia(distancia);
+
+        return pedidoDTO;
     }
 
 
