@@ -72,7 +72,7 @@ Realizada através da função `public void iniciarEntregas(Map<Drone, List<Pedi
 
 ### Lógica de Gerenciamento de Tempo de Entrega
 Realizada pelo método <br>
-`@Async
+`@Async<br>
 public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)`
 
 ## 📸 Prints (opcional por enquanto)
