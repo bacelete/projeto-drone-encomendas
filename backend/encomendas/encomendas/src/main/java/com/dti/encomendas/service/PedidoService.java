@@ -7,13 +7,12 @@ import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.repository.PedidoRepository;
+import com.dti.encomendas.utils.Calculo;
+import com.dti.encomendas.utils.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PedidoService {
@@ -49,7 +48,7 @@ public class PedidoService {
     }
 
     private double calcularDistancia(int x, int y) {
-        return 2 * Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //(0,0) é a base;
+        return Calculo.calcularDistanciaEntrePontos(x, y); //(0,0) é a base;
     }
 
     private void setarValoresIniciaisMapDrone(List<Drone> dronesDisponiveis,
@@ -62,6 +61,10 @@ public class PedidoService {
             mapKm.put(drone, drone.getKmMax()); //comeca com o kmMax;
             mapPeso.put(drone, drone.getPesoMax()); //comeca com o pesoMax
         }
+    }
+
+    public void ordenarPedidosPorDistancia(List<Pedido> pedidos) {
+        Sort.ordenarPedidosPorDistancia(pedidos);
     }
 
     private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
