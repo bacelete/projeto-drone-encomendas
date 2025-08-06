@@ -22,9 +22,6 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
 
     @Autowired
-    private DroneRepository droneRepository;
-
-    @Autowired
     private DroneService droneService;
 
     public void save(ArrayList<Pedido> pedidos) {
@@ -81,6 +78,8 @@ public class PedidoService {
                                Map<Drone, List<Pedido>> mapPedidos,
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso) {
+        List<Pedido> pedidosAlocados = new ArrayList<>();
+
         for (Pedido pedido : pedidos) {
             System.out.println(pedido); //debug;
 
@@ -96,8 +95,6 @@ public class PedidoService {
             System.out.println("Distância do pedido: "+distanciaPedido);
 
             for (Drone drone : drones) {
-                List<Pedido> pedidosAlocados = mapPedidos.get(drone);
-
                 double pesoRestante = mapPeso.get(drone);
                 double kmRestante = mapKm.get(drone);
 
@@ -105,19 +102,22 @@ public class PedidoService {
 
                 if ((pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)) {
                     System.out.println(pedido.toString()); //debug;
-
                     pedido.setDrone(drone);
-                    pedidosAlocados.add(pedido);
 
+                    mapPedidos.get(drone).add(pedido);
                     mapPeso.put(drone, pesoRestante - pesoPedido);
                     mapKm.put(drone, kmRestante - distanciaPedido);
 
-                    pedidoRepository.save(pedido);
+                    pedidosAlocados.add(pedido);
                     break; //impede de alocar para mais de um drone;
                 }
 
             }
 
+        }
+
+        if (!pedidosAlocados.isEmpty()) {
+            pedidoRepository.saveAll(pedidosAlocados);
         }
 
     }
