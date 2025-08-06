@@ -47,9 +47,9 @@ Para o cálculo da distância de um pedido, tomei como referência as coordenada
 **3. Alocação dos Pedidos**<br>
 Para cada pedido enviado na requisição (array de pedidos), é avaliado se há um drone disponível dentro dos valores do **peso** e **alcance** do pedido. Isso é realizado através da sentença: <br>
 `(pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)`<br>
-Se há um drone disponível: <br>
+Se há um drone disponível: <br><br>
 - É sétado esse drone ao pedido através da linha `pedido.setDrone(drone)`
-- É adicionado esse pedido a lista de pedidos alocados no mapDronePedidos.
+- É adicionado esse pedido a lista de pedidos alocados no `mapPedidos.get(drone).add(pedido).
 - É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido);`
 
 ## 📸 Prints (opcional por enquanto)
