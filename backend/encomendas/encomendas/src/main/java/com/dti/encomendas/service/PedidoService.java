@@ -2,12 +2,10 @@ package com.dti.encomendas.service;
 
 import com.dti.encomendas.dto.PedidosResponseDTO;
 import com.dti.encomendas.enums.StatusDrone;
-import com.dti.encomendas.exception.AboveDroneCapacityException;
 import com.dti.encomendas.exception.ExistsLocalizacaoException;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Pedido;
-import com.dti.encomendas.repository.DroneRepository;
 import com.dti.encomendas.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,7 +91,7 @@ public class PedidoService {
                 System.out.println(kmRestante);
 
                 if ((pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)) {
-                    System.out.println(pedido.toString()); //debug;
+                    System.out.println(pedido); //debug;
                     pedido.setDrone(drone);
 
                     mapPedidos.get(drone).add(pedido);
@@ -112,7 +110,5 @@ public class PedidoService {
         return pedidosAlocados;
     }
 
-
-    public List<Pedido> getPedidos() { return pedidoRepository.findAll(); }
 
 }
