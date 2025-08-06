@@ -72,8 +72,13 @@ Realizada através da função `public void iniciarEntregas(Map<Drone, List<Pedi
 
 ### Lógica de Gerenciamento de Tempo de Entrega
 Realizada pelo método <br>
-`@Async<br>
+`@Async
 public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)`
+
+- A função percorre cada drone do `Map<Drone, List<PedidoDTO>> entregas` e seta o tempo de início da entrega como `LocalDateTime.now()`
+- O tempo estimado de entrega dos pedidos de cada drone é calculado a partir do método `private long calcularTempoTotalEntrega(double distancia)`, onde o parâmetro distância é a soma das distâncias dos pedidos. Além disso, tomei como base que a velocidade média dos drones é constante e de 80km/h.
+- Utilização de `Thread.sleep(tempoEstimado)` para simulação do tempo de vôo e o mesmo para a entrega do pedido e para o estado IDLE do drone.
+> Velocidade média representada como `public static final long VELOCIDADE_MEDIA = 80`
 
 ## 📸 Prints (opcional por enquanto)
 
