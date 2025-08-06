@@ -30,8 +30,7 @@ public class DroneService {
     public void iniciarEntregas(List<Drone> drones, Map<Drone, List<Pedido>> mapDronePedidos) {
         for (Drone drone : drones) {
             drone.setPedidos(mapDronePedidos.get(drone));
-            drone.setInicio(LocalDateTime.now());
-            drone.setStatus(StatusDrone.EM_VOO);
+            gerenciarTempoDeVoo(drone);
             droneRepository.save(drone);
         }
     }
@@ -40,8 +39,15 @@ public class DroneService {
         return distancia/VELOCIDADE_MEDIA;
     }
 
+    private void gerenciarTempoDeVoo(Drone drone)
+    {
+        drone.setInicio(LocalDateTime.now());
+        drone.setStatus(StatusDrone.EM_VOO);
+
+    }
+
     private void simularBateriaDrone(Drone drone) {
-        
+
     }
 
     public List<Drone> getDroneByStatus(StatusDrone status) {
