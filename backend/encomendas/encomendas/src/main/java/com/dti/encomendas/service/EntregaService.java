@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EntregaService {
@@ -26,8 +27,9 @@ public class EntregaService {
         entrega.setInicio(LocalDateTime.now());
 
         save(entrega);
-
         return entrega;
     }
+
+    public List<Entrega> getAllEntregas() { return entregaRepository.findAll(); }
 
 }
