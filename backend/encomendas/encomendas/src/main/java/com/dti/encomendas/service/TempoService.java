@@ -22,9 +22,6 @@ public class TempoService {
     @Autowired
     private DroneRepository droneRepository;
 
-    @Autowired
-    private DroneService droneService;
-
     @Async
     public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)
     {
