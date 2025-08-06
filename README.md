@@ -8,7 +8,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 - [x] Cadastro de drones
 - [x] Ordenação dos pedidos por peso
 - [x] Alocação automática de drones
-- [ ] Relatórios de entregas
+- [X] Gerenciamento do tempo de entrega
 - [ ] ...
 
 ## 🧠 Tecnologias utilizadas
@@ -71,7 +71,9 @@ Realizada através da função `public void iniciarEntregas(Map<Drone, List<Pedi
 - A função de gerenciar tempo de entrega é chamada: `tempoService.gerenciarTempoDeVoo(mapDronePedidos)`
 
 ### Lógica de Gerenciamento de Tempo de Entrega
-
+Realizada pelo método <br>
+`@Async
+public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)`
 
 ## 📸 Prints (opcional por enquanto)
 
