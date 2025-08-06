@@ -22,6 +22,6 @@ public class PedidoController {
     @PostMapping
     public ResponseEntity<String> criarPedidos(@RequestBody ArrayList<Pedido> pedidos) {
         pedidoService.save(pedidos);
-        return ResponseEntity.ok("Pedidos alocados!");
+        return ResponseEntity.ok("Pedido(s) alocado(s) para entrega!");
     }
 }

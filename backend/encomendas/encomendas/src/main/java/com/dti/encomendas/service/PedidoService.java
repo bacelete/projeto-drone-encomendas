@@ -1,7 +1,7 @@
 package com.dti.encomendas.service;
 
 import com.dti.encomendas.enums.StatusDrone;
-import com.dti.encomendas.exception.AboveDroneCapacity;
+import com.dti.encomendas.exception.AboveDroneCapacityException;
 import com.dti.encomendas.exception.ExistsLocalizacaoException;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
@@ -11,7 +11,6 @@ import com.dti.encomendas.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,8 +40,19 @@ public class PedidoService {
         Map<Drone, Double> mapDronePeso = new HashMap<>();
         Map<Drone, Double> mapDroneKm = new HashMap<>();
 
-        setarValoresIniciaisMapDrone(dronesDisponiveis, mapDronePedidos, mapDronePeso, mapDroneKm);
+        setarValoresIniciaisMapDrone(dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
         alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
+
+        System.out.println("===== Entregas =====");
+        int i = 1;
+        for (Drone drone : dronesDisponiveis) {
+            System.out.println("Drone ["+i+"]: ");
+            List<Pedido> entregas = mapDronePedidos.get(drone);
+            for (Pedido p : entregas) {
+                System.out.println(p.toString());
+            }
+            i++;
+        }
 
         droneService.iniciarEntregas(dronesDisponiveis, mapDronePedidos);
     }
@@ -77,13 +87,13 @@ public class PedidoService {
             int x = pedido.getLocalizacao().getX();
             int y = pedido.getLocalizacao().getY();
             double pesoPedido = pedido.getPeso();
-            boolean pedidoAlocado = false;
 
             if (pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(x, y)) {
                 throw new ExistsLocalizacaoException("Localização já existente!");
             }
 
             double distanciaPedido = calcularDistancia(x, y);
+            System.out.println("Distância do pedido: "+distanciaPedido);
 
             for (Drone drone : drones) {
                 List<Pedido> pedidosAlocados = mapPedidos.get(drone);
@@ -91,34 +101,27 @@ public class PedidoService {
                 double pesoRestante = mapPeso.get(drone);
                 double kmRestante = mapKm.get(drone);
 
-                if (satisfazCondicao(pesoPedido, pesoRestante, distanciaPedido, kmRestante)) {
+                System.out.println(kmRestante);
+
+                if ((pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)) {
                     System.out.println(pedido.toString()); //debug;
 
                     pedido.setDrone(drone);
                     pedidosAlocados.add(pedido);
-                    pedidoAlocado = true;
 
                     mapPeso.put(drone, pesoRestante - pesoPedido);
                     mapKm.put(drone, kmRestante - distanciaPedido);
-                    mapPedidos.put(drone, pedidosAlocados); //atualiza os pedidos no map, ele substitui o valor;
 
                     pedidoRepository.save(pedido);
-                    break; //impede de alocar para mais de um drone; 
+                    break; //impede de alocar para mais de um drone;
                 }
 
-            }
-
-            if (!pedidoAlocado) {
-                throw new AboveDroneCapacity("Pedido foi rejeitado pois excedeu as capacidades dos drones disponíveis");
             }
 
         }
 
     }
 
-    private boolean satisfazCondicao(double pesoPedido, double pesoRestante, double distanciaPedido, double kmRestante) {
-        return (pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante);
-    }
 
     public List<Pedido> getPedidos() { return pedidoRepository.findAll(); }
 
