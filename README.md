@@ -26,11 +26,18 @@ Explicação dos pacotes e organização
 ## 🔍 Lógicas Aplicadas
 ### Lógica de ordenação:
 **Quem faz?**<br>
-A lógica de ordenação ficou sob a responsabilidade da classe **Sort**, criada no pacote **utils** na estrutura do meu projeto.<br><br>
+A lógica de ordenação ficou sob a responsabilidade da classe **Sort**. A função `public void ordenarPedidosPorPeso(List<Pedido> pedido)` deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.
+<br><br>
 **O que faz?**<br>
-Para a ordenação dos pedidos, a função **void ordenarPedidosPorPeso(List<Pedido> pedido)** deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.<br>
+Ordena os pedidos com base no **peso**. 
 
 ### Lógica de alocação de pedidos:
+**Quem faz?**<br>
+A lógica de alocação ficou sob a responsabilidade da classe **ProdutoService**. A função `private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
+                               Map<Drone, List<PedidoDTO>> mapPedidos,
+                               Map<Drone, Double> mapKm,
+                               Map<Drone, Double> mapPeso)` deverá ser chamada. <br><br>
+**O que faz?**<br>
 Cada pedido com seu respectivo peso e distância, deve ser alocado para um drone disponível que possui capacidade e alcance possível para aquele pedido. Vale ressaltar que o sistema respeita a lógica de realizar o **menor número de viagens possíveis** e no contexto desse projeto, os drones priorizam os pedidos com o **maior peso** para realizar as entregas, conforme descrito na lógica de ordenação acima.<br>
 
 **1. O Uso de Map**<br>
