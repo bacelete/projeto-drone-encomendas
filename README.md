@@ -38,7 +38,7 @@ Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos),
 - `Map<Drone, Double> mapDroneKm = new HashMap<>()`<br>
 
 > Por que **PedidoDTO** em **Map<Drone, List<PedidoDTO>>**?<br>
-> Foi utilizado o DTO do Pedido pois eu precisava setar a distância calculada em algum lugar, já que a entidade Pedido não possui esse campo. A distância é necessária para calcular o tempo estimado da entrega, o controle da bateria do drone, etc. 
+> Foi utilizado o DTO do Pedido pois eu precisava setar a **distância** calculada em algum lugar, já que a entidade Pedido não possui esse campo. A distância é necessária para calcular o tempo estimado da entrega, o controle da bateria do drone, etc. 
 
 **2. Distância do Pedido**<br>
 Calculada apartir da função `private double calcularDistancia(int x, int y)`<br>
@@ -61,6 +61,17 @@ Se há um drone disponível: <br>
 - É sétado esse drone ao pedido através da linha `pedido.setDrone(drone)`
 - É adicionado esse pedido a lista de pedidos alocados no `mapPedidos.get(drone).add(pedido).`
 - É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido);`
+
+### Lógica de Entregas
+Realizada através da função `public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos)`.
+
+- A função percorre de drone em drone através do `mapDronePedidos.keySet()`, que retorna um obj. do tipo `Set`.
+- Ela busca os pedidos alocados para aquele drone através do **Repository** do pedido, pois o mapDronePedidos retorna uma lista do tipo **PedidoDTO**, e não **Pedido**, como esperamos.
+- Para cada drone, é setado uma lista de pedidos a ele.
+- A função de gerenciar tempo de entrega é chamada. 
+
+### Lógica de Gerenciamento de Tempo de Entrega
+
 
 ## 📸 Prints (opcional por enquanto)
 
