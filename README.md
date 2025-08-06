@@ -23,7 +23,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 ## 📂 Estrutura do projeto
 Explicação dos pacotes e organização
 
-## 🔍 Lógica de alocação
+## 🔍 Lógicas Aplicadas
 ### Lógica de ordenação:
 Para a ordenação dos pedidos, foi utilizado a interface **Comparator** do **Collections.sort** do Java, que me permitiu fazer uma ordenação customizada com base no array de pedidos. A lógica de ordenação ficou sob a responsabilidade da classe **Sort**, criada no pacote utils na estrutura do meu projeto.<br><br>Para a ordenação dos pedidos, a função **void ordenarPedidosPorPeso(List<Pedido> pedido)** deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.
 
