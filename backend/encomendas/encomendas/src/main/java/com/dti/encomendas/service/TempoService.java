@@ -5,6 +5,7 @@ import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.repository.DroneRepository;
+import com.dti.encomendas.utils.Calculo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class TempoService {
     @Autowired
     private DroneRepository droneRepository;
 
+    @Autowired
+    private DroneService droneService;
+
     @Async
     public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)
     {
@@ -31,17 +35,11 @@ public class TempoService {
         }
 
         for (Drone drone : drones) {
-            double distanciaTotal = 0;
+            droneService.iniciarVoo(drone);
 
-            drone.setInicio(LocalDateTime.now());
-            drone.setStatus(StatusDrone.EM_VOO);
-            droneRepository.save(drone); //possivel alteracao para o service;
-
-            for (PedidoDTO pedidoDTO : entregas.get(drone)) {
-                distanciaTotal+=pedidoDTO.getDistancia();
-            }
-
+            double distanciaTotal = Calculo.calcularDistanciaTotalPedidos(drone, entregas);
             long tempoEstimado = calcularTempoTotalEntrega(distanciaTotal);
+
             System.out.println("Distância total dos pedidos desse drone: "+distanciaTotal);
             System.out.println("Tempo estimado dos pedidos desse drone: "+tempoEstimado);
 
@@ -52,9 +50,7 @@ public class TempoService {
                 e.printStackTrace();
             }
 
-            drone.setStatus(StatusDrone.IDLE);
-            drone.setFim(LocalDateTime.now());
-            droneRepository.save(drone);
+            droneService.finalizarVoo(drone);
         }
 
     }

@@ -9,6 +9,7 @@ import com.dti.encomendas.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,6 +45,18 @@ public class DroneService {
             drone.setPedidos(pedidosReais);
         }
         tempoService.gerenciarTempoDeVoo(mapDronePedidos);
+    }
+
+    public void iniciarVoo(Drone drone) {
+        drone.setInicio(LocalDateTime.now());
+        drone.setStatus(StatusDrone.EM_VOO);
+        droneRepository.save(drone);
+    }
+
+    public void finalizarVoo(Drone drone) {
+        drone.setFim(LocalDateTime.now());
+        drone.setStatus(StatusDrone.IDLE);
+        droneRepository.save(drone);
     }
 
 
