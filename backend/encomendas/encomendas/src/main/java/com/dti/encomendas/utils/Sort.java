@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Sort {
-    public static void ordenarPedidosPorDistancia(List<Pedido> pedidos) {
+    public static void ordenarPedidosPorPeso(List<Pedido> pedidos) {
         Collections.sort(pedidos, new Comparator<Pedido>() {
             @Override
             public int compare(Pedido o1, Pedido o2) {

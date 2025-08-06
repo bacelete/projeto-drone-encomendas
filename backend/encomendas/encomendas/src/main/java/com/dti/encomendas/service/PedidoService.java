@@ -36,10 +36,11 @@ public class PedidoService {
         Map<Drone, Double> mapDroneKm = new HashMap<>();
 
         setarValoresIniciaisMapDrone(dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
+        ordenarPedidosPorPeso(pedidos);
+
         List<Pedido> entregas = alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
         droneService.iniciarEntregas(dronesDisponiveis, mapDronePedidos);
-
         return new PedidosResponseDTO(entregas);
     }
 
@@ -63,8 +64,8 @@ public class PedidoService {
         }
     }
 
-    public void ordenarPedidosPorDistancia(List<Pedido> pedidos) {
-        Sort.ordenarPedidosPorDistancia(pedidos);
+    public void ordenarPedidosPorPeso(List<Pedido> pedidos) {
+        Sort.ordenarPedidosPorPeso(pedidos);
     }
 
     private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,

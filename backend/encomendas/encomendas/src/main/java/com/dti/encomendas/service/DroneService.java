@@ -36,8 +36,12 @@ public class DroneService {
         }
     }
 
-    private double calcularTempoEstimado(double distancia) {
+    private double calcularTempoTotalEntrega(double distancia) {
         return distancia/VELOCIDADE_MEDIA;
+    }
+
+    private void simularBateriaDrone(Drone drone) {
+        
     }
 
     public List<Drone> getDroneByStatus(StatusDrone status) {
