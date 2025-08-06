@@ -38,9 +38,11 @@ Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos),
 - `Map<Drone, Double> mapDroneKm = new HashMap<>()`
 
 **2. Distância do Pedido**<br>
-Para o cálculo da distância de um pedido, tomei como referência as coordenadas **(0, 0)** como a "base" dos drones, assim, usei a fórmula da distância entre dois pontos, porém adaptada para este contexto. Isto é: <br>
+Para o cálculo da distância de um pedido, tomei como referência as coordenadas **(0, 0)** como a "base" dos drones, assim, usei a fórmula da distância entre dois pontos multiplicado por 2 (considerando ida e volta), porém adaptada para este contexto. Isto é: <br>
 
 `2 * Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))`
+
+> Por padrão a fórmula da distância entre dois pontos é `Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))`, porém assumi que (x1, y1) = (0, 0); 
 
 ## 📸 Prints (opcional por enquanto)
 
