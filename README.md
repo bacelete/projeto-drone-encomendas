@@ -8,7 +8,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 - [x] Cadastro de drones
 - [x] Ordenação dos pedidos por peso
 - [x] Alocação automática de drones
-- [ ] Relatórios de entregas
+- [X] Gerenciamento do tempo de entrega
 - [ ] ...
 
 ## 🧠 Tecnologias utilizadas
@@ -25,10 +25,20 @@ Explicação dos pacotes e organização
 
 ## 🔍 Lógicas Aplicadas
 ### Lógica de ordenação:
-Para a ordenação dos pedidos, foi utilizado a interface **Comparator** do **Collections.sort** do Java, que me permitiu fazer uma ordenação customizada com base no array de pedidos. A lógica de ordenação ficou sob a responsabilidade da classe **Sort**, criada no pacote utils na estrutura do meu projeto.<br><br>Para a ordenação dos pedidos, a função **void ordenarPedidosPorPeso(List<Pedido> pedido)** deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.
+**Quem faz?**<br>
+A lógica de ordenação ficou sob a responsabilidade da classe **Sort**. A função `public void ordenarPedidosPorPeso(List<Pedido> pedido)` deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.
+<br><br>
+**O que faz?**<br>
+Ordena os pedidos com base no **peso**. 
 
 ### Lógica de alocação de pedidos:
-Cada pedido com seu respectivo peso e distância, deve ser alocado para um drone disponível que possui capacidade e alcance possível para aquele pedido. Vale ressaltar que o sistema respeita a lógica de realizar o **menor número de viagens possíveis** e no contexto desse projeto, os drones priorizam os pedidos com o **maior peso** para realizar as entregas, conforme descrito na lógica de ordenação acima.<br>
+**Quem faz?**<br>
+A lógica de alocação ficou sob a responsabilidade da classe **ProdutoService**. A função `private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
+                               Map<Drone, List<PedidoDTO>> mapPedidos,
+                               Map<Drone, Double> mapKm,
+                               Map<Drone, Double> mapPeso)` deverá ser chamada. <br><br>
+**O que faz?**<br>
+Cada pedido com seu respectivo peso e distância, deve ser alocado para um drone disponível que possui capacidade e alcance possível para aquele pedido e se baseando no **menor número de viagens possíveis**.
 
 **1. O Uso de Map**<br>
 Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos), foi utilizado uma estratégia baseada na interface **Map** do Java. Foi utilizado essa estratégia pois assim, para cada pedido que respeite as condições daquele drone, o estado do peso e alcance do drone são atualizados para o próximo pedido. No projeto são instanciados três estruturas do tipo map: 
@@ -63,7 +73,10 @@ Se há um drone disponível: <br>
 - É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido);`
 
 ### Lógica de Entregas
-Realizada através da função `public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos)`.
+**Quem faz?**<br>
+A lógica de entregas ficou sob a responsabilidade da classe **DroneService**. A função `public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos)` deverá ser chamada.<br><br>
+**O que faz?**<br>
+Seta os pedidos para os drones e chama a função de gerenciar o tempo. 
 
 - A função percorre de drone em drone através do `mapDronePedidos.keySet()`, que retorna um obj. do tipo `Set`.
 - Ela busca os pedidos alocados para aquele drone através do **Repository** do pedido, na seguinte linha: `List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone)` pois o mapDronePedidos retorna uma lista do tipo **PedidoDTO**, e não **Pedido**, como esperamos.
@@ -71,7 +84,14 @@ Realizada através da função `public void iniciarEntregas(Map<Drone, List<Pedi
 - A função de gerenciar tempo de entrega é chamada: `tempoService.gerenciarTempoDeVoo(mapDronePedidos)`
 
 ### Lógica de Gerenciamento de Tempo de Entrega
+Realizada pelo método <br>
+`@Async
+public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)`
 
+- A função percorre cada drone do `Map<Drone, List<PedidoDTO>> entregas` e seta o tempo de início da entrega como `LocalDateTime.now()`
+- O tempo estimado de entrega dos pedidos de cada drone é calculado a partir do método `private long calcularTempoTotalEntrega(double distancia)`, onde o parâmetro distância é a soma das distâncias dos pedidos. Além disso, tomei como base que a velocidade média dos drones é constante e de **80km/h**.
+- Utilização de `Thread.sleep(tempoEstimado)` para simulação do tempo de vôo e o mesmo para a entrega do pedido e para o estado IDLE do drone.
+> Velocidade média representada como `public static final long VELOCIDADE_MEDIA = 80`
 
 ## 📸 Prints (opcional por enquanto)
 
