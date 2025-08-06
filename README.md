@@ -66,9 +66,9 @@ Se há um drone disponível: <br>
 Realizada através da função `public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos)`.
 
 - A função percorre de drone em drone através do `mapDronePedidos.keySet()`, que retorna um obj. do tipo `Set`.
-- Ela busca os pedidos alocados para aquele drone através do **Repository** do pedido, pois o mapDronePedidos retorna uma lista do tipo **PedidoDTO**, e não **Pedido**, como esperamos.
-- Para cada drone, é setado uma lista de pedidos a ele.
-- A função de gerenciar tempo de entrega é chamada. 
+- Ela busca os pedidos alocados para aquele drone através do **Repository** do pedido, na seguinte linha: `List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone)` pois o mapDronePedidos retorna uma lista do tipo **PedidoDTO**, e não **Pedido**, como esperamos.
+- Para cada drone, é setado uma lista de pedidos a ele: `drone.setPedidos(pedidosReais)`
+- A função de gerenciar tempo de entrega é chamada: `tempoService.gerenciarTempoDeVoo(mapDronePedidos)`
 
 ### Lógica de Gerenciamento de Tempo de Entrega
 
