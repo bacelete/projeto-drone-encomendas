@@ -38,6 +38,8 @@ Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos),
 - `Map<Drone, Double> mapDroneKm = new HashMap<>()`
 
 **2. Distância do Pedido**<br>
+Calculada apartir da função `private double calcularDistancia(int x, int y)`<br><br>
+
 Para o cálculo da distância de um pedido, tomei como referência as coordenadas **(0, 0)** como a "base" dos drones, assim, usei a fórmula da distância entre dois pontos multiplicado por 2 (considerando ida e volta), porém adaptada para este contexto. Isto é: <br>
 
 `2 * Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))`
@@ -45,9 +47,14 @@ Para o cálculo da distância de um pedido, tomei como referência as coordenada
 > Por padrão a fórmula da distância entre dois pontos é `Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))`, porém assumi que (x1, y1) = (0, 0);<br>
 
 **3. Alocação dos Pedidos**<br>
+Realizada através da função `private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
+                               Map<Drone, List<Pedido>> mapPedidos,
+                               Map<Drone, Double> mapKm,
+                               Map<Drone, Double> mapPeso)`<br><br> 
+
 Para cada pedido enviado na requisição (array de pedidos), é avaliado se há um drone disponível dentro dos valores do **peso** e **alcance** do pedido. Isso é realizado através da sentença: <br>
-`(pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)`<br>
-Se há um drone disponível: <br><br>
+`(pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)`<br><br>
+Se há um drone disponível: <br>
 - É sétado esse drone ao pedido através da linha `pedido.setDrone(drone)`
 - É adicionado esse pedido a lista de pedidos alocados no `mapPedidos.get(drone).add(pedido).
 - É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido);`
