@@ -38,7 +38,7 @@ Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos),
 - `Map<Drone, Double> mapDroneKm = new HashMap<>()`
 
 **2. Distância do Pedido**<br>
-Calculada apartir da função `private double calcularDistancia(int x, int y)`<br><br>
+Calculada apartir da função `private double calcularDistancia(int x, int y)`<br>
 
 Para o cálculo da distância de um pedido, tomei como referência as coordenadas **(0, 0)** como a "base" dos drones, assim, usei a fórmula da distância entre dois pontos multiplicado por 2 (considerando ida e volta), porém adaptada para este contexto. Isto é: <br>
 
@@ -50,7 +50,7 @@ Para o cálculo da distância de um pedido, tomei como referência as coordenada
 Realizada através da função `private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
                                Map<Drone, List<Pedido>> mapPedidos,
                                Map<Drone, Double> mapKm,
-                               Map<Drone, Double> mapPeso)`<br><br> 
+                               Map<Drone, Double> mapPeso)`<br>
 
 Para cada pedido enviado na requisição (array de pedidos), é avaliado se há um drone disponível dentro dos valores do **peso** e **alcance** do pedido. Isso é realizado através da sentença: <br>
 `(pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)`<br><br>
