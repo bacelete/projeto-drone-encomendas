@@ -35,7 +35,9 @@ public class TempoService {
         }
 
         for (Drone drone : drones) {
-            droneService.iniciarVoo(drone);
+            drone.setInicio(LocalDateTime.now());
+            drone.setStatus(StatusDrone.EM_VOO);
+            droneRepository.save(drone);
 
             double distanciaTotal = Calculo.calcularDistanciaTotalPedidos(drone, entregas);
             long tempoEstimado = calcularTempoTotalEntrega(distanciaTotal);
@@ -50,7 +52,9 @@ public class TempoService {
                 e.printStackTrace();
             }
 
-            droneService.finalizarVoo(drone);
+            drone.setFim(LocalDateTime.now());
+            drone.setStatus(StatusDrone.IDLE);
+            droneRepository.save(drone);
         }
 
     }

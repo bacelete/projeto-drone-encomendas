@@ -47,19 +47,6 @@ public class DroneService {
         tempoService.gerenciarTempoDeVoo(mapDronePedidos);
     }
 
-    public void iniciarVoo(Drone drone) {
-        drone.setInicio(LocalDateTime.now());
-        drone.setStatus(StatusDrone.EM_VOO);
-        droneRepository.save(drone);
-    }
-
-    public void finalizarVoo(Drone drone) {
-        drone.setFim(LocalDateTime.now());
-        drone.setStatus(StatusDrone.IDLE);
-        droneRepository.save(drone);
-    }
-
-
     private void simularBateriaDrone(Drone drone) { }
 
     public List<Drone> getDroneByStatus(StatusDrone status) {
