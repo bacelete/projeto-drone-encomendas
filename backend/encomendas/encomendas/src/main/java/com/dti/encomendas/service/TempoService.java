@@ -53,6 +53,7 @@ public class TempoService {
     }
 
     private void entregarPedido(Drone drone) {
+        System.out.println("Drone: "+drone.getId()+" entregando o pedido...");
         drone.setStatus(StatusDrone.ENTREGANDO);
         droneRepository.save(drone);
 
@@ -65,6 +66,7 @@ public class TempoService {
     }
 
     private void finalizarVoo(Drone drone) {
+        System.out.println("Drone: "+drone.getId()+" entregou o pedido com sucesso!");
         drone.setStatus(StatusDrone.IDLE);
         drone.setFim(LocalDateTime.now());
         droneRepository.save(drone);
