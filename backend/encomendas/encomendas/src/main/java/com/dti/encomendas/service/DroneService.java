@@ -1,5 +1,6 @@
 package com.dti.encomendas.service;
 
+import com.dti.encomendas.dto.DroneResponseDTO;
 import com.dti.encomendas.dto.PedidoDTO;
 import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.model.Drone;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class DroneService {
@@ -51,7 +49,25 @@ public class DroneService {
 
     private void simularBateriaDrone(Drone drone) { }
 
-    public List<Drone> getDroneByStatus(StatusDrone status) {
+    public List<Drone> getDronesByStatus(StatusDrone status) {
         return droneRepository.findAllByStatus(status);
+    }
+
+    public List<DroneResponseDTO> getDronesComStatus() {
+        List<Drone> drones = droneRepository.findAll();
+        List<DroneResponseDTO> dronesComStatus = new ArrayList<>();
+
+        for(Drone drone : drones) {
+            DroneResponseDTO droneResponseDTO = gerarDronesComStatus(drone);
+            dronesComStatus.add(droneResponseDTO);
+        }
+
+        return dronesComStatus;
+    }
+
+    private DroneResponseDTO gerarDronesComStatus(Drone drone) {
+        return new DroneResponseDTO(
+                drone.getId(), drone.getPesoMax(),drone.getKmMax(), drone.getBateria(), drone.getStatus()
+        );
     }
 }

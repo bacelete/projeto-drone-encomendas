@@ -45,7 +45,7 @@ public class PedidoService {
     }
 
     private List<Drone> findDronesDisponiveis() {
-        return droneService.getDroneByStatus(StatusDrone.IDLE);
+        return droneService.getDronesByStatus(StatusDrone.IDLE);
     }
 
     private double calcularDistancia(int x, int y) {

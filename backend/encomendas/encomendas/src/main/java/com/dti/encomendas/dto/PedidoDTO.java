@@ -14,7 +14,7 @@ public class PedidoDTO {
     private double peso;
     private PrioridadePedido prioridade;
     private Localizacao localizacao;
-    private double distancia;
+    private double distancia; //importante!
 
     public PedidoDTO() {}
 }
