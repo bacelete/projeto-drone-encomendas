@@ -93,8 +93,16 @@ public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)` deverá s
 - A função percorre cada drone do `Map<Drone, List<PedidoDTO>> entregas` e cria uma instância do tipo **Entrega**, passando aquele drone como parâmetro.
 - O status do drone é atualizado para **EM_VOO** e salvo no banco de dados.
 - O tempo estimado de entrega dos pedidos de cada drone é calculado a partir do método `private long calcularTempoTotalEntrega(double distancia)`, onde o parâmetro distância é a soma das distâncias dos pedidos. Além disso, tomei como base que a velocidade média dos drones é constante e de **80km/h**.
-- Utilização de `Thread.sleep(tempoEstimado)` para simulação do tempo de vôo e o mesmo para as outras mudanças de estado do drone. 
+- Utilização de `Thread.sleep()` para simulação do tempo de vôo e tempo de entrega.
 > Velocidade média representada como `public static final long VELOCIDADE_MEDIA = 80`
+
+### Lógica de Gerenciamento da Entrega
+**Quem faz?**<br>
+A lógica de gerenciamento de tempo de entrega ficou sob a responsabilidade da classe **EntregaService**.<br><br>
+**O que faz?**<br>
+- O método `public Entrega criarEntrega(Drone drone)` seta um drone para aquela entrega, instante de início dessa entrega e a qtd. de pedidos.
+- O método `public void finalizarEntrega(Entrega entrega)` seta o instante final da entrega e a duração total da entrega.
+
 
 ## 📸 Prints (opcional por enquanto)
 
