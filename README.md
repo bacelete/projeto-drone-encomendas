@@ -38,8 +38,15 @@ cd projeto-dti-encomendas/backend/encomendas/encomendas`<br>
 - No arquivo application.properties, altere as configurações de acordo com o usuário e senha do seu banco de dados (o meu por padrão, o usuário e senha é root).<br>
 
 <img width="682" height="143" alt="image" src="https://github.com/user-attachments/assets/bfd69c96-f951-4a5e-9ed1-67cc37cc5e6c" /><br>
-3. Execute a aplicação SpringBoot em **EncomendasApplication**<br>
+3. Execute a aplicação SpringBoot em **EncomendasApplication**. Ele vai gerar um servidor local com a URL **http://localhost:8080/** por padrão<br>
+
 4. Teste de ENDPOINTS pelo Postman: 
+- `POST /drones`
+- `POST /pedidos`
+- `GET /drones/{id}`
+- `GET /entregas`
+- `GET /drones/status`
+- `GET /relatorio`
 
 ## 📂 Estrutura do projeto
 <img width="394" height="278" alt="image" src="https://github.com/user-attachments/assets/44b42511-1db0-496a-bc96-947008a965f1" />
