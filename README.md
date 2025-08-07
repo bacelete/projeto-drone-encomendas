@@ -52,7 +52,6 @@ cd projeto-dti-encomendas/backend/encomendas/encomendas`<br>
 5. Exemplos de requisições em JSON:<br>
 `POST /drones`<br><br>
 <img width="409" height="384" alt="image" src="https://github.com/user-attachments/assets/f7043e0e-c748-4276-9298-a116a7673b58" /><br>
-
 `POST /pedidos`<br><br>
 <img width="584" height="592" alt="image" src="https://github.com/user-attachments/assets/98eaaf73-a22c-482d-b141-702ce6e5fad6" /><br>
 
