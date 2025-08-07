@@ -80,7 +80,7 @@ A lógica de entregas ficou sob a responsabilidade da classe **DroneService**. A
 Seta os pedidos para os drones e chama a função de gerenciar o tempo. 
 
 - A função percorre de drone em drone através do `mapDronePedidos.keySet()`, que retorna um obj. do tipo `Set`.
-- Ela busca os pedidos alocados para aquele drone através do **Repository** do pedido, na seguinte linha: `List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone)` pois o mapDronePedidos retorna uma lista do tipo **PedidoDTO**, e não **Pedido**, como esperamos.
+- Ela busca os pedidos alocados para aquele drone através do **Repository** do pedido, na seguinte linha: `List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone)`, pois o mapDronePedidos retorna uma lista do tipo **PedidoDTO**, e não **Pedido**, como esperamos.
 - Para cada drone, é setado uma lista de pedidos a ele: `drone.setPedidos(pedidosReais)`
 - A função de gerenciar tempo de entrega é chamada: `tempoService.gerenciarTempoDeVoo(mapDronePedidos)`
 
