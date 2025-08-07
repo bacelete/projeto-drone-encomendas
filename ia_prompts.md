@@ -15,7 +15,7 @@ O fato de eu estar trabalhando com coordenadas com km não me permitia visualiza
 Eu estava em dúvida em como pegar o conjunto de drones em `Map<Drone, List<PedidoDTO>> mapDronePedidos`.
 - Como eu pego cada drone a partir desse Map, então?<br><br>
 
-**Contexto: **<br>
+**Contexto:**<br>
 Eu estava em dúvida sobre a utilização de `@Async` e `Threads.sleep()` no meu `TempoService`
 - Como eu gerenciaria o tempo de um drone até a entrega com base na velocidade média? Me dê dicas. Estou usando @Async e um service chamado TempoService, que calcula o tempo estimado da entrega e gerencia o tempo de voo.
 
