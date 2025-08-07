@@ -113,11 +113,9 @@ public class PedidoService {
             }
         }
 
-        if (alocados.isEmpty()) {
-            throw new NotFoundException("Não há pedidos alocados!");
+        if (!alocados.isEmpty()) {
+            pedidoRepository.saveAll(alocados);
         }
-
-        pedidoRepository.saveAll(alocados);
         return new PedidosResponseDTO(alocados, rejeitados);
     }
 
