@@ -33,7 +33,7 @@ Ordena os pedidos com base no **peso**.
 
 ### Lógica de alocação de pedidos:
 **Quem faz?**<br>
-A lógica de alocação ficou sob a responsabilidade da classe **ProdutoService**. A função `private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
+A lógica de alocação ficou sob a responsabilidade da classe **ProdutoService**. A função `private PedidosResponseDTO alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
                                Map<Drone, List<PedidoDTO>> mapPedidos,
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso)` deverá ser chamada. <br><br>
@@ -60,12 +60,6 @@ Para o cálculo da distância de um pedido, tomei como referência as coordenada
 > Por padrão a fórmula da distância entre dois pontos é `Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))`, porém assumi que (x1, y1) = (0, 0);<br>
 
 **3. Alocação dos Pedidos**<br>
-**Quem faz?**
-A lógica de alocação de pedidos ficou sob a responsabilidade da classe **PedidoService** e é realizada através da função `private PedidosResponseDTO alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
-                               Map<Drone, List<PedidoDTO>> mapPedidos,
-                               Map<Drone, Double> mapKm,
-                               Map<Drone, Double> mapPeso)`<br>
-
 Para cada pedido enviado na requisição (array de pedidos), é avaliado se há um drone disponível dentro dos valores do **peso** e **alcance** do pedido. Isso é realizado através da sentença: <br>
 `(pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)`<br><br>
 Se há um drone disponível que satisfaça as condições: <br>
@@ -76,7 +70,8 @@ Se há um drone disponível que satisfaça as condições: <br>
 Se não há um drone disponível:
 - O pedido é adicionado para a lista de pacotes rejeitados
 
-
+**4. Retorno do tipo ProdutosResponseDTO**
+Para cada pedido aprovado ou não, eles são adicionados em listas do tipo `List<Pedido> pedidos_alocados` e `List<Pedido> pedidos_rejeitados` que serão retornadas como resposta da requisição. 
 
 ### Lógica de Entregas
 **Quem faz?**<br>
