@@ -21,7 +21,23 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 - Postman
 
 ## 🚀 Como executar
-⚠️ Instruções provisórias
+Siga as instruções abaixo para executar o projeto em sua máquina local. <br>
+
+### Pré-requisitos
+- Java 21: Certifique-se de ter o JDK 21 instalado.
+- Maven: O projeto utiliza o Maven para gerenciamento de dependências. Ele já vem incluído no wrapper do Maven (mvnw), então não é necessária uma instalação manual.
+- MySQL: É necessário ter um servidor MySQL em execução.
+- Postman (ou similar): Uma ferramenta para testar os endpoints da API.
+
+1. Clone este repositório
+`git clone https://github.com/seu-usuario/projeto-dti-encomendas.git
+cd projeto-dti-encomendas/backend/encomendas/encomendas`<br>
+
+2. Configure o banco de dados
+- Crie um banco de dados com nome de **encomendas_dti**
+- No arquivo application.properties, altere as configurações de acordo com o usuário e senha do seu banco de dados (o meu por padrão, o usuário e senha é root).
+  <img width="682" height="143" alt="image" src="https://github.com/user-attachments/assets/bfd69c96-f951-4a5e-9ed1-67cc37cc5e6c" /><br>
+3. Execute a aplicação SpringBoot em **EncomendasApplication**
 
 ## 📂 Estrutura do projeto
 <img width="394" height="278" alt="image" src="https://github.com/user-attachments/assets/44b42511-1db0-496a-bc96-947008a965f1" />
