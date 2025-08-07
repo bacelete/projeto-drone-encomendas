@@ -16,7 +16,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 - Java 21 + Spring Boot 3.4.3
 - JPA + Hibernate
 - MySQL
-- ...
+- Postman
 
 ## 🚀 Como executar
 ⚠️ Instruções provisórias
