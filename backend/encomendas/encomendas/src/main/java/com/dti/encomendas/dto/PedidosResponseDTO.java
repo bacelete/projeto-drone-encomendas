@@ -11,7 +11,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class PedidosResponseDTO {
-    private List<Pedido> pedidosAlocados;
+    private List<Pedido> pedidos_alocados;
+    private List<Pedido> pedidos_rejeitados;
 
     public PedidosResponseDTO() {}
 }

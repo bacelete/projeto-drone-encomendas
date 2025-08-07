@@ -38,11 +38,10 @@ public class PedidoService {
 
         setarValoresIniciaisMapDrone(dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
         ordenarPedidosPorPeso(pedidos);
-
-        List<Pedido> entregas = alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
+        PedidosResponseDTO pedidosResponseDTO = alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
         droneService.iniciarEntregas(mapDronePedidos);
-        return new PedidosResponseDTO(entregas);
+        return pedidosResponseDTO;
     }
 
     private List<Drone> findDronesDisponiveis() {
@@ -69,17 +68,19 @@ public class PedidoService {
         Sort.ordenarPedidosPorPeso(pedidos);
     }
 
-    private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
+    private PedidosResponseDTO alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
                                Map<Drone, List<PedidoDTO>> mapPedidos,
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso) {
-        List<Pedido> pedidosAlocados = new ArrayList<>();
+        List<Pedido> alocados = new ArrayList<>();
+        List<Pedido> rejeitados = new ArrayList<>();
 
         for (Pedido pedido : pedidos) {
             System.out.println(pedido); //debug;
 
             int x = pedido.getLocalizacao().getX();
             int y = pedido.getLocalizacao().getY();
+
             double pesoPedido = pedido.getPeso();
 
             if (pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(x, y)) {
@@ -101,20 +102,22 @@ public class PedidoService {
                     mapPeso.put(drone, pesoRestante - pesoPedido);
                     mapKm.put(drone, kmRestante - distancia);
 
-                    pedidosAlocados.add(pedido);
+                    alocados.add(pedido);
                     break; //impede de alocar para mais de um drone;
+                }
+                else {
+                    rejeitados.add(pedido);
                 }
 
             }
-
         }
 
-        if (pedidosAlocados.isEmpty()) {
+        if (alocados.isEmpty()) {
             throw new NotFoundException("Não há pedidos alocados!");
         }
 
-        pedidoRepository.saveAll(pedidosAlocados);
-        return pedidosAlocados;
+        pedidoRepository.saveAll(alocados);
+        return new PedidosResponseDTO(alocados, rejeitados);
     }
 
     private PedidoDTO gerarPedidoComDistancia(Pedido pedido, double distancia) {
