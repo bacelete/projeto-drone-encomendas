@@ -28,5 +28,7 @@ public class RelatorioController {
         relatorio.setQuantidadeEntregas(relatorioService.calculaQuantidadeEntregas());
         relatorio.setDroneMaisEficiente(relatorioService.getDroneMaisEficiente());
         relatorio.setTempoMedioPorEntrega(relatorioService.getTempoMedio());
+
+        return ResponseEntity.ok(relatorio);
     }
 }
