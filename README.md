@@ -142,7 +142,9 @@ A lógica de criação/finalização da entrega ficou sob a responsabilidade da 
 - O método `public void finalizarEntrega(Entrega entrega)` seta o instante final da entrega e a duração total da entrega.
 
 
-## 📸 Prints (opcional por enquanto)
+## 📸 Prints 
+Resposta da requisição do `POST /pedidos`<br><br>
+<img width="483" height="617" alt="image" src="https://github.com/user-attachments/assets/e03ee83e-11d3-4be0-9651-082eebfe7bac" />
 
 ## 👨‍💻 Autor
 Arthur Bacelete
