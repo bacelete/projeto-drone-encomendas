@@ -49,6 +49,13 @@ cd projeto-dti-encomendas/backend/encomendas/encomendas`<br>
 - `GET /drones/status`
 - `GET /relatorio`
 
+5. Exemplos de requisições em JSON:
+`POST /drones`<br>
+<img width="409" height="384" alt="image" src="https://github.com/user-attachments/assets/f7043e0e-c748-4276-9298-a116a7673b58" /><br>
+
+`POST /pedidos`<br>
+<img width="584" height="592" alt="image" src="https://github.com/user-attachments/assets/98eaaf73-a22c-482d-b141-702ce6e5fad6" /><br>
+
 ## 📂 Estrutura do projeto
 <img width="394" height="278" alt="image" src="https://github.com/user-attachments/assets/44b42511-1db0-496a-bc96-947008a965f1" />
 
