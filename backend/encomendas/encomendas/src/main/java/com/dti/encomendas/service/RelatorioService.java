@@ -43,7 +43,12 @@ public class RelatorioService {
                 droneMaisEficiente = entry.getKey();
             }
         }
-        
+
         return droneMaisEficiente;
+    }
+
+    public long getTempoMedio() {
+        List<Entrega> entregas = entregaService.getAllEntregas();
+        return Calculo.calcularTempoMedio(entregas);
     }
 }

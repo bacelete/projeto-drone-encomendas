@@ -26,7 +26,7 @@ public class RelatorioController {
     public ResponseEntity<RelatorioDTO> getRelatorio() {
         RelatorioDTO relatorio = new RelatorioDTO();
         relatorio.setQuantidadeEntregas(relatorioService.calculaQuantidadeEntregas());
-        relatorio.setTempoMedioPorEntrega();
-        relatorio.setDroneMaisEficiente();
+        relatorio.setDroneMaisEficiente(relatorioService.getDroneMaisEficiente());
+        relatorio.setTempoMedioPorEntrega(relatorioService.getTempoMedio());
     }
 }
