@@ -29,7 +29,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 A lógica de ordenação ficou sob a responsabilidade da classe **Sort**. A função `public void ordenarPedidosPorPeso(List<Pedido> pedido)` deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.
 <br><br>
 **O que faz?**<br>
-Ordena os pedidos com base no **peso**. 
+Ordena os pedidos com base no **peso**. Para isso, utilizei uma interface **Comparator** que me permite fazer ordenações customizadas na linha de código: `Collections.sort(pedidos, new Comparator<Pedido>()`
 
 ### Lógica de alocação de pedidos:
 **Quem faz?**<br>
