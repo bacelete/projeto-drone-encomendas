@@ -6,6 +6,7 @@ import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.service.DroneService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class DroneController {
     private DroneService droneService;
 
     @PostMapping
-    public ResponseEntity<List<Drone>> criarDrone(@RequestBody List<DroneRequestDTO> dronesRequestDTO) {
+    public ResponseEntity<List<Drone>> criarDrone(@RequestBody @Valid List<DroneRequestDTO> dronesRequestDTO) {
         List<Drone> drones = new ArrayList<>();
 
         for (DroneRequestDTO drone : dronesRequestDTO) {

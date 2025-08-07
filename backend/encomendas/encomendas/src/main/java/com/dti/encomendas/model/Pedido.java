@@ -3,6 +3,9 @@ package com.dti.encomendas.model;
 import com.dti.encomendas.enums.PrioridadePedido;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,11 +21,15 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Positive(message = "O peso do pedido deve ser um valor positivo.")
     private double peso;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "A prioridade não pode ser nula.")
     private PrioridadePedido prioridade;
 
+    @NotNull(message = "A localização não pode ser nula.")
+    @Valid
     @Embedded
     private Localizacao localizacao;
 
