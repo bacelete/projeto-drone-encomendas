@@ -9,7 +9,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 - [x] Ordenação dos pedidos por peso
 - [x] Alocação automática de drones
 - [X] Gerenciamento do tempo de entrega
-- [ ] ...
+- [X] Geração de Histórico de Pedidos
 
 ## 🧠 Tecnologias utilizadas
 - Java 21 + Spring Boot 3.4.3
