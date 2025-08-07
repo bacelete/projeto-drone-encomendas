@@ -35,9 +35,11 @@ cd projeto-dti-encomendas/backend/encomendas/encomendas`<br>
 
 2. Configure o banco de dados
 - Crie um banco de dados com nome de **encomendas_dti**
-- No arquivo application.properties, altere as configurações de acordo com o usuário e senha do seu banco de dados (o meu por padrão, o usuário e senha é root).
-  <img width="682" height="143" alt="image" src="https://github.com/user-attachments/assets/bfd69c96-f951-4a5e-9ed1-67cc37cc5e6c" /><br>
-3. Execute a aplicação SpringBoot em **EncomendasApplication**
+- No arquivo application.properties, altere as configurações de acordo com o usuário e senha do seu banco de dados (o meu por padrão, o usuário e senha é root).<br>
+
+<img width="682" height="143" alt="image" src="https://github.com/user-attachments/assets/bfd69c96-f951-4a5e-9ed1-67cc37cc5e6c" /><br>
+3. Execute a aplicação SpringBoot em **EncomendasApplication**<br>
+4. Teste de ENDPOINTS pelo Postman: 
 
 ## 📂 Estrutura do projeto
 <img width="394" height="278" alt="image" src="https://github.com/user-attachments/assets/44b42511-1db0-496a-bc96-947008a965f1" />
