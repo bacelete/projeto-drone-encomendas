@@ -10,6 +10,8 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 - [x] Alocação automática de drones
 - [X] Gerenciamento do tempo de entrega
 - [X] Geração de Histórico de Pedidos
+- [x] Geração de Relatórios
+- [x] Tratamento de Erros 
 - [X] Cobertura de Testes Unitários
 
 ## 🧠 Tecnologias utilizadas
