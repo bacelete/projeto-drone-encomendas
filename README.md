@@ -88,7 +88,8 @@ Seta os pedidos para os drones e chama a função de gerenciar o tempo.
 **Quem faz?**<br>
 A lógica de gerenciamento de tempo de entrega ficou sob a responsabilidade da classe **TempoService**. A função 
 `@Async
-public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)` deverá ser chamada.<br>
+public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)` deverá ser chamada.<br><br>
+**O que faz?**<br>
 
 - A função percorre cada drone do `Map<Drone, List<PedidoDTO>> entregas` e cria uma instância do tipo **Entrega**, passando aquele drone como parâmetro.
 - O status do drone é atualizado para **EM_VOO** e salvo no banco de dados.
