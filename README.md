@@ -70,7 +70,7 @@ Se há um drone disponível que satisfaça as condições: <br>
 Se não há um drone disponível:
 - O pedido é adicionado para a lista de pacotes rejeitados
 
-**4. Retorno do tipo ProdutosResponseDTO**
+**4. Retorno como ProdutosResponseDTO**<br>
 Para cada pedido aprovado ou não, eles são adicionados em listas do tipo `List<Pedido> pedidos_alocados` e `List<Pedido> pedidos_rejeitados` que serão retornadas como resposta da requisição. 
 
 ### Lógica de Entregas
