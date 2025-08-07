@@ -85,7 +85,7 @@ Seta os pedidos para os drones e chama a função de gerenciar o tempo.
 - Para cada drone, é setado uma lista de pedidos a ele: `drone.setPedidos(pedidosReais)`
 - A função de gerenciar tempo de entrega é chamada: `tempoService.gerenciarTempoDeVoo(mapDronePedidos)`
 
-### Lógica de Gerenciamento de Tempo de Entrega
+### Lógica de Simulação de Tempo de Entrega
 **Quem faz?**<br>
 A lógica de gerenciamento de tempo de entrega ficou sob a responsabilidade da classe **TempoService**. A função 
 `@Async
