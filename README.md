@@ -4,11 +4,11 @@
 Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando regras de capacidade, distância e prioridade de entrega. O sistema aloca os pacotes nos drones com o menor número de viagens possível, respeitando as regras.
 
 ## ✅ Funcionalidades
-- [x] Cadastro de pedidos
-- [x] Cadastro de drones
-- [x] Ordenação dos pedidos por peso
-- [x] Alocação automática de drones
-- [X] Gerenciamento do tempo de entrega
+- [x] Cadastro de Pedidos
+- [x] Cadastro de Drones
+- [x] Ordenação dos Pedidos por Peso
+- [x] Alocação Automática de Drones
+- [X] Gerenciamento do Tempo de Entrega
 - [X] Geração de Histórico de Pedidos
 - [x] Geração de Relatórios
 - [x] Tratamento de Erros 
@@ -17,6 +17,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 ## 🧠 Tecnologias utilizadas
 - Java 21 + Spring Boot 3.4.3
 - JPA + Hibernate
+- IntelliJ IDEA 
 - MySQL
 - Postman
 
@@ -141,7 +142,12 @@ A lógica de criação/finalização da entrega ficou sob a responsabilidade da 
 - O método `public void finalizarEntrega(Entrega entrega)` seta o instante final da entrega e a duração total da entrega.
 
 
-## 📸 Prints (opcional por enquanto)
+## 📸 Prints 
+Exemplo de resposta da requisição do `POST /pedidos`<br><br>
+<img width="483" height="617" alt="image" src="https://github.com/user-attachments/assets/e03ee83e-11d3-4be0-9651-082eebfe7bac" /><br><br>
+
+Exemplo de resposta da requisição do `GET /enregas`<br><br>
+<img width="620" height="516" alt="image" src="https://github.com/user-attachments/assets/c1b1d3c1-1cca-483d-8bc1-f87a86eb8028" />
 
 ## 👨‍💻 Autor
 Arthur Bacelete
