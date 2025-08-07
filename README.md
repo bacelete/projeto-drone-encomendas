@@ -66,7 +66,7 @@ Se há um drone disponível que satisfaça as condições: <br>
 - É sétado esse drone ao pedido através da linha `pedido.setDrone(drone)`
 - É criada setada a variável de controle `foiAlocado = true`
 - É adicionado esse pedido a lista de pedidos alocados no `mapPedidos.get(drone).add(pedido).`
-- É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido)`<br>
+- É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido)`<br><br>
 Se não há um drone disponível:
 - O pedido é adicionado para a lista de pacotes rejeitados
 
