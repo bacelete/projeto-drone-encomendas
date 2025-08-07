@@ -33,7 +33,7 @@ Ordena os pedidos com base no **peso**.
 
 ### Lógica de alocação de pedidos:
 **Quem faz?**<br>
-A lógica de alocação ficou sob a responsabilidade da classe **ProdutoService**. A função `private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
+A lógica de alocação ficou sob a responsabilidade da classe **ProdutoService**. A função `private PedidosResponseDTO alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
                                Map<Drone, List<PedidoDTO>> mapPedidos,
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso)` deverá ser chamada. <br><br>
@@ -60,17 +60,18 @@ Para o cálculo da distância de um pedido, tomei como referência as coordenada
 > Por padrão a fórmula da distância entre dois pontos é `Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))`, porém assumi que (x1, y1) = (0, 0);<br>
 
 **3. Alocação dos Pedidos**<br>
-Realizada através da função `private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
-                               Map<Drone, List<PedidoDTO>> mapPedidos,
-                               Map<Drone, Double> mapKm,
-                               Map<Drone, Double> mapPeso)`<br>
-
 Para cada pedido enviado na requisição (array de pedidos), é avaliado se há um drone disponível dentro dos valores do **peso** e **alcance** do pedido. Isso é realizado através da sentença: <br>
 `(pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)`<br><br>
-Se há um drone disponível: <br>
+Se há um drone disponível que satisfaça as condições: <br>
 - É sétado esse drone ao pedido através da linha `pedido.setDrone(drone)`
+- É criada setada a variável de controle `foiAlocado = true`
 - É adicionado esse pedido a lista de pedidos alocados no `mapPedidos.get(drone).add(pedido).`
-- É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido);`
+- É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido)`<br><br>
+Se não há um drone disponível:
+- O pedido é adicionado para a lista de pacotes rejeitados
+
+**4. Retorno como ProdutosResponseDTO**<br>
+Para cada pedido aprovado ou não, eles são adicionados em listas do tipo `List<Pedido> pedidos_alocados` e `List<Pedido> pedidos_rejeitados` que serão retornadas como resposta da requisição. 
 
 ### Lógica de Entregas
 **Quem faz?**<br>
@@ -88,9 +89,10 @@ Realizada pelo método <br>
 `@Async
 public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)`
 
-- A função percorre cada drone do `Map<Drone, List<PedidoDTO>> entregas` e seta o tempo de início da entrega como `LocalDateTime.now()`
+- A função percorre cada drone do `Map<Drone, List<PedidoDTO>> entregas` e cria uma instância do tipo **Entrega**, passando aquele drone como parâmetro.
+- O status do drone é atualizado para **EM_VOO** e salvo no banco de dados.
 - O tempo estimado de entrega dos pedidos de cada drone é calculado a partir do método `private long calcularTempoTotalEntrega(double distancia)`, onde o parâmetro distância é a soma das distâncias dos pedidos. Além disso, tomei como base que a velocidade média dos drones é constante e de **80km/h**.
-- Utilização de `Thread.sleep(tempoEstimado)` para simulação do tempo de vôo e o mesmo para a entrega do pedido e para o estado IDLE do drone.
+- Utilização de `Thread.sleep(tempoEstimado)` para simulação do tempo de vôo e o mesmo para as outras mudanças de estado do drone. 
 > Velocidade média representada como `public static final long VELOCIDADE_MEDIA = 80`
 
 ## 📸 Prints (opcional por enquanto)
