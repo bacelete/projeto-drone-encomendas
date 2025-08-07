@@ -60,17 +60,23 @@ Para o cálculo da distância de um pedido, tomei como referência as coordenada
 > Por padrão a fórmula da distância entre dois pontos é `Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))`, porém assumi que (x1, y1) = (0, 0);<br>
 
 **3. Alocação dos Pedidos**<br>
-Realizada através da função `private List<Pedido> alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
+**Quem faz?**
+A lógica de alocação de pedidos ficou sob a responsabilidade da classe **PedidoService** e é realizada através da função `private PedidosResponseDTO alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
                                Map<Drone, List<PedidoDTO>> mapPedidos,
                                Map<Drone, Double> mapKm,
                                Map<Drone, Double> mapPeso)`<br>
 
 Para cada pedido enviado na requisição (array de pedidos), é avaliado se há um drone disponível dentro dos valores do **peso** e **alcance** do pedido. Isso é realizado através da sentença: <br>
 `(pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)`<br><br>
-Se há um drone disponível: <br>
+Se há um drone disponível que satisfaça as condições: <br>
 - É sétado esse drone ao pedido através da linha `pedido.setDrone(drone)`
+- É criada setada a variável de controle `foiAlocado = true`
 - É adicionado esse pedido a lista de pedidos alocados no `mapPedidos.get(drone).add(pedido).`
-- É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido);`
+- É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido)`<br>
+Se não há um drone disponível:
+- O pedido é adicionado para a lista de pacotes rejeitados
+
+
 
 ### Lógica de Entregas
 **Quem faz?**<br>
