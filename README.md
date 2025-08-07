@@ -4,11 +4,11 @@
 Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando regras de capacidade, distância e prioridade de entrega. O sistema aloca os pacotes nos drones com o menor número de viagens possível, respeitando as regras.
 
 ## ✅ Funcionalidades
-- [x] Cadastro de pedidos
-- [x] Cadastro de drones
-- [x] Ordenação dos pedidos por peso
-- [x] Alocação automática de drones
-- [X] Gerenciamento do tempo de entrega
+- [x] Cadastro de Pedidos
+- [x] Cadastro de Drones
+- [x] Ordenação dos Pedidos por Peso
+- [x] Alocação Automática de Drones
+- [X] Gerenciamento do Tempo de Entrega
 - [X] Geração de Histórico de Pedidos
 - [x] Geração de Relatórios
 - [x] Tratamento de Erros 
