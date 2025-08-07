@@ -74,7 +74,7 @@ Se não há um drone disponível:
 **4. Retorno como ProdutosResponseDTO**<br>
 Para cada pedido aprovado ou não, eles são adicionados em listas do tipo `List<Pedido> pedidos_alocados` e `List<Pedido> pedidos_rejeitados` na classe **ProdutosResponseDTO** que serão retornadas como resposta da requisição. 
 
-### Lógica de Entregas
+### Lógica de Setar Pedidos
 **Quem faz?**<br>
 A lógica de entregas ficou sob a responsabilidade da classe **DroneService**. A função `public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos)` deverá ser chamada.<br><br>
 **O que faz?**<br>
