@@ -143,8 +143,11 @@ A lógica de criação/finalização da entrega ficou sob a responsabilidade da 
 
 
 ## 📸 Prints 
-Resposta da requisição do `POST /pedidos`<br><br>
-<img width="483" height="617" alt="image" src="https://github.com/user-attachments/assets/e03ee83e-11d3-4be0-9651-082eebfe7bac" />
+Exemplo de resposta da requisição do `POST /pedidos`<br><br>
+<img width="483" height="617" alt="image" src="https://github.com/user-attachments/assets/e03ee83e-11d3-4be0-9651-082eebfe7bac" /><br><br>
+
+Exemplo de resposta da requisição do `GET /enregas`<br><br>
+<img width="620" height="516" alt="image" src="https://github.com/user-attachments/assets/c1b1d3c1-1cca-483d-8bc1-f87a86eb8028" />
 
 ## 👨‍💻 Autor
 Arthur Bacelete
