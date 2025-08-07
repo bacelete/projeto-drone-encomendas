@@ -102,7 +102,7 @@ public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)` deverá s
 **Quem faz?**<br>
 A lógica de criação/finalização da entrega ficou sob a responsabilidade da classe **EntregaService**.<br><br>
 **O que faz?**<br>
-- O método `public Entrega criarEntrega(Drone drone)` seta um drone para aquela entrega, instante de início dessa entrega e a qtd. de pedidos.
+- O método `public Entrega criarEntrega(Drone drone)` seta um drone para aquela entrega, um instante de início dessa entrega e a quantidaed de pedidos.
 - O método `public void finalizarEntrega(Entrega entrega)` seta o instante final da entrega e a duração total da entrega.
 
 
