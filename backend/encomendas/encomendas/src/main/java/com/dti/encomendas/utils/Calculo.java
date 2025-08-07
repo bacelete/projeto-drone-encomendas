@@ -24,4 +24,9 @@ public class Calculo {
     public static int calcularQuantidadePedidos(Drone drone) {
         return drone.getPedidos().size();
     }
+
+    public static long calcularEficienciaDrone(int qtdPedidos, long duracao) {
+        return qtdPedidos/duracao;
+    }
+
 }

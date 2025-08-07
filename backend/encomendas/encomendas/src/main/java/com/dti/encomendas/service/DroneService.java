@@ -47,7 +47,9 @@ public class DroneService {
         tempoService.gerenciarTempoDeVoo(mapDronePedidos);
     }
 
-    private void simularBateriaDrone(Drone drone) {}
+    private void simularBateriaDrone(Drone drone) {
+
+    }
 
     public List<Drone> getDronesByStatus(StatusDrone status) {
         return droneRepository.findAllByStatus(status);
@@ -69,5 +71,9 @@ public class DroneService {
         return new DroneResponseDTO(
                 drone.getId(), drone.getBateria(), drone.getStatus()
         );
+    }
+
+    public List<Drone> getAllDrones() {
+        return droneRepository.findAll();
     }
 }
