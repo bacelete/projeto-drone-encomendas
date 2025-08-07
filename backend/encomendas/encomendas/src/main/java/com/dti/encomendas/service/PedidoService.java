@@ -121,15 +121,13 @@ public class PedidoService {
     }
 
     private PedidoDTO gerarPedidoComDistancia(Pedido pedido, double distancia) {
-        PedidoDTO pedidoDTO = new PedidoDTO();
-        pedidoDTO.setId(pedido.getId());
-        pedidoDTO.setPeso(pedido.getPeso());
-        pedidoDTO.setLocalizacao(pedido.getLocalizacao());
-        pedidoDTO.setPrioridade(pedido.getPrioridade());
-
-        pedidoDTO.setDistancia(distancia); //*IMPORTANTE
-
-        return pedidoDTO;
+        return new PedidoDTO(
+                pedido.getId(),
+                pedido.getPeso(),
+                pedido.getPrioridade(),
+                pedido.getLocalizacao(),
+                distancia
+        );
     }
 
 
