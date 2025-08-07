@@ -21,6 +21,9 @@ public class Entrega {
     private LocalDateTime inicio;
     private LocalDateTime fim;
 
+    private long duracao_ms;
+    private int quantidade_pedidos;
+
     @ManyToOne
     @JoinColumn(name="id_drone", nullable = false)
     @JsonIgnore

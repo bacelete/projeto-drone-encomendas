@@ -47,7 +47,13 @@ public class DroneService {
         tempoService.gerenciarTempoDeVoo(mapDronePedidos);
     }
 
-    private void simularBateriaDrone(Drone drone) { }
+    private void simularBateriaDrone(Drone drone) {
+
+    }
+
+    public int contarQuantidadePedidos(Drone drone) {
+        return drone.getPedidos().size();
+    }
 
     public List<Drone> getDronesByStatus(StatusDrone status) {
         return droneRepository.findAllByStatus(status);
