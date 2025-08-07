@@ -11,8 +11,6 @@ import lombok.Setter;
 
 public class DroneResponseDTO {
     private Long id;
-    private double pesoMax;
-    private double kmMax;
     private int bateria;
     private StatusDrone statusDrone;
 

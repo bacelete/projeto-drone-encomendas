@@ -67,7 +67,7 @@ public class DroneService {
 
     private DroneResponseDTO gerarDronesComStatus(Drone drone) {
         return new DroneResponseDTO(
-                drone.getId(), drone.getPesoMax(),drone.getKmMax(), drone.getBateria(), drone.getStatus()
+                drone.getId(), drone.getBateria(), drone.getStatus()
         );
     }
 }
