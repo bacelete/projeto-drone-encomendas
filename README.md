@@ -49,7 +49,7 @@ cd projeto-dti-encomendas/backend/encomendas/encomendas`<br>
 - `GET /drones/status`
 - `GET /relatorio`
 
-5. Exemplos de requisições em JSON:<br>
+5. Exemplos de requisições feitas em JSON no Postman:<br><br>
 `POST /drones`<br><br>
 <img width="409" height="384" alt="image" src="https://github.com/user-attachments/assets/f7043e0e-c748-4276-9298-a116a7673b58" /><br>
 `POST /pedidos`<br><br>
