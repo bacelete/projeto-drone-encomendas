@@ -31,13 +31,19 @@ public class RelatorioService {
             Drone drone = entrega.getDrone();
             long eficiencia = Calculo.calcularEficienciaDrone(entrega.getQuantidade_pedidos(), entrega.getDuracao_ms());
             mapDroneEficiencia.put(drone, eficiencia);
+            mapDroneEficiencia.merge(drone, eficiencia, Long::sum);
         }
 
         Drone droneMaisEficiente = null;
+        double maiorEficiencia = Double.MIN_VALUE;
 
-
+        for (Map.Entry<Drone, Long> entry : mapDroneEficiencia.entrySet()) {
+            if (entry.getValue() > maiorEficiencia) {
+                maiorEficiencia = entry.getValue();
+                droneMaisEficiente = entry.getKey();
+            }
+        }
         
-
         return droneMaisEficiente;
     }
 }
