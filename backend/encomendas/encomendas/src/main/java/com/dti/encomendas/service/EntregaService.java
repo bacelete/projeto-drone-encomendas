@@ -3,6 +3,7 @@ package com.dti.encomendas.service;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Entrega;
 import com.dti.encomendas.repository.EntregaRepository;
+import com.dti.encomendas.utils.Calculo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,6 @@ import java.util.List;
 public class EntregaService {
     @Autowired
     private EntregaRepository entregaRepository;
-
-    @Autowired
-    private DroneService droneService;
 
     public void save(Entrega entrega) { entregaRepository.save(entrega); }
 
@@ -32,9 +30,8 @@ public class EntregaService {
         entrega.setDrone(drone);
         entrega.setInicio(LocalDateTime.now());
 
-        int pedidos = droneService.contarQuantidadePedidos(drone);
+        int pedidos = Calculo.calcularQuantidadePedidos(drone);
         entrega.setQuantidade_pedidos(pedidos);
-
         save(entrega);
         return entrega;
     }

@@ -20,4 +20,8 @@ public class Calculo {
 
         return distanciaTotal;
     }
+
+    public static int calcularQuantidadePedidos(Drone drone) {
+        return drone.getPedidos().size();
+    }
 }

@@ -51,10 +51,6 @@ public class DroneService {
 
     }
 
-    public int contarQuantidadePedidos(Drone drone) {
-        return drone.getPedidos().size();
-    }
-
     public List<Drone> getDronesByStatus(StatusDrone status) {
         return droneRepository.findAllByStatus(status);
     }
