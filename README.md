@@ -98,7 +98,7 @@ public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)` deverá s
 
 ### Lógica de Gerenciamento da Entrega
 **Quem faz?**<br>
-A lógica de gerenciamento de tempo de entrega ficou sob a responsabilidade da classe **EntregaService**.<br><br>
+A lógica de criação/finalização da entrega ficou sob a responsabilidade da classe **EntregaService**.<br><br>
 **O que faz?**<br>
 - O método `public Entrega criarEntrega(Drone drone)` seta um drone para aquela entrega, instante de início dessa entrega e a qtd. de pedidos.
 - O método `public void finalizarEntrega(Entrega entrega)` seta o instante final da entrega e a duração total da entrega.
