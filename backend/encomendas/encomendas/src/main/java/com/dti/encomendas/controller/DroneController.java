@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,17 +19,21 @@ public class DroneController {
     @Autowired
     private DroneService droneService;
 
-    @PostMapping("/criar")
-    public ResponseEntity<Drone> criarDrone(@RequestBody DroneRequestDTO droneRequestDTO) {
-        Drone novo = new Drone();
+    @PostMapping
+    public ResponseEntity<List<Drone>> criarDrone(@RequestBody List<DroneRequestDTO> dronesRequestDTO) {
+        List<Drone> drones = new ArrayList<>();
 
-        novo.setBateria(droneRequestDTO.getBateria());
-        novo.setKmMax(droneRequestDTO.getKmMax());
-        novo.setPesoMax(droneRequestDTO.getPesoMax());
-        novo.setStatus(StatusDrone.IDLE);
+        for (DroneRequestDTO drone : dronesRequestDTO) {
+            Drone novo = new Drone();
+            novo.setBateria(drone.getBateria());
+            novo.setKmMax(drone.getKmMax());
+            novo.setPesoMax(drone.getPesoMax());
+            novo.setStatus(StatusDrone.IDLE);
+            drones.add(novo);
+        }
 
-        droneService.save(novo);
-        return ResponseEntity.ok(novo);
+        droneService.saveAll(drones);
+        return ResponseEntity.ok(drones);
     }
 
     @GetMapping("/{id}")

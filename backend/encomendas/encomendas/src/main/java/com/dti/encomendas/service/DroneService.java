@@ -27,8 +27,8 @@ public class DroneService {
 
     public static final long VELOCIDADE_MEDIA = 80;
 
-    public void save(Drone drone) {
-        droneRepository.save(drone);
+    public void saveAll(List<Drone> drones) {
+        droneRepository.saveAll(drones);
     }
 
     public Optional<Drone> getDroneById(Long id) {
