@@ -144,10 +144,9 @@ A lógica de criação/finalização da entrega ficou sob a responsabilidade da 
 
 ## 📸 Prints 
 Exemplo de resposta da requisição do `POST /pedidos`<br><br>
-<p align="center">
-  <img width="483" height="617" alt="image" src="https://github.com/user-attachments/assets/e03ee83e-11d3-4be0-9651-082eebfe7bac" /><br><br>
-  <img width="505" height="428" alt="image" src="https://github.com/user-attachments/assets/028b1efe-0882-4dc8-aa97-ad11f3507e61" />
-</p>
+<img width="483" height="617" alt="image" src="https://github.com/user-attachments/assets/e03ee83e-11d3-4be0-9651-082eebfe7bac" /><br><br>
+<img width="505" height="428" alt="image" src="https://github.com/user-attachments/assets/028b1efe-0882-4dc8-aa97-ad11f3507e61" />
+
 
 Exemplo de resposta da requisição do `GET /entregas`<br><br>
 <img width="620" height="516" alt="image" src="https://github.com/user-attachments/assets/c1b1d3c1-1cca-483d-8bc1-f87a86eb8028" /><br><br>
