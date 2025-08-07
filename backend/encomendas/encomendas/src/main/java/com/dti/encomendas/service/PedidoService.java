@@ -76,7 +76,7 @@ public class PedidoService {
         List<Pedido> rejeitados = new ArrayList<>();
 
         for (Pedido pedido : pedidos) {
-            System.out.println(pedido); //debug;
+            boolean foiAlocado = false;
 
             int x = pedido.getLocalizacao().getX();
             int y = pedido.getLocalizacao().getY();
@@ -103,12 +103,13 @@ public class PedidoService {
                     mapKm.put(drone, kmRestante - distancia);
 
                     alocados.add(pedido);
+                    foiAlocado = true; //variavel de controle de cada pedido;
                     break; //impede de alocar para mais de um drone;
                 }
-                else {
-                    rejeitados.add(pedido);
-                }
+            }
 
+            if (!foiAlocado) {
+                rejeitados.add(pedido);
             }
         }
 
