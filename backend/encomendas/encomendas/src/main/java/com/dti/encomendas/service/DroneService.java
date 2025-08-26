@@ -25,6 +25,9 @@ public class DroneService {
     @Autowired
     private TempoService tempoService;
 
+    @Autowired
+    private BateriaService bateriaService;
+
     public static final long VELOCIDADE_MEDIA = 80;
 
     public void saveAll(List<Drone> drones) {
