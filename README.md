@@ -152,7 +152,8 @@ Exemplo de resposta da requisição do `GET /entregas`<br><br>
 <img width="620" height="516" alt="image" src="https://github.com/user-attachments/assets/c1b1d3c1-1cca-483d-8bc1-f87a86eb8028" /><br><br>
 
 Exemplo de resposta da requisição do `GET /relatorio`<br><br>
-<img width="641" height="605" alt="image" src="https://github.com/user-attachments/assets/7375a45d-f74c-43e5-bae4-32df44b14926" /><br><br>
+<img width="452" height="223" alt="image" src="https://github.com/user-attachments/assets/701ebd0e-eee4-4c0a-92b3-95326e67e5e2" />
+<br><br>
 
 Exemplo de resposta da requisição do `GET /drones/status`<br><br>
 <img width="466" height="400" alt="image" src="https://github.com/user-attachments/assets/38a50af7-c4db-4eb9-841c-18c0a054e133" /><br><br>
