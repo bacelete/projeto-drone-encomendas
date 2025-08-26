@@ -51,7 +51,7 @@ public class DroneService {
     }
 
     private void simularBateriaDrone(Drone drone) {
-
+        bateriaService.simularBateria(drone);
     }
 
     public List<Drone> getDronesByStatus(StatusDrone status) {
