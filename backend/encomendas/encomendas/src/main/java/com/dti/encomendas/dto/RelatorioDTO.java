@@ -11,7 +11,7 @@ import lombok.Setter;
 public class RelatorioDTO {
     private int quantidadeEntregas;
     private long tempoMedioPorEntrega;
-    private Drone droneMaisEficiente;
+    private DroneResponseDTO droneMaisEficiente;
 
     public RelatorioDTO() {}
 }

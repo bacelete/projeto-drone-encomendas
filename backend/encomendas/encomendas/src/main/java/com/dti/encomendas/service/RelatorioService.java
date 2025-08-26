@@ -1,5 +1,6 @@
 package com.dti.encomendas.service;
 
+import com.dti.encomendas.dto.DroneResponseDTO;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Entrega;
 import com.dti.encomendas.repository.EntregaRepository;
@@ -23,7 +24,7 @@ public class RelatorioService {
         return entregaService.getAllEntregas().size();
     }
 
-    public Drone getDroneMaisEficiente() {
+    public DroneResponseDTO getDroneMaisEficiente() {
         List<Entrega> entregas = entregaService.getAllEntregas();
         Map<Drone, Long> mapDroneEficiencia = new HashMap<>();
 
@@ -43,7 +44,10 @@ public class RelatorioService {
             }
         }
 
-        return droneMaisEficiente;
+        DroneResponseDTO drone = new DroneResponseDTO(droneMaisEficiente.getId(),
+                droneMaisEficiente.getBateria(), droneMaisEficiente.getStatus());
+
+        return drone;
     }
 
     public long getTempoMedio() {
