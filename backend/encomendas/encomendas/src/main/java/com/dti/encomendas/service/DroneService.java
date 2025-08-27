@@ -51,7 +51,8 @@ public class DroneService {
     }
 
     private void simularBateriaDrone(Drone drone) {
-        bateriaService.simularBateria(drone);
+        DroneResponseDTO droneComStatus = gerarDronesComStatus(drone);
+        bateriaService.simularBateria(droneComStatus);
     }
 
     public List<Drone> getDronesByStatus(StatusDrone status) {
