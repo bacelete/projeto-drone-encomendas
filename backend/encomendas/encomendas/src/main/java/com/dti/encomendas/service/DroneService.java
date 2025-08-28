@@ -7,8 +7,8 @@ import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.repository.DroneRepository;
 import com.dti.encomendas.repository.PedidoRepository;
-import com.dti.encomendas.utils.BateriaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -25,7 +25,7 @@ public class DroneService {
     private TempoService tempoService;
 
     @Autowired
-    private BateriaUtil bateriaUtil;
+    private BateriaService bateriaService;
 
     public static final long VELOCIDADE_MEDIA = 80;
 
@@ -49,14 +49,9 @@ public class DroneService {
         tempoService.gerenciarTempoDeVoo(mapDronePedidos);
     }
 
-    public void simularBateriaDrone() {
-        List<Drone> drones = droneRepository.findAll();
-
-        for (Drone drone : drones) {
-            int newBateria = drone.getBateria() - 5;
-            drone.setBateria(newBateria);
-            droneRepository.save(drone);
-        }
+    @Scheduled(fixedRate = 5000)
+    public void simularBateria() {
+        bateriaService.simularBateria();
     }
 
     public List<Drone> getDronesByStatus(StatusDrone status) {
