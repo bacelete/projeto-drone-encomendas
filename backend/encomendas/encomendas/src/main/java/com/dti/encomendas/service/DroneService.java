@@ -1,5 +1,6 @@
 package com.dti.encomendas.service;
 
+import com.dti.encomendas.dto.DroneRequestDTO;
 import com.dti.encomendas.dto.DroneResponseDTO;
 import com.dti.encomendas.dto.PedidoDTO;
 import com.dti.encomendas.enums.StatusDrone;
@@ -29,7 +30,17 @@ public class DroneService {
 
     public static final long VELOCIDADE_MEDIA = 80;
 
-    public void saveAll(List<Drone> drones) {
+    public void saveAll(List<DroneRequestDTO> dronesRequestDTO) {
+        List<Drone> drones = new ArrayList<>();
+
+        for (DroneRequestDTO drone : dronesRequestDTO) {
+            Drone novo = new Drone();
+            novo.setBateria(drone.getBateria());
+            novo.setKmMax(drone.getKmMax());
+            novo.setPesoMax(drone.getPesoMax());
+            novo.setStatus(StatusDrone.IDLE);
+            drones.add(novo);
+        }
         droneRepository.saveAll(drones);
     }
 

@@ -23,18 +23,7 @@ public class DroneController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> criarDrone(@RequestBody @Valid List<DroneRequestDTO> dronesRequestDTO) {
-        List<Drone> drones = new ArrayList<>();
-
-        for (DroneRequestDTO drone : dronesRequestDTO) {
-            Drone novo = new Drone();
-            novo.setBateria(drone.getBateria());
-            novo.setKmMax(drone.getKmMax());
-            novo.setPesoMax(drone.getPesoMax());
-            novo.setStatus(StatusDrone.IDLE);
-            drones.add(novo);
-        }
-
-        droneService.saveAll(drones);
+        droneService.saveAll(dronesRequestDTO);
         return ResponseEntity.ok().build();
     }
 
