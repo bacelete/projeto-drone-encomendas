@@ -17,9 +17,19 @@ public class BateriaService {
         List<Drone> drones = droneRepository.findAll();
 
         for (Drone drone : drones) {
-            int newBateria = drone.getBateria() - 5;
-            drone.setBateria(newBateria);
-            droneRepository.save(drone);
+            if (drone.getBateria() > 0) {
+                int newBateria = drone.getBateria() - getConsumptionRate(drone.getStatus().toString());
+                drone.setBateria(newBateria);
+                droneRepository.save(drone);
+            }
+        }
+    }
+    private int getConsumptionRate(String status) {
+        switch (status) {
+            case "IDLE": return 2;
+            case "EM_VOO": return 5;
+            case "ENTREGANDO": return 3;
+            default: return 0;
         }
     }
 

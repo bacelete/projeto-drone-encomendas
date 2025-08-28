@@ -61,7 +61,6 @@ public class DroneService {
         tempoService.gerenciarTempoDeVoo(mapDronePedidos);
     }
 
-    //not working
     @Scheduled(fixedRate = 5000)
     public void simularBateria() {
         bateriaService.simularBateria();
