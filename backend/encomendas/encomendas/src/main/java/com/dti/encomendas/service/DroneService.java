@@ -41,6 +41,7 @@ public class DroneService {
             novo.setStatus(StatusDrone.IDLE);
             drones.add(novo);
         }
+
         droneRepository.saveAll(drones);
     }
 
@@ -60,6 +61,7 @@ public class DroneService {
         tempoService.gerenciarTempoDeVoo(mapDronePedidos);
     }
 
+    //not working
     @Scheduled(fixedRate = 5000)
     public void simularBateria() {
         bateriaService.simularBateria();
