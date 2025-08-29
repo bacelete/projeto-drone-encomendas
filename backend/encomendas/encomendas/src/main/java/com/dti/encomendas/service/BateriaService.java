@@ -26,7 +26,7 @@ public class BateriaService {
     }
     private int getConsumptionRate(String status) {
         switch (status) {
-            case "IDLE": return 2;
+            case "IDLE": return 1;
             case "EM_VOO": return 5;
             case "ENTREGANDO": return 3;
             default: return 0;
