@@ -42,10 +42,9 @@ public class TempoService {
             droneRepository.save(drone);
 
             double distanciaTotal = Calculo.calcularDistanciaTotalPedidos(drone, pedidos);
-            long tempoEstimado = calcularTempoTotalEntrega(distanciaTotal);
 
             try {
-                Thread.sleep(tempoEstimado);
+                Thread.sleep(30000);
             }
             catch(InterruptedException e) {
                 e.printStackTrace();
@@ -63,7 +62,7 @@ public class TempoService {
         droneRepository.save(drone);
 
         try {
-            Thread.sleep(30000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -77,10 +76,5 @@ public class TempoService {
         droneRepository.save(drone);
         entregaService.finalizarEntrega(entrega);
     }
-
-    private long calcularTempoTotalEntrega(double distancia) {
-        long velocidadeEmMS = (long) (VELOCIDADE_MEDIA/3.6);
-        double tempoEstimado = distancia/velocidadeEmMS; //em seg;
-        return (long) tempoEstimado * 1000;
-    }
+    
 }
