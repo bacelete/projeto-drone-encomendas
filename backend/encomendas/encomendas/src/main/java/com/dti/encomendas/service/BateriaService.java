@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,22 +16,25 @@ public class BateriaService {
 
     public void simularBateria() {
         List<Drone> drones = droneRepository.findAll();
+        List<Drone> dronesAtualizados = new ArrayList<>();
 
         for (Drone drone : drones) {
             if (drone.getBateria() > 0) {
                 int newBateria = drone.getBateria() - getConsumptionRate(drone.getStatus().toString());
-                drone.setBateria(newBateria);
-                droneRepository.save(drone);
+                drone.setBateria(Math.max(0, newBateria));
+                dronesAtualizados.add(drone);
             }
         }
+        droneRepository.saveAll(dronesAtualizados);
     }
+
     private int getConsumptionRate(String status) {
-        switch (status) {
-            case "IDLE": return 1;
-            case "EM_VOO": return 5;
-            case "ENTREGANDO": return 3;
-            default: return 0;
-        }
+        return switch (status) {
+            case "IDLE" -> 1;
+            case "EM_VOO" -> 5;
+            case "ENTREGANDO" -> 3;
+            default -> 0;
+        };
     }
 
 }
