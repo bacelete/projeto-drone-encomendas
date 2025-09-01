@@ -58,12 +58,11 @@ public class DroneService {
             drone.setPedidos(pedidosReais);
         }
 
-        List<Drone> drones = droneRepository.findAll();
+        List<Long> droneIds = dronesComPedidos.stream()
+                .map(Drone::getId)
+                .toList();
 
-        List<Long> ids = new ArrayList<>();
-        drones.forEach(drone -> ids.add(drone.getId()));
-
-        tempoService.gerenciarTempoDeVoo(ids);
+        tempoService.gerenciarTempoDeVoo(droneIds);
     }
 
     @Scheduled(fixedRate = 10000)

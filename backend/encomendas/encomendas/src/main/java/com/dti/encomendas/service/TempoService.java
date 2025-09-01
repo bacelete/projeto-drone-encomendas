@@ -27,24 +27,21 @@ public class TempoService {
     private EntregaService entregaService;
 
     @Async
-    public void gerenciarTempoDeVoo(List<Long> ids)
-    {
-        List<Drone> drones = droneRepository.findAllById(ids);
+    public void gerenciarTempoDeVoo(List<Long> droneIds) {
+        List<Drone> drones = droneRepository.findAllById(droneIds);
 
         if (drones.isEmpty()) {
             throw new NotFoundException("Não há drones alocados para entregas!");
         }
 
-        for (Drone drone : drones) {;
+        for (Drone drone : drones) {
             Entrega entrega = entregaService.criarEntrega(drone);
             drone.setStatus(StatusDrone.EM_VOO);
-
             droneRepository.save(drone);
 
             try {
                 Thread.sleep(30000);
-            }
-            catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -55,8 +52,10 @@ public class TempoService {
     }
 
     private void entregarPedido(Drone drone) {
-        drone.setStatus(StatusDrone.ENTREGANDO);
-        droneRepository.save(drone);
+        Drone droneAtualizado = droneRepository.findById(drone.getId()).orElse(drone);
+
+        droneAtualizado.setStatus(StatusDrone.ENTREGANDO);
+        droneRepository.save(droneAtualizado);
 
         try {
             Thread.sleep(10000);
@@ -67,10 +66,11 @@ public class TempoService {
     }
 
     private void finalizarVoo(Drone drone, Entrega entrega) {
-        drone.setStatus(StatusDrone.IDLE);
+        Drone droneAtualizado = droneRepository.findById(drone.getId()).orElse(drone);
 
-        droneRepository.save(drone);
+        droneAtualizado.setStatus(StatusDrone.IDLE);
         entregaService.finalizarEntrega(entrega);
+        droneRepository.save(droneAtualizado);
     }
 
 }
