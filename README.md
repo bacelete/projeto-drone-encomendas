@@ -32,7 +32,7 @@ Siga as instruções abaixo para executar o projeto em sua máquina local. <br>
 - Postman (ou similar): Uma ferramenta para testar os endpoints da API.
 
 1. Clone este repositório
-`git clone https://github.com/seu-usuario/projeto-dti-encomendas.git
+`git clone https://github.com/bacelete/projeto-drone-encomendas.git
 cd projeto-dti-encomendas/backend/encomendas/encomendas`<br>
 
 2. Configure o banco de dados
