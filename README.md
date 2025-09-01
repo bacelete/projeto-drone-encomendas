@@ -33,7 +33,7 @@ Siga as instruções abaixo para executar o projeto em sua máquina local. <br>
 
 1. Clone este repositório
 `git clone https://github.com/bacelete/projeto-drone-encomendas.git
-cd projeto-dti-encomendas/backend/encomendas/encomendas`<br>
+cd projeto-drone-encomendas/backend/encomendas/encomendas`<br>
 
 2. Configure o banco de dados
 - Crie um banco de dados com nome de **encomendas_dti**
