@@ -62,7 +62,7 @@ public class DroneService {
                 .map(Drone::getId)
                 .toList();
 
-        tempoService.gerenciarTempoDeVoo(droneIds);
+        tempoService.gerenciarTempoDeVoo(droneIds); //passing the ids's of its drones.
     }
 
     @Scheduled(fixedRate = 10000)

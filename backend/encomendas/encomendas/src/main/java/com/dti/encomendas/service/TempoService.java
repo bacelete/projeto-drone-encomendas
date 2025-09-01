@@ -66,7 +66,7 @@ public class TempoService {
     }
 
     private void finalizarVoo(Drone drone, Entrega entrega) {
-        Drone droneAtualizado = droneRepository.findById(drone.getId()).orElse(drone); //getting the latest drone 
+        Drone droneAtualizado = droneRepository.findById(drone.getId()).orElse(drone); //getting the latest drone
 
         droneAtualizado.setStatus(StatusDrone.IDLE);
         entregaService.finalizarEntrega(entrega);
