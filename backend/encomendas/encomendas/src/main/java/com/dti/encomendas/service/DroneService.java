@@ -88,7 +88,4 @@ public class DroneService {
         );
     }
 
-    public List<Drone> getAllDrones() {
-        return droneRepository.findAll();
-    }
 }

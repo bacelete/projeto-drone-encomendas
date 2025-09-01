@@ -29,19 +29,19 @@ public class TempoService {
     @Async
     public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> pedidos)
     {
-        Set<Drone> drones = pedidos.keySet();
+        Set<Drone> dronesComPedidos = pedidos.keySet();
 
-        if (drones.isEmpty()) {
+        if (dronesComPedidos.isEmpty()) {
             throw new NotFoundException("Não há drones alocados para entregas!");
         }
 
-        for (Drone drone : drones) {
+        for (Drone drone : dronesComPedidos) {
 
-            Entrega entrega = entregaService.criarEntrega(drone);
-            drone.setStatus(StatusDrone.EM_VOO);
-            droneRepository.save(drone);
+            Drone droneAtualizado = droneRepository.findById(drone.getId()).get();
 
-            double distanciaTotal = Calculo.calcularDistanciaTotalPedidos(drone, pedidos);
+            Entrega entrega = entregaService.criarEntrega(droneAtualizado);
+            droneAtualizado.setStatus(StatusDrone.EM_VOO);
+            droneRepository.save(droneAtualizado);
 
             try {
                 Thread.sleep(30000);
@@ -50,8 +50,8 @@ public class TempoService {
                 e.printStackTrace();
             }
 
-            entregarPedido(drone);
-            finalizarVoo(drone, entrega);
+            entregarPedido(droneAtualizado);
+            finalizarVoo(droneAtualizado, entrega);
         }
 
     }
@@ -76,5 +76,5 @@ public class TempoService {
         droneRepository.save(drone);
         entregaService.finalizarEntrega(entrega);
     }
-    
+
 }
