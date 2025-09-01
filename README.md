@@ -17,7 +17,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 
 ## 🧠 Tecnologias utilizadas
 - Java 21 + Spring Boot 3.4.3
-- JPA + Hibernate
+- Vite.js + React
 - IntelliJ IDEA 
 - MySQL
 - Postman
@@ -32,8 +32,8 @@ Siga as instruções abaixo para executar o projeto em sua máquina local. <br>
 - Postman (ou similar): Uma ferramenta para testar os endpoints da API.
 
 1. Clone este repositório
-`git clone https://github.com/seu-usuario/projeto-dti-encomendas.git
-cd projeto-dti-encomendas/backend/encomendas/encomendas`<br>
+`git clone https://github.com/bacelete/projeto-drone-encomendas.git
+cd projeto-drone-encomendas/backend/encomendas/encomendas`<br>
 
 2. Configure o banco de dados
 - Crie um banco de dados com nome de **encomendas_dti**
