@@ -4,14 +4,15 @@
 Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando regras de capacidade, distância e prioridade de entrega. O sistema aloca os pacotes nos drones com o menor número de viagens possível, respeitando as regras.
 
 ## ✅ Funcionalidades
-- [x] Cadastro de Pedidos
-- [x] Cadastro de Drones
+- [x] CRUD de Pedidos
+- [x] CRUD de Drones
 - [x] Ordenação dos Pedidos por Peso
 - [x] Alocação Automática de Drones
-- [X] Gerenciamento do Tempo de Entrega
+- [X] Gerenciamento do Tempo de Entrega com @Async
 - [X] Geração de Histórico de Pedidos
 - [x] Geração de Relatórios
-- [x] Tratamento de Erros 
+- [x] Tratamento de Erros
+- [x] Simulação da Bateria do Drone com @Scheduled 
 - [X] Cobertura de Testes Unitários
 
 ## 🧠 Tecnologias utilizadas
