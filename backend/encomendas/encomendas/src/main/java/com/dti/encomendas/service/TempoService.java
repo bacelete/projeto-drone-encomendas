@@ -37,7 +37,7 @@ public class TempoService {
 
         for (Drone drone : dronesComPedidos) {
 
-            Drone droneAtualizado = droneRepository.findById(drone.getId()).get();
+            Drone droneAtualizado = droneRepository.findById(drone.getId()).orElseThrow();
 
             Entrega entrega = entregaService.criarEntrega(droneAtualizado);
             droneAtualizado.setStatus(StatusDrone.EM_VOO);

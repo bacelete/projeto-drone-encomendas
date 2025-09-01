@@ -6,6 +6,7 @@ import com.dti.encomendas.repository.EntregaRepository;
 import com.dti.encomendas.utils.Calculo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class EntregaService {
         entregaRepository.save(entrega);
     }
 
+    @Transactional
     public Entrega criarEntrega(Drone drone) {
         Entrega entrega = new Entrega();
         entrega.setDrone(drone);
