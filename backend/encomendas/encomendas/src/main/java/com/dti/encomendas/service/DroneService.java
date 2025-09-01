@@ -50,15 +50,20 @@ public class DroneService {
     }
 
     public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos) {
-        Set<Drone> drones = mapDronePedidos.keySet();
+        Set<Drone> dronesComPedidos = mapDronePedidos.keySet();
 
-        for (Drone drone : drones) {
+        for (Drone drone : dronesComPedidos) {
             //busca os pedidos pelo repository do pedido pois o drone.setPedidos() espera List<Pedido> e nao List<PedidoDTO>
             List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone);
             drone.setPedidos(pedidosReais);
         }
 
-        tempoService.gerenciarTempoDeVoo(mapDronePedidos);
+        List<Drone> drones = droneRepository.findAll();
+
+        List<Long> ids = new ArrayList<>();
+        drones.forEach(drone -> ids.add(drone.getId()));
+
+        tempoService.gerenciarTempoDeVoo(ids);
     }
 
     @Scheduled(fixedRate = 10000)
