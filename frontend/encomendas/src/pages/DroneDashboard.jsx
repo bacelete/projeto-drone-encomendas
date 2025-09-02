@@ -27,7 +27,7 @@ export default function DroneDashboard() {
     }, []);
 
     return (
-        <div className="flex gap-4">
+        <div className="flex gap-4 bg-gray-200 p-10 rounded-lg shadow-lg">
             {drones.map((drone) => (
                 <DroneCard key={drone.id} drone={drone} />
             ))}
