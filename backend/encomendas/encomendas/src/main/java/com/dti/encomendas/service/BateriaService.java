@@ -43,8 +43,8 @@ public class BateriaService {
         int bateria = drone.getBateria() + TAXA_CARREGAMENTO;
         if (bateria > MAX_BATERIA) {
             bateria = MAX_BATERIA;
+            drone.setStatus(StatusDrone.IDLE);
         }
-
         drone.setBateria(bateria);
     }
 
