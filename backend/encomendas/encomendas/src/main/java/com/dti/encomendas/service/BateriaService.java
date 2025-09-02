@@ -39,13 +39,13 @@ public class BateriaService {
     }
 
     private void carregarBateria(Drone drone) {
-       int bateria = drone.getBateria() + TAXA_CARREGAMENTO;
+        drone.setStatus(StatusDrone.CARREGANDO);
+        int bateria = drone.getBateria() + TAXA_CARREGAMENTO;
+        if (bateria > MAX_BATERIA) {
+            bateria = MAX_BATERIA;
+        }
 
-       if (bateria > MAX_BATERIA) {
-           bateria = MAX_BATERIA;
-       }
-
-       drone.setBateria(bateria);
+        drone.setBateria(bateria);
     }
 
     private int getConsumptionRate(String status) {
