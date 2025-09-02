@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import DroneCard from "../components/DroneCard"
+import Title from "../components/Title";
 export default function DroneDashboard() {
     const [drones, setDrones] = useState([]);
 
@@ -13,7 +14,7 @@ export default function DroneDashboard() {
                     },
                 })
                 if (!response.ok) {
-                    throw new Error("Erro na requisição!"); 
+                    throw new Error("Erro na requisição!");
                 }
                 const data = await response.json();
                 console.log(data);
@@ -27,10 +28,13 @@ export default function DroneDashboard() {
     }, []);
 
     return (
-        <div className="grid grid-cols-3 gap-4 bg-gray-200 p-10 rounded-lg shadow-lg w-full">
-            {drones.map((drone) => (
-                <DroneCard key={drone.id} drone={drone} />
-            ))}
-        </div>
+        <>
+            <Title text={"Dashboard"} />
+            <div className="grid grid-cols-3 gap-4 bg-gray-200 p-10 rounded-lg shadow-lg w-full">
+                {drones.map((drone) => (
+                    <DroneCard key={drone.id} drone={drone} />
+                ))}
+            </div>
+        </>
     )
 }

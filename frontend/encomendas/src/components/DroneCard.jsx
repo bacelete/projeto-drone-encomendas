@@ -1,4 +1,5 @@
 import DroneIcon from '../assets/icons/drone.png';
+import StatusDrone from './StatusDrone';
 
 export default function DroneCard({drone}) {
     return (
@@ -8,10 +9,10 @@ export default function DroneCard({drone}) {
                 alt="Drone Icon" 
                 className="w-12 h-12 object-contain" 
             />
-            <div id="infos" className='p-2'>
-                <p id='titulo' className='font-bold text-xl'>Drone {drone.id}</p>
-                <p>Bateria: {drone.bateria}</p>
-                <p>Status: {drone.statusDrone}</p>
+            <div id="infos" className='p-3'>
+                <p id='titulo' className='font-bold text-2xl'>Drone {drone.id}</p>
+                <p>Bateria: {drone.bateria}%</p>
+                <StatusDrone status={drone.statusDrone}/>
             </div>
         </div>
     )
