@@ -27,13 +27,18 @@ export default function DroneDashboard() {
             }
         }
         fetchDrones();
+
+        setTimeout(function() {
+            window.location.reload();
+        }, 10000);
+
     }, []);
 
     return (
         <>
             <Title text={"Dashboard"} />
             <ReloadButton />
-            <div className="grid grid-cols-3 gap-5 bg-gray-200 p-5 rounded-lg shadow-lg w-full">
+            <div className="grid grid-cols-3 gap-6 bg-gray-200 p-5 rounded-lg shadow-lg w-full">
                 {drones.map((drone) => (
                     <DroneCard key={drone.id} drone={drone} />
                 ))}
