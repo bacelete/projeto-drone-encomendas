@@ -1,4 +1,5 @@
 import DroneIcon from '../assets/icons/drone.png';
+import BateriaDrone from './BateriaDrone';
 import StatusDrone from './StatusDrone';
 
 export default function DroneCard({drone}) {
@@ -11,7 +12,7 @@ export default function DroneCard({drone}) {
             />
             <div id="infos" className='p-3'>
                 <p id='titulo' className='font-bold text-2xl'>Drone {drone.id}</p>
-                <p>Bateria: {drone.bateria}%</p>
+                <BateriaDrone battery={drone.bateria} />
                 <StatusDrone status={drone.statusDrone}/>
             </div>
         </div>
