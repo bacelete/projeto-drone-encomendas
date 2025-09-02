@@ -14,7 +14,7 @@ export default function BateriaDrone({ battery }) {
 
     return <>
         <div className='flex gap-2 my-1'>
-            <img src={BatteryIcon} className="w-6" alt="" />
+            <img src={BatteryIcon} className="w-7" alt="" />
             <p>Bateria: {battery}%</p>
         </div>
     </>

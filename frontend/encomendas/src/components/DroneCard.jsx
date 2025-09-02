@@ -8,7 +8,7 @@ export default function DroneCard({ drone }) {
             <img
                 src={DroneIcon}
                 alt="Drone Icon"
-                className="w-12 h-12 object-contain"
+                className="w-15 h-15 object-contain"
             />
             <div id="card-drone" className='mx-3'>
                 <p id='titulo' className='font-bold text-2xl'>Drone {drone.id}</p>
