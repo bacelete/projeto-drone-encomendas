@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import DroneCard from "../components/DroneCard"
 export default function DroneDashboard() {
     const [drones, setDrones] = useState([]);
+
     useEffect(() => {
         async function fetchDrones() {
             try {
@@ -11,10 +12,12 @@ export default function DroneDashboard() {
                         'Content-Type': 'application/json'
                     },
                 })
-                if (response.ok) {
-                    const drones = response.json();
-                    setDrones(drones);
+                if (!response.ok) {
+                    throw new Error("Erro na requisição!"); 
                 }
+                const data = await response.json();
+                console.log(data);
+                setDrones(data);
             }
             catch (e) {
                 console.log(e);
@@ -24,8 +27,10 @@ export default function DroneDashboard() {
     }, []);
 
     return (
-        <div>
-            {drones.map(drone => <DroneCard bateria={drone.bateria} status={drone.statusDrone} />)}
+        <div className="flex gap-4">
+            {drones.map((drone) => (
+                <DroneCard key={drone.id} drone={drone} />
+            ))}
         </div>
     )
 }
