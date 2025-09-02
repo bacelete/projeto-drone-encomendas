@@ -1,4 +1,4 @@
 export default function Title({ text }) {
-    return <span className="text-4xl">{text}</span>
+    return <span className="font-oxygen text-4xl">{text}</span>
 
 }

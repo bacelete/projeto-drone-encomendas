@@ -1,0 +1,10 @@
+@font-face {
+    font-family: Oxygen;
+    src: url(../src/assets/fonts/Oxygen-Bold.ttf)
+}
+
+@import "tailwindcss";
+
+@theme {
+    --font-oxygen: Oxygen, "sans-serif";
+}
