@@ -4,7 +4,8 @@ import StatusDrone from './StatusDrone';
 
 export default function DroneCard({ drone }) {
     return (
-        <div className='bg-white p-4 rounded-md flex gap-3 text-gray-800 shadow-lg cursor-pointer'>
+        <div className='bg-white p-4 rounded-md flex gap-3 text-gray-800 shadow-lg cursor-pointer
+         transition-transform duration-300 ease-in-out hover:scale-105'>
             <img
                 src={DroneIcon}
                 alt="Drone Icon"
