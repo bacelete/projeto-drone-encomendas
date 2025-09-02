@@ -2,7 +2,7 @@ import DroneIcon from '../assets/icons/drone.png';
 
 export default function DroneCard({drone}) {
     return (
-        <div className='bg-white p-2 rounded-md flex gap-3 text-gray-800 w-lg shadow-lg cursor-pointer'>
+        <div className='bg-white p-2 rounded-md flex gap-3 text-gray-800 shadow-lg cursor-pointer'>
             <img 
                 src={DroneIcon} 
                 alt="Drone Icon" 
