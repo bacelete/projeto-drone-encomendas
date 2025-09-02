@@ -30,7 +30,7 @@ export default function DroneDashboard() {
 
         setTimeout(function() {
             window.location.reload();
-        }, 10000);
+        }, 8000);
 
     }, []);
 
@@ -40,7 +40,7 @@ export default function DroneDashboard() {
             <ReloadButton />
             <div className="grid grid-cols-3 gap-6 bg-gray-200 p-5 rounded-lg shadow-lg w-full">
                 {drones.map((drone) => (
-                    <DroneCard key={drone.id} drone={drone} />
+                    <DroneCard key={drone.id} drone={drone}/>
                 ))}
             </div>
         </>
