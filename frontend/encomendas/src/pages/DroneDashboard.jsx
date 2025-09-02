@@ -33,7 +33,7 @@ export default function DroneDashboard() {
         <>
             <Title text={"Dashboard"} />
             <ReloadButton />
-            <div className="grid grid-cols-3 gap-5 bg-gray-200 p-10 rounded-lg shadow-lg w-full">
+            <div className="grid grid-cols-3 gap-5 bg-gray-200 p-5 rounded-lg shadow-lg w-full">
                 {drones.map((drone) => (
                     <DroneCard key={drone.id} drone={drone} />
                 ))}
