@@ -4,7 +4,7 @@ export default function StatusDrone({ status }) {
     const getColorClass = (status) => {
         if (status === "IDLE") return "bg-black text-white";
         if (status === "ENTREGANDO") return "bg-green-500 text-white";
-        if (status === "CARREGANDO") return "bg-red-500 text white";
+        if (status === "CARREGANDO") return "bg-red-500 text-white";
         if (status === "EM_VOO") return "bg-yellow-400 p-1 text-black";
         return "bg-gray-400 text-white";
     };
