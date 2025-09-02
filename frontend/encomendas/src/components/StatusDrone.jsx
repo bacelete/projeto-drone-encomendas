@@ -8,7 +8,7 @@ export default function StatusDrone({ status }) {
         return "bg-gray-400 text-white";
     };
 
-    return <p className={`p-1 rounded ${getColorClass(status)}`}>
-        Status: {status}
+    return <p className={`p-1 rounded text-center ${getColorClass(status)}`}>
+        Status: <span className="font-bold">{status}</span>
     </p>
 }

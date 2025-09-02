@@ -10,7 +10,7 @@ export default function DroneCard({drone}) {
                 alt="Drone Icon" 
                 className="w-12 h-12 object-contain" 
             />
-            <div id="infos" className='p-3'>
+            <div id="infos" className='p-4'>
                 <p id='titulo' className='font-bold text-2xl'>Drone {drone.id}</p>
                 <BateriaDrone battery={drone.bateria} />
                 <StatusDrone status={drone.statusDrone}/>
