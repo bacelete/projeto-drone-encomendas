@@ -1,22 +1,15 @@
 package com.dti.encomendas.service;
 
-import com.dti.encomendas.dto.PedidoDTO;
 import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Entrega;
 import com.dti.encomendas.repository.DroneRepository;
-import com.dti.encomendas.utils.Calculo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import static com.dti.encomendas.service.DroneService.VELOCIDADE_MEDIA;
 
 @Service
 public class TempoService {
