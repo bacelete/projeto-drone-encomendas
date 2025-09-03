@@ -90,8 +90,9 @@ public class PedidoService {
                 double pesoRestante = mapPeso.get(drone);
                 double kmRestante = mapKm.get(drone);
 
+                //check if order satisfies the drone conditions;
                 if ((pesoPedido <= pesoRestante) && (distancia <= kmRestante)) {
-                    PedidoDTO pedidoDTO = gerarPedidoComDistancia(pedido, distancia); //pedido com distancia setada;
+                    PedidoDTO pedidoDTO = gerarPedidoComDistancia(pedido, distancia); //order with distance calculated;
                     pedido.setDrone(drone);
 
                     mapPedidos.get(drone).add(pedidoDTO);
@@ -99,8 +100,8 @@ public class PedidoService {
                     mapKm.put(drone, kmRestante - distancia);
 
                     alocados.add(pedido);
-                    foiAlocado = true; //variavel de controle de cada pedido;
-                    break; //impede de alocar para mais de um drone;
+                    foiAlocado = true; //control variable to add inside "rejeitados" or "alocados" list;
+                    break; //avoid to allocate the order to more than one drone.
                 }
             }
 

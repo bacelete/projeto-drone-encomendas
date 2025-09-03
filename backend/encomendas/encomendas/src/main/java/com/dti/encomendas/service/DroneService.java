@@ -52,11 +52,14 @@ public class DroneService {
     public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos) {
         Set<Drone> dronesComPedidos = mapDronePedidos.keySet();
 
+
         for (Drone drone : dronesComPedidos) {
             List<Pedido> pedidos = pedidoRepository.findByDrone_Id(drone.getId());
             drone.setPedidos(pedidos);
         }
 
+        //get the list of id's instead of the objects, because passing a list of ids, i can query an updated obj inside
+        //an @Async method.
         List<Long> droneIds = dronesComPedidos.stream()
                 .filter(drone -> !pedidoRepository.findByDrone_Id(drone.getId()).isEmpty())
                 .map(Drone::getId)
