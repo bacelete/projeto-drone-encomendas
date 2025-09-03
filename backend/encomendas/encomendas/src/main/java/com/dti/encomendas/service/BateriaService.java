@@ -17,6 +17,7 @@ public class BateriaService {
 
     private static final int TAXA_CARREGAMENTO = 5;
     private static final int MAX_BATERIA = 100;
+    private static final int MIN_BATERIA = 25;
 
     public void simularBateria() {
         List<Drone> drones = droneRepository.findAll();
@@ -38,7 +39,7 @@ public class BateriaService {
         drone.setBateria(Math.max(0, bateria));
     }
 
-    private void carregarBateria(Drone drone) {
+    public void carregarBateria(Drone drone) {
         drone.setStatus(StatusDrone.CARREGANDO);
         int bateria = drone.getBateria() + TAXA_CARREGAMENTO;
         if (bateria > MAX_BATERIA) {
@@ -55,6 +56,10 @@ public class BateriaService {
             case "ENTREGANDO" -> 3;
             default -> 0;
         };
+    }
+
+    public boolean isBatteryOk(Drone drone) {
+        return drone.getBateria() >= MIN_BATERIA;
     }
 
 }

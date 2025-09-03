@@ -24,6 +24,9 @@ public class TempoService {
     @Autowired
     private EntregaService entregaService;
 
+    @Autowired
+    private BateriaService bateriaService;
+
     @Async
     public void gerenciarTempoDeVoo(List<Long> droneIds) {
         List<Drone> drones = droneRepository.findAllById(droneIds);
@@ -37,6 +40,7 @@ public class TempoService {
 
             if (!pedidos.isEmpty()) {
                 Entrega entrega = entregaService.criarEntrega(drone);
+
                 drone.setStatus(StatusDrone.EM_VOO);
                 droneRepository.save(drone);
 

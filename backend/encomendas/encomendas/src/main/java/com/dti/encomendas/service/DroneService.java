@@ -52,7 +52,6 @@ public class DroneService {
     public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos) {
         Set<Drone> dronesComPedidos = mapDronePedidos.keySet();
 
-
         for (Drone drone : dronesComPedidos) {
             List<Pedido> pedidos = pedidoRepository.findByDrone_Id(drone.getId());
             drone.setPedidos(pedidos);
