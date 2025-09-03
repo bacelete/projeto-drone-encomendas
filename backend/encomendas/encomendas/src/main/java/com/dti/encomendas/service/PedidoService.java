@@ -38,7 +38,6 @@ public class PedidoService {
         ordenarPedidosPorPeso(pedidos);
         PedidosResponseDTO pedidosResponseDTO = alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
-        droneService.iniciarEntregas(mapDronePedidos);
         return pedidosResponseDTO;
     }
 
@@ -114,6 +113,7 @@ public class PedidoService {
             pedidoRepository.saveAll(alocados);
         }
 
+        droneService.iniciarEntregas(mapPedidos);
         return new PedidosResponseDTO(alocados, rejeitados);
     }
 
