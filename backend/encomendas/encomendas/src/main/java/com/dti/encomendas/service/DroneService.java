@@ -53,12 +53,12 @@ public class DroneService {
         Set<Drone> dronesComPedidos = mapDronePedidos.keySet();
 
         for (Drone drone : dronesComPedidos) {
-            //busca os pedidos pelo repository do pedido pois o drone.setPedidos() espera List<Pedido> e nao List<PedidoDTO>
-            List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone);
-            drone.setPedidos(pedidosReais);
+            List<Pedido> pedidos = pedidoRepository.findByDrone_Id(drone.getId());
+            drone.setPedidos(pedidos);
         }
 
         List<Long> droneIds = dronesComPedidos.stream()
+                .filter(drone -> !pedidoRepository.findByDrone_Id(drone.getId()).isEmpty())
                 .map(Drone::getId)
                 .toList();
 

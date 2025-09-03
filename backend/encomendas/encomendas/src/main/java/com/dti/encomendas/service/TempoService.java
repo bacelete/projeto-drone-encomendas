@@ -4,7 +4,9 @@ import com.dti.encomendas.enums.StatusDrone;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Entrega;
+import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.repository.DroneRepository;
+import com.dti.encomendas.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ import java.util.List;
 public class TempoService {
     @Autowired
     private DroneRepository droneRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @Autowired
     private EntregaService entregaService;
@@ -28,7 +33,9 @@ public class TempoService {
         }
 
         for (Drone drone : drones) {
-            if (!drone.getPedidos().isEmpty()) {
+            List<Pedido> pedidos = pedidoRepository.findByDrone_Id(drone.getId());
+
+            if (!pedidos.isEmpty()) {
                 Entrega entrega = entregaService.criarEntrega(drone);
                 drone.setStatus(StatusDrone.EM_VOO);
                 droneRepository.save(drone);
@@ -42,6 +49,7 @@ public class TempoService {
                 entregarPedido(drone);
                 finalizarVoo(drone, entrega);
             }
+
         }
 
     }

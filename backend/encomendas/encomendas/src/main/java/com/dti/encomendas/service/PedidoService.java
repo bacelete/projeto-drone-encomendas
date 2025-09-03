@@ -30,8 +30,6 @@ public class PedidoService {
             throw new NotFoundException("Não há drones disponíveis!");
         }
 
-        dronesDisponiveis.forEach(drone -> System.out.println(drone.toString())); //debug;
-
         Map<Drone, List<PedidoDTO>> mapDronePedidos = new HashMap<>();
         Map<Drone, Double> mapDronePeso = new HashMap<>();
         Map<Drone, Double> mapDroneKm = new HashMap<>();
@@ -40,10 +38,7 @@ public class PedidoService {
         ordenarPedidosPorPeso(pedidos);
         PedidosResponseDTO pedidosResponseDTO = alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
-        if (!mapDronePedidos.isEmpty()) {
-            droneService.iniciarEntregas(mapDronePedidos);
-        }
-
+        droneService.iniciarEntregas(mapDronePedidos);
         return pedidosResponseDTO;
     }
 
@@ -86,19 +81,18 @@ public class PedidoService {
 
             double pesoPedido = pedido.getPeso();
 
-            if (pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(x, y)) {
+            if (pedidoRepository.existsByLocalizacao_XAndLocalizacao_Y(x, y)) {
                 throw new ExistsLocalizacaoException("Localização já existente!");
             }
 
             double distancia = calcularDistancia(x, y);
-            PedidoDTO pedidoDTO = gerarPedidoComDistancia(pedido, distancia); //pedido com distancia setada;
 
             for (Drone drone : drones) {
                 double pesoRestante = mapPeso.get(drone);
                 double kmRestante = mapKm.get(drone);
 
                 if ((pesoPedido <= pesoRestante) && (distancia <= kmRestante)) {
-                    System.out.println(pedido); //debug;
+                    PedidoDTO pedidoDTO = gerarPedidoComDistancia(pedido, distancia); //pedido com distancia setada;
                     pedido.setDrone(drone);
 
                     mapPedidos.get(drone).add(pedidoDTO);
@@ -119,6 +113,7 @@ public class PedidoService {
         if (!alocados.isEmpty()) {
             pedidoRepository.saveAll(alocados);
         }
+
         return new PedidosResponseDTO(alocados, rejeitados);
     }
 

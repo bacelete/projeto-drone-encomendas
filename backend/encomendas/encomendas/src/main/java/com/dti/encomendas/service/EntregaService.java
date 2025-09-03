@@ -36,7 +36,7 @@ public class EntregaService {
         entrega.setDrone(drone);
         entrega.setInicio(LocalDateTime.now());
 
-        int quantidadeDePedidos = pedidoRepository.findByDrone(drone).size();
+        int quantidadeDePedidos = pedidoRepository.findByDrone_Id(drone.getId()).size();
         entrega.setQuantidade_pedidos(quantidadeDePedidos);
         save(entrega);
         return entrega;

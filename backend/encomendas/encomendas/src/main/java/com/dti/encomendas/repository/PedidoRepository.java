@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
-    boolean existsByLocalizacao_XAndLocalizacao_y(int x, int y);
-    List<Pedido> findByDrone(Drone drone);
+    boolean existsByLocalizacao_XAndLocalizacao_Y(int x, int y);
+    List<Pedido> findByDrone_Id(Long id);
 }

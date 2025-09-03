@@ -64,7 +64,7 @@ class PedidoServiceTest {
     void quandoHáDroneDisponivelEPedidoValido_DeveAlocarComSucesso() {
         // Arrange
         when(droneService.getDronesByStatus(StatusDrone.IDLE)).thenReturn(Collections.singletonList(dronePadrao));
-        when(pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(anyInt(), anyInt())).thenReturn(false);
+        when(pedidoRepository.existsByLocalizacao_XAndLocalizacao_Y(anyInt(), anyInt())).thenReturn(false);
 
         ArrayList<Pedido> pedidos = new ArrayList<>();
         pedidos.add(pedidoValido);
@@ -84,7 +84,7 @@ class PedidoServiceTest {
     void quandoPedidoExcedePesoMaximo_DeveSerRejeitado() {
         // Arrange
         when(droneService.getDronesByStatus(StatusDrone.IDLE)).thenReturn(Collections.singletonList(dronePadrao));
-        when(pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(anyInt(), anyInt())).thenReturn(false);
+        when(pedidoRepository.existsByLocalizacao_XAndLocalizacao_Y(anyInt(), anyInt())).thenReturn(false);
 
         ArrayList<Pedido> pedidos = new ArrayList<>();
         pedidos.add(pedidoPesado);
@@ -102,7 +102,7 @@ class PedidoServiceTest {
     void quandoPedidoExcedeDistanciaMaxima_DeveSerRejeitado() {
         // Arrange
         when(droneService.getDronesByStatus(StatusDrone.IDLE)).thenReturn(Collections.singletonList(dronePadrao));
-        when(pedidoRepository.existsByLocalizacao_XAndLocalizacao_y(anyInt(), anyInt())).thenReturn(false);
+        when(pedidoRepository.existsByLocalizacao_XAndLocalizacao_Y(anyInt(), anyInt())).thenReturn(false);
 
         ArrayList<Pedido> pedidos = new ArrayList<>();
         pedidos.add(pedidoDistante);
