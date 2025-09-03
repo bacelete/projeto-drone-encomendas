@@ -6,13 +6,38 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import BateriaDrone from "../components/BateriaDrone";
 
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
     const [open, setOpen] = useState(false);
-    const [selectedDrone, setSelectedDrone] = useState(null);
+    const [infoDrone, setInfoDrone] = useState({})
 
-    const handleOpen = () => setOpen(true);
+    async function fetchDroneById(id) {
+        try {
+            const response = await fetch(`http://localhost:8080/drones/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            if (!response.ok) {
+                throw new Error("Erro na requisição!");
+            }
+            const data = await response.json();
+            console.log(data);
+            setInfoDrone(data);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    const handleOpen = (id) => {
+        setOpen(true)
+        fetchDroneById(id);
+    };
+
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
@@ -51,8 +76,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-3 gap-6 my-10 bg-gray-300 p-5 rounded-lg shadow-lg w-full">
                 {drones.map((drone) => (
                     <DroneCard key={drone.id} drone={drone} onClick={() => {
-                        setSelectedDrone(drone);
-                        handleOpen();
+                        handleOpen(drone.id);
                     }} />
                 ))}
             </div>
@@ -76,12 +100,12 @@ export default function Dashboard() {
                         p: 4,
                         borderRadius: 2
                     }}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Text in a modal
+                        <Typography id="modal-modal-title" variant="h4" component="h2">
+                            Informações do Drone
                         </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                        </Typography>
+                        <BateriaDrone battery={infoDrone.bateria} />
+                        <p className="text-lg">Alcance máximo: {infoDrone.kmMax} km</p>
+                        <p className="text-lg">Peso máximo suportado: {infoDrone.pesoMax} kg</p>
                     </Box>
                 </Modal>
             </div >
