@@ -27,7 +27,7 @@ export default function DroneCard({ drone }) {
                     className="w-18 h-18 object-contain my-auto mx-2"
                 />
                 <div id="card-drone" className='mx-3'>
-                    <p id='titulo' className='font-bold text-2xl'>Drone {drone.id}</p>
+                    <p id='titulo' className='font-oxygen font-bold text-2xl'>Drone {drone.id}</p>
                     <div id="infos" className='p-1 mx-2'>
                         <BateriaDrone battery={drone.bateria} />
                         <StatusDrone status={drone.statusDrone} />
