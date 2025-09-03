@@ -15,7 +15,7 @@ export default function BateriaDrone({ battery }) {
     if (battery == 0) { BatteryIcon = EmptyBattery; }
 
     return <>
-        <div className='flex gap-2 my-2 text-lg'>
+        <div className='flex gap-2 text-lg'>
             <p>Bateria: <span className='font-bold'>{battery}%</span></p>
             <img src={BatteryIcon} className="w-7" alt="" />
         </div>
