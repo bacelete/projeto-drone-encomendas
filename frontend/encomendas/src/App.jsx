@@ -1,10 +1,10 @@
 import './App.css'
-import DroneDashboard from './pages/DroneDashboard.jsx';
+import Dashboard from './pages/Dashboard.jsx';
 
 function App() {
   return (
     <>
-      <DroneDashboard />
+      <Dashboard />
     </>
   )
 }
