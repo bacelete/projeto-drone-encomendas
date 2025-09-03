@@ -9,6 +9,7 @@ import BateriaDrone from "../components/BateriaDrone";
 import InfoIcon from '../assets/icons/info.png'
 import OrderIcon from '../assets/icons/order.png'
 import StatusDrone from "../components/StatusDrone";
+import NoOrderIcon from '../assets/icons/no-order.png'
 
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
@@ -64,14 +65,18 @@ export default function Dashboard() {
         }
         fetchDrones();
 
-        const interval = setInterval(fetchDrones, 8000); // Atualiza os drones a cada 8 segundos
-        return () => clearInterval(interval); // Limpa o intervalo quando o componente é desmontado
-        
+        setTimeout(function () {
+            window.location.reload();
+        }, 8000);
+
     }, []);
 
     return (
         <>
 
+
+
+            {/* Card do Drone */}
             <Title text={"Drones | Dashboard"} />
             <ReloadButton />
             <div className="grid grid-cols-3 gap-6 my-10 bg-gray-300 p-5 rounded-lg shadow-lg w-full">
@@ -81,6 +86,8 @@ export default function Dashboard() {
                     }} />
                 ))}
             </div>
+
+            {/* Modal do Drone */}
             <div>
                 <Modal
                     open={open}
@@ -94,41 +101,41 @@ export default function Dashboard() {
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
                         width: 800,
-                        height: 600,
+                        height: 800,
+                        maxHeight: 1000,
                         bgcolor: 'background.paper',
-                        boxShadow: 24,  
+                        boxShadow: 24,
                         p: 5,
                         borderRadius: 2
                     }}>
 
-                        {/* Cabeçalho do Modal */}
-                    <div className="flex justify-between items-center mb-4">
-                        <Typography id="modal-title" variant="h4" component="h2" className="flex items-center gap-3 font-oxygen">
-                            <img src={InfoIcon} className="w-8 h-8" alt="Info Icon" />
-                            <span className="font-oxygen">Drone #{infoDrone.id}</span>
-                        </Typography>
-                        <button onClick={handleClose} className="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
-                    </div>
+                        <div className="flex justify-between items-center mb-4">
+                            <Typography id="modal-title" variant="h4" component="h2" className="flex items-center gap-3 font-oxygen">
+                                <img src={InfoIcon} className="w-8 h-8" alt="Info Icon" />
+                                <span className="font-oxygen">Drone #{infoDrone.id}</span>
+                            </Typography>
+                            <button onClick={handleClose} className="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+                        </div>
 
-                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-slate-50 rounded-lg mb-6">
-                        <div>
-                            <h3 className="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">Status e Energia</h3>
-                            <BateriaDrone battery={infoDrone.bateria} />
-                            <StatusDrone status={infoDrone.status} />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-slate-50 rounded-lg mb-6">
+                            <div>
+                                <h3 className="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">Status e Energia</h3>
+                                <BateriaDrone battery={infoDrone.bateria} />
+                                <StatusDrone status={infoDrone.status} />
+                            </div>
+                            <div className="p-1">
+                                <h3 className="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">Capacidades</h3>
+                                <p className="text-lg text-gray-600 mt-3"><strong>Alcance máximo:</strong> {infoDrone.kmMax} km</p>
+                                <p className="text-lg text-gray-600"><strong>Peso máximo:</strong> {infoDrone.pesoMax} kg</p>
+                            </div>
                         </div>
-                        <div className="p-1">
-                            <h3 className="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">Capacidades</h3>
-                            <p className="text-lg text-gray-600 mt-3"><strong>Alcance máximo:</strong> {infoDrone.kmMax} km</p>
-                            <p className="text-lg text-gray-600"><strong>Peso máximo:</strong> {infoDrone.pesoMax} kg</p>
-                        </div>
-                    </div>
                         <div id="drone-pedidos" className="my-3">
                             <Typography variant="h4" component="h2" className="flex items-center gap-3 mb-7 font-oxygen">
                                 <img src={OrderIcon} className="w-8 h-8" alt="" />
                                 <span className="font-oxygen">Pedidos</span>
                             </Typography>
-                            <div className="infos max-h-48 overflow-y-auto bg-slate-50 rounded-lg p-3 my-5">
-                                {infoDrone.pedidos && infoDrone.pedidos.length > 0 ? (
+                            {infoDrone.pedidos && infoDrone.pedidos.length > 0 ? (
+                                <div className="infos max-h-48 overflow-y-auto bg-slate-50 rounded-lg p-3 my-5">
                                     <ul>
                                         {infoDrone.pedidos.map((pedido) => (
                                             <li key={pedido.id} className="mb-2">
@@ -143,16 +150,17 @@ export default function Dashboard() {
                                             </li>
                                         ))}
                                     </ul>
-                                ) : (
+                                </div>
+                            ) : (
+                                <div className="text-center py-10 bg-slate-50 max-h-96 rounded-lg">
                                     <p>Este drone não possui pedidos associados.</p>
-                                )
-                                }
-                            </div>
+                                    <img src={NoOrderIcon} alt="" className="w-100 m-auto" />
+                                </div>
+                            )}
                         </div>
                     </Box>
                 </Modal>
-            </div >
-            <Title text={"Pedidos | Dashboard"} />
+            </div>
         </>
     )
 }
