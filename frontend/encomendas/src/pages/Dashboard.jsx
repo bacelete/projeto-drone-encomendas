@@ -64,10 +64,9 @@ export default function Dashboard() {
         }
         fetchDrones();
 
-        setTimeout(function () {
-            window.location.reload();
-        }, 8000);
-
+        const interval = setInterval(fetchDrones, 8000); // Atualiza os drones a cada 8 segundos
+        return () => clearInterval(interval); // Limpa o intervalo quando o componente é desmontado
+        
     }, []);
 
     return (
@@ -97,8 +96,7 @@ export default function Dashboard() {
                         width: 800,
                         height: 600,
                         bgcolor: 'background.paper',
-                        border: '2px solid #000',
-                        boxShadow: 24,
+                        boxShadow: 24,  
                         p: 5,
                         borderRadius: 2
                     }}>
@@ -136,11 +134,11 @@ export default function Dashboard() {
                                             <li key={pedido.id} className="mb-2">
                                                 <p className="text-2xl"><strong>ID: {pedido.id}</strong></p>
                                                 <div className="mx-3">
-                                                    <p className="text-lg"><strong>Peso:</strong> {pedido.peso} kg</p>
-                                                    <p className="text-lg"><strong>Localização (X, Y): </strong>
+                                                    <p className="text-lg text-gray-600"><strong>Peso:</strong> {pedido.peso} kg</p>
+                                                    <p className="text-lg text-gray-600"><strong>Localização (X, Y): </strong>
                                                         ({pedido.localizacao.x}, {pedido.localizacao.y})
                                                     </p>
-                                                    <p className="text-lg"><strong>Prioridade: </strong>{pedido.prioridade}</p>
+                                                    <p className="text-lg text-gray-600"><strong>Prioridade: </strong>{pedido.prioridade}</p>
                                                 </div>
                                             </li>
                                         ))}
