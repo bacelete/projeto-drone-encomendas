@@ -28,18 +28,20 @@ public class TempoService {
         }
 
         for (Drone drone : drones) {
-            Entrega entrega = entregaService.criarEntrega(drone);
-            drone.setStatus(StatusDrone.EM_VOO);
-            droneRepository.save(drone);
+            if (!drone.getPedidos().isEmpty()) {
+                Entrega entrega = entregaService.criarEntrega(drone);
+                drone.setStatus(StatusDrone.EM_VOO);
+                droneRepository.save(drone);
 
-            try {
-                Thread.sleep(30000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                entregarPedido(drone);
+                finalizarVoo(drone, entrega);
             }
-
-            entregarPedido(drone);
-            finalizarVoo(drone, entrega);
         }
 
     }

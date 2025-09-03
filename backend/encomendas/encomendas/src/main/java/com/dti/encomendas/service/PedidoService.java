@@ -40,7 +40,10 @@ public class PedidoService {
         ordenarPedidosPorPeso(pedidos);
         PedidosResponseDTO pedidosResponseDTO = alocarPedidos(pedidos, dronesDisponiveis, mapDronePedidos, mapDroneKm, mapDronePeso);
 
-        droneService.iniciarEntregas(mapDronePedidos);
+        if (!mapDronePedidos.isEmpty()) {
+            droneService.iniciarEntregas(mapDronePedidos);
+        }
+
         return pedidosResponseDTO;
     }
 
