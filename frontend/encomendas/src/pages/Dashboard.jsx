@@ -10,11 +10,13 @@ import InfoIcon from '../assets/icons/info.png'
 import OrderIcon from '../assets/icons/order.png'
 import StatusDrone from "../components/StatusDrone";
 import NoOrderIcon from '../assets/icons/no-order.png'
+import Alert from "../components/AlertDrone";
 
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
     const [open, setOpen] = useState(false);
     const [infoDrone, setInfoDrone] = useState({})
+    const [alertOpen, setAlertOpen] = useState(false); 
 
     async function fetchDroneById(id) {
         try {
@@ -73,11 +75,16 @@ export default function Dashboard() {
 
     return (
         <>
-
-
+            {/*Alert*/}
+            {drones.some(drone => drone.bateria == 0) && drones.length > 0 && !alertOpen ? (
+                <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 w-1/2" onClick={() => setTimeout(setAlertOpen(true), 3000)}>
+                    <Alert status={"error"} title={"Bateria Descarregou"} message={`Bateria do drone descarregou!`} />
+                </div>
+            ) : null}
 
             {/* Card do Drone */}
-            <Title text={"Drones | Dashboard"} />
+            <Title text={"Drones"} />
+            <hr />
             <ReloadButton />
             <div className="grid grid-cols-3 gap-6 my-10 bg-gray-300 p-5 rounded-lg shadow-lg w-full">
                 {drones.map((drone) => (
@@ -113,7 +120,7 @@ export default function Dashboard() {
                                 <img src={InfoIcon} className="w-8 h-8" alt="Info Icon" />
                                 <span className="font-oxygen">Drone #{infoDrone.id}</span>
                             </Typography>
-                            <button onClick={handleClose} className="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+                            <button onClick={handleClose} className="text-gray-500 cursor-pointer hover:text-gray-800 text-3xl">&times;</button>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-slate-50 rounded-lg mb-6">
@@ -160,6 +167,8 @@ export default function Dashboard() {
                     </Box>
                 </Modal>
             </div>
+            <Title text={"Pedidos"} />
+            <hr></hr>
         </>
     )
 }

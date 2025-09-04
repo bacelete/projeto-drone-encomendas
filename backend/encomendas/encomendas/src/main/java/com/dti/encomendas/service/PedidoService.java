@@ -85,6 +85,7 @@ public class PedidoService {
             }
 
             double distancia = calcularDistancia(x, y);
+            PedidoDTO pedidoDTO = gerarPedidoComDistancia(pedido, distancia); //order with distance calculated;
 
             for (Drone drone : drones) {
                 double pesoRestante = mapPeso.get(drone);
@@ -92,7 +93,6 @@ public class PedidoService {
 
                 //check if order satisfies the drone conditions;
                 if ((pesoPedido <= pesoRestante) && (distancia <= kmRestante)) {
-                    PedidoDTO pedidoDTO = gerarPedidoComDistancia(pedido, distancia); //order with distance calculated;
                     pedido.setDrone(drone);
 
                     mapPedidos.get(drone).add(pedidoDTO);
