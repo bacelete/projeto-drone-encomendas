@@ -84,13 +84,13 @@ export default function Dashboard() {
 
             {drones.some(drone => drone.statusDrone == "EM_VOO") && drones.length > 0 && !alertOpen ? (
                 <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 w-1/2" onClick={() => setTimeout(setAlertOpen(true), 3000)}>
-                    <Alert status={"warning"} title={"Drone Sobrevoando!"} message={`Drone saiu para entrega!`} />
+                    <Alert status={"warning"} title={"Entregando Pacote"} message={`Drone saiu para entrega!`} />
                 </div>
             ) : null}
 
             {drones.some(drone => drone.statusDrone == "ENTREGANDO") && drones.length > 0 && !alertOpen ? (
                 <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 w-1/2" onClick={() => setTimeout(setAlertOpen(true), 3000)}>
-                    <Alert status={"success"} title={"Entregando Pacote"} message={`Drone está entregando o pacote!`} />
+                    <Alert status={"success"} title={"Pacote Entregue"} message={`Drone está entregando o pacote!`} />
                 </div>
             ) : null}
 
