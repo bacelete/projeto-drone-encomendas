@@ -101,8 +101,7 @@ export default function Dashboard() {
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
                         width: 800,
-                        height: 800,
-                        maxHeight: 1000,
+                        minHeight: 500,
                         bgcolor: 'background.paper',
                         boxShadow: 24,
                         p: 5,
@@ -152,9 +151,9 @@ export default function Dashboard() {
                                     </ul>
                                 </div>
                             ) : (
-                                <div className="text-center py-10 bg-slate-50 max-h-96 rounded-lg">
-                                    <p>Este drone não possui pedidos associados.</p>
-                                    <img src={NoOrderIcon} alt="" className="w-100 m-auto" />
+                                <div className="text-center py-4 bg-slate-50 rounded-lg">
+                                    <p className="text-lg">Este drone não possui pedidos associados.</p>
+                                    <img src={NoOrderIcon} alt="" className="w-75 m-auto" />
                                 </div>
                             )}
                         </div>
