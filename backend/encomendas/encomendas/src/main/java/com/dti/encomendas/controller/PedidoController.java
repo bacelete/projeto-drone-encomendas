@@ -23,4 +23,12 @@ public class PedidoController {
         PedidosResponseDTO pedidosResponseDTO = pedidoService.save(pedidos);
         return ResponseEntity.ok(pedidosResponseDTO);
     }
+
+    public ResponseEntity<List<Pedido>> getPedidos() {
+        if (pedidoService.getPedidos().isEmpty()) {
+            throw new NotFoundException("Não há pedidos disponíveis!");
+        }
+        List<Pedido> pedidos = pedidoService.getPedidos();
+        return ResponseEntity.ok(pedidos); 
+    }
 }

@@ -23,6 +23,8 @@ public class PedidoService {
     @Autowired
     private DroneService droneService;
 
+    public List<Pedido> getPedidos() { return pedidoRepository.findAll(); }
+
     public PedidosResponseDTO save(ArrayList<Pedido> pedidos) {
         List<Drone> dronesDisponiveis = findDronesDisponiveis();
 

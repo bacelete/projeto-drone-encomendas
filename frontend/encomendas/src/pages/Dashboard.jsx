@@ -182,7 +182,7 @@ export default function Dashboard() {
                         boxShadow: 24,
                         overflowY: 'auto',
                         p: 5,
-                        borderRadius: 2
+                        borderRadius: 2,
                     }}>
 
                         <div className="flex justify-between items-center mb-4">
@@ -208,10 +208,10 @@ export default function Dashboard() {
                         <div id="drone-pedidos" className="my-3">
                             <Typography variant="h4" component="h2" className="flex items-center gap-3 mb-7 font-oxygen">
                                 <img src={OrderIcon} className="w-8 h-8" alt="" />
-                                <span className="font-oxygen">Pedidos</span>
+                                <span className="font-oxygen mb-5">Pedidos</span>
                             </Typography>
                             {infoDrone.pedidos && infoDrone.pedidos.length > 0 ? (
-                                <div className="infos max-h-48 overflow-y-auto bg-slate-50 rounded-lg p-3 my-5">
+                                <div className="infos max-h-48 overflow-y-auto bg-slate-50 rounded-lg p-4 my-6">
                                     <ul>
                                         {infoDrone.pedidos.map((pedido) => (
                                             <li key={pedido.id} className="mb-2">
