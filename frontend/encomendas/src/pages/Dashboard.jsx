@@ -106,7 +106,6 @@ export default function Dashboard() {
     return (
         <>
             <AlertToast show={!!alert} onClose={() => setAlert(null)} {...alert} />
-
             {/* Card do Drone */}
             <Title text={"Drones"} />
             <hr />
