@@ -16,7 +16,7 @@ export default function Dashboard() {
     const [drones, setDrones] = useState([]);
     const [open, setOpen] = useState(false);
     const [infoDrone, setInfoDrone] = useState({})
-    const [alertOpen, setAlertOpen] = useState(false); 
+    const [alert, setAlert] = useState(null); // {status, title, message}
 
     async function fetchDroneById(id) {
         try {
@@ -38,6 +38,26 @@ export default function Dashboard() {
         }
     }
 
+    async function fetchDrones() {
+        try {
+            const response = await fetch(`http://localhost:8080/drones/status`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            if (!response.ok) {
+                throw new Error("Erro na requisição!");
+            }
+            const data = await response.json();
+            console.log(data);
+            setDrones(data);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
     const handleOpen = (id) => {
         setOpen(true)
         fetchDroneById(id);
@@ -46,53 +66,46 @@ export default function Dashboard() {
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
-        async function fetchDrones() {
-            try {
-                const response = await fetch(`http://localhost:8080/drones/status`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                })
-                if (!response.ok) {
-                    throw new Error("Erro na requisição!");
-                }
-                const data = await response.json();
-                console.log(data);
-                setDrones(data);
-            }
-            catch (e) {
-                console.log(e);
-            }
-        }
         fetchDrones();
-
-        setTimeout(function () {
-            window.location.reload();
-        }, 8000);
-
+        const interval = setInterval(fetchDrones, 8000);
+        return () => clearInterval(interval);
     }, []);
+
+
+    useEffect(() => {
+        if (drones.length === 0) return;
+
+        if (drones.some(d => d.bateria === 0)) {
+            setAlert({ status: "error", title: "Bateria Descarregou", message: "Bateria do drone descarregou!" });
+        } else if (drones.some(d => d.statusDrone === "EM_VOO")) {
+            setAlert({ status: "warning", title: "Entregando Pacote", message: "Drone saiu para entrega!" });
+        } else if (drones.some(d => d.statusDrone === "ENTREGANDO")) {
+            setAlert({ status: "success", title: "Pacote Entregue", message: "Drone está entregando o pacote!" });
+        } else {
+            setAlert(null);
+        }
+    }, [drones]);
+
+    function AlertToast({ show, onClose, ...props }) {
+        useEffect(() => {
+            if (show) {
+                const timer = setTimeout(() => onClose(), 4000);
+                return () => clearTimeout(timer);
+            }
+        }, [show]);
+
+        if (!show) return null;
+
+        return (
+            <div className="fixed top-5 right-5 z-50 w-96">
+                <Alert {...props} />
+            </div>
+        );
+    }
 
     return (
         <>
-            {/*Alert*/}
-            {drones.some(drone => drone.bateria == 0) && drones.length > 0 && !alertOpen ? (
-                <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 w-1/2" onClick={() => setTimeout(setAlertOpen(true), 3000)}>
-                    <Alert status={"error"} title={"Bateria Descarregou"} message={`Bateria do drone descarregou!`} />
-                </div>
-            ) : null}
-
-            {drones.some(drone => drone.statusDrone == "EM_VOO") && drones.length > 0 && !alertOpen ? (
-                <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 w-1/2" onClick={() => setTimeout(setAlertOpen(true), 3000)}>
-                    <Alert status={"warning"} title={"Entregando Pacote"} message={`Drone saiu para entrega!`} />
-                </div>
-            ) : null}
-
-            {drones.some(drone => drone.statusDrone == "ENTREGANDO") && drones.length > 0 && !alertOpen ? (
-                <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 w-1/2" onClick={() => setTimeout(setAlertOpen(true), 3000)}>
-                    <Alert status={"success"} title={"Pacote Entregue"} message={`Drone está entregando o pacote!`} />
-                </div>
-            ) : null}
+            <AlertToast show={!!alert} onClose={() => setAlert(null)} {...alert} />
 
             {/* Card do Drone */}
             <Title text={"Drones"} />
