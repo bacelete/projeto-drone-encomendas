@@ -3,8 +3,14 @@
     src: url(../src/assets/fonts/Oxygen-Bold.ttf)
 }
 
+@font-face {
+    font-family: Oxygen-Regular;
+    src: url(../src/assets/fonts/Oxygen-Regular.ttf);
+}
+
 @import "tailwindcss";
 
 @theme {
     --font-oxygen: Oxygen, "sans-serif";
+    --font-oxygen-regular: Oxygen-Regular, "sans-serif"
 }

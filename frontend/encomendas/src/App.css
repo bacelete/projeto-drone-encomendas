@@ -5,5 +5,8 @@
   padding: 2rem;
   height: 100vh;  
   width: 100vw;
+}
+
+body {
   background-color: rgb(240, 240, 240);
 }

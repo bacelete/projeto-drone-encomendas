@@ -13,10 +13,11 @@ import NoOrderIcon from '../assets/icons/no-order.png'
 import Alert from "../components/AlertDrone";
 import PedidoCard from "../components/PedidoCards";
 import { Divider } from "antd";
+import EmptyCart from '../assets/icons/empty-cart.png'
 
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
-    const [pedidos, setPedidos] = useState([]); 
+    const [pedidos, setPedidos] = useState([]);
     const [open, setOpen] = useState(false);
     const [infoDrone, setInfoDrone] = useState({})
     const [alert, setAlert] = useState(null); // {status, title, message}
@@ -62,7 +63,7 @@ export default function Dashboard() {
     }
 
     async function fetchPedidos() {
-         try {
+        try {
             const response = await fetch(`http://localhost:8080/pedidos`, {
                 method: 'GET',
                 headers: {
@@ -95,8 +96,8 @@ export default function Dashboard() {
     }, []);
 
     useEffect(() => {
-        fetchPedidos(); 
-    }, []); 
+        fetchPedidos();
+    }, []);
 
 
     useEffect(() => {
@@ -132,18 +133,35 @@ export default function Dashboard() {
 
     return (
         <>
+            {/* Alerta */}
             <AlertToast show={!!alert} onClose={() => setAlert(null)} {...alert} />
             {/* Card do Drone */}
             <Title text={"Drones"} />
             <Divider />
             <ReloadButton />
-            <div className="grid grid-cols-3 gap-6 my-10 bg-gray-300 p-5 rounded-lg shadow-lg w-full">
+            <div className="grid grid-cols-3 gap-6 my-10 bg-gray-200 p-5 rounded-lg shadow-lg w-full">
                 {drones.map((drone) => (
                     <DroneCard key={drone.id} drone={drone} onClick={() => {
                         handleOpen(drone.id);
                     }} />
                 ))}
             </div>
+
+            {/* Card do Pedidos */}
+            <Title text={"Pedidos"} />
+            <Divider />
+            {pedidos.length > 0 ? (
+                <div>
+                    {pedidos.map((pedido) => (
+                        <PedidoCard id={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade}></PedidoCard>
+                    ))}
+                </div>
+            ) : (
+                <div className="w-110 m-auto text-center">
+                    <img src={EmptyCart} alt="" />
+                    <p className="text-3xl font-oxygen-regular my-5">Não há pedidos no momento...</p>
+                </div>
+            )}
 
             {/* Modal do Drone */}
             <div>
@@ -158,10 +176,11 @@ export default function Dashboard() {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 800,
+                        width: { xs: '90%', sm: '70%', md: '50%', lg: '40%' },
                         minHeight: 500,
                         bgcolor: 'background.paper',
                         boxShadow: 24,
+                        overflowY: 'auto',
                         p: 5,
                         borderRadius: 2
                     }}>
@@ -218,16 +237,6 @@ export default function Dashboard() {
                     </Box>
                 </Modal>
             </div>
-            {/* Modal de Pedidos */}
-            <Title text={"Pedidos"} />
-            <Divider />
-
-            <div>
-                {pedidos.map((pedido) => (
-                    <PedidoCard id={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade}></PedidoCard>
-                ))}
-            </div>
-
         </>
     )
 }

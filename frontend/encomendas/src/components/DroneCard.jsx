@@ -1,8 +1,6 @@
 import DroneIcon from '../assets/icons/drone.png';
 import BateriaDrone from './BateriaDrone';
-import DroneInfos from './DroneInfos';
 import StatusDrone from './StatusDrone';
-import { useState } from 'react';
 
 export default function DroneCard({ drone, onClick }) {
    

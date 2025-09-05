@@ -12,10 +12,9 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/drones/**").allowedOrigins("http://localhost:5173");
-                registry.addMapping("/entregas/**").allowedOrigins("http://localhost:5173");
-                registry.addMapping("/pedidos").allowedOrigins("http://localhost:5173");
-                registry.addMapping("/relatorio/**").allowedOrigins("http://localhost:5173");
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:5173")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
             }
         };
     }
