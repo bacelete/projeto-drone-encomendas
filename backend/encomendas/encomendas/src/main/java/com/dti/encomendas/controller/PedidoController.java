@@ -24,11 +24,12 @@ public class PedidoController {
         return ResponseEntity.ok(pedidosResponseDTO);
     }
 
+    @GetMapping
     public ResponseEntity<List<Pedido>> getPedidos() {
         if (pedidoService.getPedidos().isEmpty()) {
             throw new NotFoundException("Não há pedidos disponíveis!");
         }
         List<Pedido> pedidos = pedidoService.getPedidos();
-        return ResponseEntity.ok(pedidos); 
+        return ResponseEntity.ok(pedidos);
     }
 }

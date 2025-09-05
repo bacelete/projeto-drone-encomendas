@@ -13,7 +13,7 @@ export default function DroneCard({ drone, onClick }) {
                 <img
                     src={DroneIcon}
                     alt="Drone Icon"
-                    className="w-18 h-18 object-contain my-auto mx-2"
+                    className="w-18 h-18 object-contain my-auto mx-2 hover:translate-y-2 duration-300 ease-out hover:scale-110"
                 />
                 <div id="card-drone" className='mx-3'>
                     <p id='titulo' className='font-oxygen font-bold text-2xl'>Drone {drone.id}</p>
