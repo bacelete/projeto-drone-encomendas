@@ -28,7 +28,7 @@ export default function PedidoCard({ id, peso, prioridade = 'baixa', status = 'a
                 }
                 style={{
                     width: 325,
-                    height: 220,
+                    height: 380,
                     borderRadius: '8px',
                     boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
                 }}
@@ -47,8 +47,9 @@ export default function PedidoCard({ id, peso, prioridade = 'baixa', status = 'a
 
                     <div>
                         <Steps
+                            progressDot
                             current={currentStep}
-                            size="small"
+                            direction="vertical"
                             items={[
                                 { title: 'Aguardando' },
                                 { title: 'Preparando' },

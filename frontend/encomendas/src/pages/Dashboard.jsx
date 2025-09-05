@@ -139,7 +139,7 @@ export default function Dashboard() {
             <Title text={"Drones"} />
             <Divider />
             <ReloadButton />
-            <div className="grid grid-cols-3 gap-6 my-10 bg-gray-100 p-5 rounded-lg shadow-lg w-full">
+            <div className="grid grid-cols-3 gap-6 my-10 bg-gray-20 p-5 rounded-lg shadow-sm w-full">
                 {drones.map((drone) => (
                     <DroneCard key={drone.id} drone={drone} onClick={() => {
                         handleOpen(drone.id);
