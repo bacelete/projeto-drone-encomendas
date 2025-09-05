@@ -7,6 +7,6 @@ export default function ReloadButton() {
     };
 
     return (
-        <Button type="primary" onClick={handleRefresh} className="mt-4 font-oxygen">Atualizar página</Button>
+        <Button type="primary" onClick={handleRefresh} className="font-oxygen">Atualizar página</Button>
     );
 }

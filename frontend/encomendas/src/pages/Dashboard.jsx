@@ -11,9 +11,12 @@ import OrderIcon from '../assets/icons/order.png'
 import StatusDrone from "../components/StatusDrone";
 import NoOrderIcon from '../assets/icons/no-order.png'
 import Alert from "../components/AlertDrone";
+import PedidoCard from "../components/PedidoCards";
+import { Divider } from "antd";
 
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
+    const [pedidos, setPedidos] = useState([]); 
     const [open, setOpen] = useState(false);
     const [infoDrone, setInfoDrone] = useState({})
     const [alert, setAlert] = useState(null); // {status, title, message}
@@ -58,6 +61,26 @@ export default function Dashboard() {
         }
     }
 
+    async function fetchPedidos() {
+         try {
+            const response = await fetch(`http://localhost:8080/pedidos`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            if (!response.ok) {
+                throw new Error("Erro na requisição!");
+            }
+            const data = await response.json();
+            console.log(data);
+            setPedidos(data);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
     const handleOpen = (id) => {
         setOpen(true)
         fetchDroneById(id);
@@ -70,6 +93,10 @@ export default function Dashboard() {
         const interval = setInterval(fetchDrones, 8000);
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        fetchPedidos(); 
+    }, []); 
 
 
     useEffect(() => {
@@ -108,7 +135,7 @@ export default function Dashboard() {
             <AlertToast show={!!alert} onClose={() => setAlert(null)} {...alert} />
             {/* Card do Drone */}
             <Title text={"Drones"} />
-            <hr />
+            <Divider />
             <ReloadButton />
             <div className="grid grid-cols-3 gap-6 my-10 bg-gray-300 p-5 rounded-lg shadow-lg w-full">
                 {drones.map((drone) => (
@@ -191,8 +218,16 @@ export default function Dashboard() {
                     </Box>
                 </Modal>
             </div>
+            {/* Modal de Pedidos */}
             <Title text={"Pedidos"} />
-            <hr></hr>
+            <Divider />
+
+            <div>
+                {pedidos.map((pedido) => (
+                    <PedidoCard id={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade}></PedidoCard>
+                ))}
+            </div>
+
         </>
     )
 }
