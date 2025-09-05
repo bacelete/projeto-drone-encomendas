@@ -15,7 +15,7 @@ export default function StatusDrone({ status }) {
         <div className="flex gap-2">
             <span className="text-lg">Status:</span>
             <p className={`p-1 rounded text-center ${getColorClass(status)}`}>
-                <span className="font-bold p-2">{status}</span>
+                <span className="font-oxygen p-2">{status}</span>
                 {isLoading && (
                     <svg
                         className="size-3 animate-spin align-middle inline-block"
