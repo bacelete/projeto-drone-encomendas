@@ -8,7 +8,7 @@ export default function DroneCard({ drone, onClick }) {
         <>
             <div onClick={onClick} 
             commandfor="dialog"
-            className='bg-white p-4 rounded-md flex gap-3 text-gray-800 opacity-80 shadow-lg cursor-pointer
+            className='bg-white p-4 rounded-md flex gap-3 text-gray-800 opacity-90 shadow-lg cursor-pointer
          transition-transform duration-300 ease-in-out hover:scale-105'>
                 <img
                     src={DroneIcon}
