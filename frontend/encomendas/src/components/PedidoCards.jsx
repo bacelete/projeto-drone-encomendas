@@ -1,10 +1,9 @@
 import { Card, Tag, Steps } from "antd";
-import { CarryOutOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
-export default function PedidoCard({ id, peso, prioridade }) {
+export default function PedidoCard({ id, peso, prioridade = 'baixa', status = 'aguardando' }) {
     const prioridadeMap = {
         alta: { color: 'volcano', text: 'Alta' },
-        media: { color: 'orange', text: 'Média' },
+        media: { color: 'orange', text: 'Media' },
         baixa: { color: 'green', text: 'Baixa' },
     };
 
@@ -19,9 +18,14 @@ export default function PedidoCard({ id, peso, prioridade }) {
     const currentStep = statusSteps[status.toLowerCase()] || 0;
 
     return (
-        <div className="transition-transform duration-300 ease-in-out hover:scale-101 cursor-pointer">
+        <div className="flex transition-transform duration-300 ease-in-out hover:scale-105">
             <Card
-                title={`Pedido ${id}`}
+                className="font-oxygen-regular"
+                title={
+                    <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                        {`Pedido ${id}`}
+                    </div>
+                }
                 style={{
                     width: 325,
                     height: 220,
@@ -30,20 +34,17 @@ export default function PedidoCard({ id, peso, prioridade }) {
                 }}
                 key={id}
             >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <CarryOutOutlined />
-                            <span>Peso: <strong>{peso} kg</strong></span>
+                            <span className="text-[18px]">Peso: <strong>{peso} kg</strong></span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <ThunderboltOutlined />
-                            <span>Prioridade:</span>
+                            <span className="text-[18px]">Prioridade:</span>
                             <Tag color={prioridadeInfo.color}>{prioridadeInfo.text}</Tag>
                         </div>
                     </div>
 
-                    {/* Novo Componente de Status do Pedido */}
                     <div>
                         <Steps
                             current={currentStep}
