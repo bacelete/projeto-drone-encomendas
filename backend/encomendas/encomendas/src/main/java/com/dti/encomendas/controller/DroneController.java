@@ -7,6 +7,7 @@ import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.service.DroneService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,12 @@ public class DroneController {
     @PostMapping
     public ResponseEntity<HttpStatus> criarDrone(@RequestBody @Valid List<DroneRequestDTO> dronesRequestDTO) {
         droneService.saveAll(dronesRequestDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<HttpStatus> criarDrone(@RequestBody @Valid DroneRequestDTO droneRequestDTO) {
+        droneService.save(droneRequestDTO);
         return ResponseEntity.ok().build();
     }
 

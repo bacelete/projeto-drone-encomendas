@@ -4,7 +4,7 @@ import Zoom from '@mui/material/Zoom';
 import { Button, Form, InputNumber } from 'antd';
 import { useState } from 'react';
 
-export default function FormDrone({ open, onClose, onDroneCreated }) {
+export default function FormDrone({ open, onClose }) {
     const [form] = Form.useForm();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -17,8 +17,10 @@ export default function FormDrone({ open, onClose, onDroneCreated }) {
             bateria: values.bateria,
         };
 
+        console.log(dataToSend);
+
         try {
-            const response = await fetch(`http://localhost:8080/drones`, {
+            const response = await fetch(`http://localhost:8080/drones/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,7 +34,6 @@ export default function FormDrone({ open, onClose, onDroneCreated }) {
 
             console.log("Drone criado com sucesso!");
             form.resetFields(); 
-            onDroneCreated();   
             onClose();         
 
         } catch (e) {

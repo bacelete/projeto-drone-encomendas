@@ -161,7 +161,7 @@ export default function Dashboard() {
             <Box className="my-10">
                 <div className="flex items-center gap-4">
                     <Title text={"Drones"} />
-                    <Button type="primary" onClick={handleOpenForm} danger><span className="font-oxygen-regular">Adicionar drone</span></Button>
+                    <Button type="primary" size='medium' onClick={handleOpenForm} danger><span className="font-oxygen-regular">Criar</span></Button>
                 </div>
 
                 <Divider />
@@ -183,7 +183,7 @@ export default function Dashboard() {
                 {/* Card do Pedidos */}
                 <div className="flex items-center gap-4">
                     <Title text={"Pedidos"} />
-                    <Button type="primary" danger><span className="font-oxygen-regular">Adicionar pedido</span></Button>
+                    <Button type="primary" danger size="medium"><span className="font-oxygen-regular">Criar</span></Button>
                 </div>
                 <Divider />
                 {pedidos.length > 0 ? (
