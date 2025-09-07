@@ -11,13 +11,14 @@ import OrderIcon from '../assets/icons/order.png'
 import StatusDrone from "../components/StatusDrone";
 import NoOrderIcon from '../assets/icons/no-order.png'
 import Alert from "../components/AlertDrone";
-import PedidoCard from "../components/PedidoCards";
+import PedidoCard from "../components/PedidoCard";
 import { Divider } from "antd";
 import EmptyCartIcon from '../assets/icons/empty-cart.png'
 import { Button } from 'antd';
 import NoDronesIcon from '../assets/icons/no-drones.png'
 import Grow from '@mui/material/Grow';
 import Zoom from '@mui/material/Zoom';
+import FormDrone from "../components/FormDrone";
 
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
@@ -139,18 +140,25 @@ export default function Dashboard() {
     }
 
     const handleOpenForm = () => {
-        setOpenForm(true);
+        setOpenForm(true); 
     }
 
-    const handleCloseForm = () => setOpenForm(false);
+    const handleCloseForm = () => {
+        setOpenForm(false); 
+    }
 
     return (
         <>
-            {/* Alerta */}
+
             <ReloadButton />
+            {/* Alerta */}
             <AlertToast show={!!alert} onClose={() => setAlert(null)} {...alert} />
+
+            {/* Form do Drone */}
+            <FormDrone open={openForm} onClose={handleCloseForm}></FormDrone>
+
+            {/* Card do Drone */}
             <Box className="my-10">
-                {/* Card do Drone */}
                 <div className="flex items-center gap-4">
                     <Title text={"Drones"} />
                     <Button type="primary" onClick={handleOpenForm} danger><span className="font-oxygen-regular">Adicionar drone</span></Button>
@@ -181,7 +189,7 @@ export default function Dashboard() {
                 {pedidos.length > 0 ? (
                     <div className="flex gap-4">
                         {pedidos.map((pedido) => (
-                            <PedidoCard id={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade}></PedidoCard>
+                            <PedidoCard id={pedido.id} key={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade}></PedidoCard>
                         ))}
                     </div>
                 ) : (
@@ -191,37 +199,7 @@ export default function Dashboard() {
                     </div>
                 )}
 
-                {/* Form do Drone */}
-                <div>
-                    <Modal
-                        open={openForm}
-                        onClose={handleCloseForm}
-                        onClick={(e) => e.stopPropagation()}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                        className={`
-                            ${openForm ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}
-                            `}
-                    >
-                        <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '15px' }}>
-                            <Zoom in={openForm}>
-                                <Box sx={{
-                                    position: 'absolute',
-                                    width: { xs: '90%', sm: '70%', md: '50%', lg: '40%' },
-                                    minHeight: 400,
-                                    bgcolor: 'background.paper',
-                                    boxShadow: 24,
-                                    overflowY: 'auto',
-                                    p: 5,
-                                    borderRadius: 2,
-                                }}>
-                                    <div>Opened!</div>
-                                </Box>
-                            </Zoom>
-                        </Box>
-                    </Modal>
 
-                </div>
 
 
                 {/* Modal do Drone */}
