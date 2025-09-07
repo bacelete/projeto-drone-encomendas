@@ -13,8 +13,9 @@ import NoOrderIcon from '../assets/icons/no-order.png'
 import Alert from "../components/AlertDrone";
 import PedidoCard from "../components/PedidoCards";
 import { Divider } from "antd";
-import EmptyCart from '../assets/icons/empty-cart.png'
-import { Button, Flex } from 'antd';
+import EmptyCartIcon from '../assets/icons/empty-cart.png'
+import { Button } from 'antd';
+import NoDronesIcon from '../assets/icons/no-drones.png'
 
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
@@ -145,6 +146,7 @@ export default function Dashboard() {
                 </div>
 
                 <Divider />
+                {drones.length > 0 ? (
                 <div className="grid grid-cols-3 gap-6 my-10 bg-gray-20 p-7 rounded-lg shadow-sm w-full">
                     {drones.map((drone) => (
                         <DroneCard key={drone.id} drone={drone} onClick={() => {
@@ -152,6 +154,12 @@ export default function Dashboard() {
                         }} />
                     ))}
                 </div>
+                ) : (
+                    <div className="w-110 m-auto text-center">
+                        <img src={NoDronesIcon} alt="" />
+                        <p className="text-2xl font-oxygen-regular my-5">Não há drones disponíveis momento...</p>
+                    </div>
+                )}
 
                 {/* Card do Pedidos */}
                 <div className="flex items-center gap-4">
@@ -167,8 +175,8 @@ export default function Dashboard() {
                     </div>
                 ) : (
                     <div className="w-110 m-auto text-center">
-                        <img src={EmptyCart} alt="" />
-                        <p className="text-3xl font-oxygen-regular my-5">Não há pedidos no momento...</p>
+                        <img src={EmptyCartIcon} alt="" />
+                        <p className="text-2xl font-oxygen-regular my-5">Não há pedidos no momento...</p>
                     </div>
                 )}
 
