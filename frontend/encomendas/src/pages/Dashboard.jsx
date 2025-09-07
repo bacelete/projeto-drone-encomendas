@@ -147,17 +147,17 @@ export default function Dashboard() {
 
                 <Divider />
                 {drones.length > 0 ? (
-                <div className="grid grid-cols-3 gap-6 my-10 bg-gray-20 p-7 rounded-lg shadow-sm w-full">
-                    {drones.map((drone) => (
-                        <DroneCard key={drone.id} drone={drone} onClick={() => {
-                            handleOpen(drone.id);
-                        }} />
-                    ))}
-                </div>
+                    <div className="grid grid-cols-3 gap-6 my-10 bg-gray-20 p-7 rounded-lg shadow-sm w-full">
+                        {drones.map((drone) => (
+                            <DroneCard key={drone.id} drone={drone} onClick={() => {
+                                handleOpen(drone.id);
+                            }} />
+                        ))}
+                    </div>
                 ) : (
                     <div className="w-110 m-auto text-center">
                         <img src={NoDronesIcon} alt="" />
-                        <p className="text-2xl font-oxygen-regular my-5">Não há drones disponíveis momento...</p>
+                        <p className="text-2xl font-oxygen-regular my-5">Não há drones disponíveis no momento...</p>
                     </div>
                 )}
 
@@ -181,12 +181,17 @@ export default function Dashboard() {
                 )}
 
                 {/* Modal do Drone */}
-                <div>
+                <div className="">
                     <Modal
                         open={open}
                         onClose={handleClose}
+                        onClick={(e) => e.stopPropagation()}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
+                        className={`
+                            transform rounded-lg bg-white p-8 shadow-xl transition-all duration-500 ease-in-out
+                            ${open ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}
+                            `}
                     >
                         <Box sx={{
                             position: 'absolute',
@@ -194,7 +199,7 @@ export default function Dashboard() {
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
                             width: { xs: '90%', sm: '70%', md: '50%', lg: '40%' },
-                            minHeight: 500,
+                            minHeight: 400,
                             bgcolor: 'background.paper',
                             boxShadow: 24,
                             overflowY: 'auto',
