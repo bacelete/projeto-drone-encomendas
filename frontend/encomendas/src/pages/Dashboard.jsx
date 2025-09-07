@@ -196,7 +196,7 @@ export default function Dashboard() {
                             ${open ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}
                             `}
                     >
-                        <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '15px'}}>
                             <Zoom in={open}>
                                 <Box sx={{
                                     position: 'absolute',
