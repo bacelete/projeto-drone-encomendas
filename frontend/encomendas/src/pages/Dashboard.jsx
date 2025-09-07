@@ -25,6 +25,7 @@ export default function Dashboard() {
     const [open, setOpen] = useState(false);
     const [infoDrone, setInfoDrone] = useState({})
     const [alert, setAlert] = useState(null); // {status, title, message}
+    const [openForm, setOpenForm] = useState(false);
 
     async function fetchDroneById(id) {
         try {
@@ -137,6 +138,12 @@ export default function Dashboard() {
         );
     }
 
+    const handleOpenForm = () => {
+        setOpenForm(true);
+    }
+
+    const handleCloseForm = () => setOpenForm(false);
+
     return (
         <>
             {/* Alerta */}
@@ -146,7 +153,7 @@ export default function Dashboard() {
                 {/* Card do Drone */}
                 <div className="flex items-center gap-4">
                     <Title text={"Drones"} />
-                    <Button type="primary" danger><span className="font-oxygen-regular">Adicionar drone</span></Button>
+                    <Button type="primary" onClick={handleOpenForm} danger><span className="font-oxygen-regular">Adicionar drone</span></Button>
                 </div>
 
                 <Divider />
@@ -184,6 +191,39 @@ export default function Dashboard() {
                     </div>
                 )}
 
+                {/* Form do Drone */}
+                <div>
+                    <Modal
+                        open={openForm}
+                        onClose={handleCloseForm}
+                        onClick={(e) => e.stopPropagation()}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                        className={`
+                            ${openForm ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}
+                            `}
+                    >
+                        <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '15px' }}>
+                            <Zoom in={openForm}>
+                                <Box sx={{
+                                    position: 'absolute',
+                                    width: { xs: '90%', sm: '70%', md: '50%', lg: '40%' },
+                                    minHeight: 400,
+                                    bgcolor: 'background.paper',
+                                    boxShadow: 24,
+                                    overflowY: 'auto',
+                                    p: 5,
+                                    borderRadius: 2,
+                                }}>
+                                    <div>Opened!</div>
+                                </Box>
+                            </Zoom>
+                        </Box>
+                    </Modal>
+
+                </div>
+
+
                 {/* Modal do Drone */}
                 <div>
                     <Modal
@@ -196,7 +236,7 @@ export default function Dashboard() {
                             ${open ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}
                             `}
                     >
-                        <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '15px'}}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '15px' }}>
                             <Zoom in={open}>
                                 <Box sx={{
                                     position: 'absolute',
