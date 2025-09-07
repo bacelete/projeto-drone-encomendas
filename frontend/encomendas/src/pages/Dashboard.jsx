@@ -127,7 +127,8 @@ export default function Dashboard() {
         if (!show) return null;
 
         return (
-            <div className="fixed top-5 right-5 z-50 w-96">
+            <div className={`fixed top-5 right-5 z-50 w-96 font-oxygen-regular transform transition-all duration-400 ease-in-out
+            ${show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}>
                 <Alert {...props} />
             </div>
         );
