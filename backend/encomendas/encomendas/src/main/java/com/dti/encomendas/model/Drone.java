@@ -40,7 +40,7 @@ public class Drone {
     public Drone() {
     }
 
-    public Drone(@Min(value = 0) @Max(value = 100) int bateria, @Positive(message = "O peso máximo deve ser um valor positivo") double pesoMax, @Positive(message = "O peso máximo deve ser um valor positivo") double pesoMax1, StatusDrone statusDrone) {
+    public Drone(@Min(value = 0) @Max(value = 100) int bateria, @Positive(message = "O peso máximo deve ser um valor positivo") double pesoMax, @Positive(message = "O alcance máximo deve ser um valor positivo") double kmMax, StatusDrone statusDrone) {
     }
 
     @Override

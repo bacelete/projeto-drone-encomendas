@@ -33,7 +33,7 @@ public class DroneService {
 
     public void save(DroneRequestDTO droneRequestDTO) {
         Drone drone = new Drone(droneRequestDTO.getBateria(), droneRequestDTO.getPesoMax(),
-                droneRequestDTO.getPesoMax(), StatusDrone.IDLE);
+                droneRequestDTO.getKmMax(), StatusDrone.IDLE);
         droneRepository.save(drone);
     }
 
