@@ -30,11 +30,13 @@ public class DroneService {
 
     public static final long VELOCIDADE_MEDIA = 80;
 
-
     public void save(DroneRequestDTO droneRequestDTO) {
-        Drone drone = new Drone(droneRequestDTO.getBateria(), droneRequestDTO.getPesoMax(),
-                droneRequestDTO.getKmMax(), StatusDrone.IDLE);
-        droneRepository.save(drone);
+        Drone novo = new Drone();
+        novo.setBateria(droneRequestDTO.getBateria());
+        novo.setKmMax(droneRequestDTO.getKmMax());
+        novo.setPesoMax(droneRequestDTO.getPesoMax());
+        novo.setStatus(StatusDrone.IDLE);
+        droneRepository.save(novo);
     }
 
     public void saveAll(List<DroneRequestDTO> dronesRequestDTO) {
