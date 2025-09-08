@@ -4,6 +4,7 @@ import com.dti.encomendas.dto.DroneRequestDTO;
 import com.dti.encomendas.dto.DroneResponseDTO;
 import com.dti.encomendas.dto.PedidoDTO;
 import com.dti.encomendas.enums.StatusDrone;
+import com.dti.encomendas.factory.DroneFactory;
 import com.dti.encomendas.model.Drone;
 import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.repository.DroneRepository;
@@ -31,7 +32,7 @@ public class DroneService {
     public static final long VELOCIDADE_MEDIA = 80;
 
     public void save(DroneRequestDTO droneRequestDTO) {
-        Drone novo = new Drone();
+        Drone novo = DroneFactory.createDrone();
         novo.setBateria(droneRequestDTO.getBateria());
         novo.setKmMax(droneRequestDTO.getKmMax());
         novo.setPesoMax(droneRequestDTO.getPesoMax());
@@ -43,7 +44,7 @@ public class DroneService {
         List<Drone> drones = new ArrayList<>();
 
         for (DroneRequestDTO drone : dronesRequestDTO) {
-            Drone novo = new Drone();
+            Drone novo = DroneFactory.createDrone();
             novo.setBateria(drone.getBateria());
             novo.setKmMax(drone.getKmMax());
             novo.setPesoMax(drone.getPesoMax());
