@@ -12,13 +12,14 @@ import StatusDrone from "../components/StatusDrone";
 import NoOrderIcon from '../assets/icons/no-order.png'
 import Alert from "../components/AlertDrone";
 import PedidoCard from "../components/PedidoCard";
-import { Divider } from "antd";
 import EmptyCartIcon from '../assets/icons/empty-cart.png'
 import { Button } from 'antd';
 import NoDronesIcon from '../assets/icons/no-drones.png'
 import Grow from '@mui/material/Grow';
 import Zoom from '@mui/material/Zoom';
 import DroneForm from "../components/DroneForm";
+import { Divider } from "antd";
+
 
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
@@ -243,8 +244,8 @@ export default function Dashboard() {
                                         </div>
                                         <div className="p-1">
                                             <h3 className="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">Capacidades</h3>
-                                            <p className="text-lg text-gray-600 mt-3"><strong>Alcance máximo:</strong> {infoDrone.kmMax} km</p>
-                                            <p className="text-lg text-gray-600"><strong>Peso máximo:</strong> {infoDrone.pesoMax} kg</p>
+                                            <p className="text-lg mt-3">Alcance máximo: <strong>{infoDrone.kmMax} km</strong></p>
+                                            <p className="text-lg">Peso máximo: <strong>{infoDrone.pesoMax} kg</strong></p>
                                         </div>
                                     </div>
                                     <div id="drone-pedidos" className="my-3">
