@@ -35,7 +35,7 @@ export default function FormDrone({ open, onClose }) {
             console.log("Drone criado com sucesso!");
             form.resetFields(); 
             onClose();         
-
+            window.location.reload(); 
         } catch (e) {
             console.error(e);
             // Aqui você poderia mostrar uma notificação de erro ao usuário
