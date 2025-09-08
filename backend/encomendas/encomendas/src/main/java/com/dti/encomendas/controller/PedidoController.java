@@ -6,6 +6,7 @@ import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.service.PedidoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class PedidoController {
 
     @PostMapping
     public ResponseEntity<PedidosResponseDTO> criarPedidos(@RequestBody @Valid ArrayList<Pedido> pedidos) {
-        PedidosResponseDTO pedidosResponseDTO = pedidoService.save(pedidos);
+        PedidosResponseDTO pedidosResponseDTO = pedidoService.saveAll(pedidos);
         return ResponseEntity.ok(pedidosResponseDTO);
     }
 

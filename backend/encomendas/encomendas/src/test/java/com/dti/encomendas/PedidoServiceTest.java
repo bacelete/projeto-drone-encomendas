@@ -70,7 +70,7 @@ class PedidoServiceTest {
         pedidos.add(pedidoValido);
 
         // Act
-        PedidosResponseDTO resultado = pedidoService.save(pedidos);
+        PedidosResponseDTO resultado = pedidoService.saveAll(pedidos);
 
         // Assert
         assertNotNull(resultado);
@@ -90,7 +90,7 @@ class PedidoServiceTest {
         pedidos.add(pedidoPesado);
 
         // Act
-        PedidosResponseDTO resultado = pedidoService.save(pedidos);
+        PedidosResponseDTO resultado = pedidoService.saveAll(pedidos);
 
         // Assert
         assertNotNull(resultado);
@@ -108,7 +108,7 @@ class PedidoServiceTest {
         pedidos.add(pedidoDistante);
 
         // Act
-        PedidosResponseDTO resultado = pedidoService.save(pedidos);
+        PedidosResponseDTO resultado = pedidoService.saveAll(pedidos);
 
         // Assert
         assertNotNull(resultado);
@@ -126,7 +126,7 @@ class PedidoServiceTest {
 
         // Act & Assert
         assertThrows(com.dti.encomendas.exception.NotFoundException.class, () -> {
-            pedidoService.save(pedidos);
+            pedidoService.saveAll(pedidos);
         });
     }
 }
