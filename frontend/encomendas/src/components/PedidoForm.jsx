@@ -98,6 +98,25 @@ export default function PedidoForm({ open, onClose }) {
                                             addonAfter="kg"
                                         />
                                     </Form.Item>
+
+                                    <Space style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                                        <Form.Item
+                                            label="Coordenada X"
+                                            name={['localizacao', 'x']}
+                                            rules={[{ required: true, message: 'Insira a coordenada X!' }]}
+                                        >
+                                            <InputNumber size='large' style={{ width: '100%' }} />
+                                        </Form.Item>
+                                        <Form.Item
+                                            label="Coordenada Y"
+                                            name={['localizacao', 'y']}
+                                            rules={[{ required: true, message: 'Insira a coordenada Y!' }]}
+                                        >
+                                            <InputNumber size='large' style={{ width: '100%' }} />
+                                        </Form.Item>
+                                    </Space>
+
+
                                     <Form.Item
                                         label="Prioridade"
                                         name="prioridade"
@@ -111,7 +130,6 @@ export default function PedidoForm({ open, onClose }) {
                                                     { value: 'Alta', label: 'Alta' },
                                                     { value: 'Media', label: 'Média' },
                                                     { value: 'Baixa', label: 'Baixa' },
-                                                    { value: 'disabled', label: 'Disabled', disabled: true },
                                                 ]}
                                                 getPopupContainer={triggerNode => triggerNode.parentNode}
                                             />
