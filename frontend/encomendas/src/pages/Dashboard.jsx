@@ -19,6 +19,7 @@ import Grow from '@mui/material/Grow';
 import Zoom from '@mui/material/Zoom';
 import DroneForm from "../components/DroneForm";
 import { Divider } from "antd";
+import PedidoForm from '../components/PedidoForm'; 
 
 
 export default function Dashboard() {
@@ -28,6 +29,7 @@ export default function Dashboard() {
     const [infoDrone, setInfoDrone] = useState({})
     const [alert, setAlert] = useState(null); // {status, title, message}
     const [openForm, setOpenForm] = useState(false);
+    const [openPedidoForm, setOpenPedidoForm] = useState(false);
 
     async function fetchDroneById(id) {
         try {
@@ -148,6 +150,14 @@ export default function Dashboard() {
         setOpenForm(false);
     }
 
+    const handleOpenPedidoForm = () => {
+        setOpenPedidoForm(true); 
+    }
+
+    const handleClosePedidoForm = () => {
+        setOpenPedidoForm(false); 
+    }
+
     return (
         <>
 
@@ -181,10 +191,13 @@ export default function Dashboard() {
                     </div>
                 )}
 
+                {/* Form do Pedido */}
+                <PedidoForm open={openPedidoForm} onClose={handleClosePedidoForm}></PedidoForm>
+
                 {/* Card do Pedidos */}
                 <div className="flex items-center gap-5 mt-20">
                     <Title text={"Pedidos"} />
-                    <Button type="primary" size="medium"><span className="font-oxygen-regular">Criar</span></Button>
+                    <Button type="primary" size="medium" onClick={handleOpenPedidoForm}><span className="font-oxygen-regular">Criar</span></Button>
                 </div>
                 <Divider />
                 {pedidos.length > 0 ? (
@@ -199,8 +212,6 @@ export default function Dashboard() {
                         <p className="text-2xl font-oxygen-regular my-5">Não há pedidos no momento...</p>
                     </div>
                 )}
-
-
 
 
                 {/* Modal do Drone */}

@@ -4,6 +4,7 @@ import Zoom from '@mui/material/Zoom';
 import { Button, Form, Input, InputNumber } from 'antd';
 import AlertDrone from './AlertDrone';
 import { useState } from 'react';
+import { Select, Space } from 'antd';
 
 export default function PedidoForm({ open, onClose }) {
     const [form] = Form.useForm();
@@ -17,19 +18,19 @@ export default function PedidoForm({ open, onClose }) {
     const onFinish = async (values) => {
         setIsLoading(true);
 
-        const dataToSend = {
-            peso: values.peso, 
+        const dataToSend = [{
+            peso: values.peso,
+            prioridade: values.prioridade,
             localizacao: {
-                x: values.x,
-                y: values.y,
+                x: values.localizacao.x,
+                y: values.localizacao.y,
             },
-            prioridade: values.prioridade
-        };
+        }];
 
         console.log(dataToSend);
 
         try {
-            const response = await fetch(`http://localhost:8080/pedidos/create`, {
+            const response = await fetch(`http://localhost:8080/pedidos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,6 +54,10 @@ export default function PedidoForm({ open, onClose }) {
         }
     };
 
+    const handleChange = value => {
+        console.log(`selected ${value}`);
+    };
+
     return (
         <>
             {alertOpen &&
@@ -74,13 +79,11 @@ export default function PedidoForm({ open, onClose }) {
                         <Zoom in={open}>
                             <div>
                                 <h1 className='text-3xl font-oxygen mb-6'>Adicionar Novo Pedido</h1>
-                                {/* 4. Conectar a instância do formulário e usar layout vertical */}
                                 <Form
                                     form={form}
-                                    name="drone_form"
+                                    name="pedido_form"
                                     layout="vertical"
                                     onFinish={onFinish}
-                                    initialValues={{ bateria: 100 }} // Valor inicial padrão
                                     autoComplete="off"
                                 >
                                     <Form.Item
@@ -98,13 +101,25 @@ export default function PedidoForm({ open, onClose }) {
                                     <Form.Item
                                         label="Prioridade"
                                         name="prioridade"
-                                        rules={[{ required: true, message: 'Por favor, insira a prioridade!' }]}
                                     >
-                                        <Input></Input>
+                                        <Space wrap>
+                                            <Select
+                                                defaultValue=""
+                                                style={{ width: 120 }}
+                                                onChange={handleChange}
+                                                options={[
+                                                    { value: 'Alta', label: 'Alta' },
+                                                    { value: 'Media', label: 'Média' },
+                                                    { value: 'Baixa', label: 'Baixa' },
+                                                    { value: 'disabled', label: 'Disabled', disabled: true },
+                                                ]}
+                                                getPopupContainer={triggerNode => triggerNode.parentNode}
+                                            />
+                                        </Space>
                                     </Form.Item>
                                     <Form.Item className='mt-6'>
                                         <Button type="primary" htmlType="submit" size='large' block danger loading={isLoading}>
-                                            {isLoading ? 'Enviando...' : 'Criar Drone'}
+                                            {isLoading ? 'Enviando...' : 'Criar Pedido'}
                                         </Button>
                                     </Form.Item>
                                 </Form>
