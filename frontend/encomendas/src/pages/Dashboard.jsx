@@ -18,7 +18,7 @@ import { Button } from 'antd';
 import NoDronesIcon from '../assets/icons/no-drones.png'
 import Grow from '@mui/material/Grow';
 import Zoom from '@mui/material/Zoom';
-import FormDrone from "../components/FormDrone";
+import DroneForm from "../components/DroneForm";
 
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
@@ -140,22 +140,22 @@ export default function Dashboard() {
     }
 
     const handleOpenForm = () => {
-        setOpenForm(true); 
+        setOpenForm(true);
     }
 
     const handleCloseForm = () => {
-        setOpenForm(false); 
+        setOpenForm(false);
     }
 
     return (
         <>
 
+            {/* Form do Drone */}
+            <DroneForm open={openForm} onClose={handleCloseForm}></DroneForm>
+
             <ReloadButton />
             {/* Alerta */}
             <AlertToast show={!!alert} onClose={() => setAlert(null)} {...alert} />
-
-            {/* Form do Drone */}
-            <FormDrone open={openForm} onClose={handleCloseForm}></FormDrone>
 
             {/* Card do Drone */}
             <Box className="my-10">
