@@ -25,7 +25,7 @@ public class PedidoService {
 
     public List<Pedido> getPedidos() { return pedidoRepository.findAll(); }
 
-    public void save(Pedido pedido) { pedidoRepository.save(pedido); }
+    public void deleteById(Long id) { pedidoRepository.deleteById(id);}
 
     public PedidosResponseDTO saveAll(ArrayList<Pedido> pedidos) {
         List<Drone> dronesDisponiveis = findDronesDisponiveis();

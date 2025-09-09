@@ -1,6 +1,6 @@
 // 1. Importe o ícone PushpinOutlined
 import { Card, Tag, Steps } from "antd";
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteTwoTone } from '@ant-design/icons';
 
 export default function PedidoCard({ id, peso, prioridade = 'baixa', status = 'aguardando' }) {
     // ... (toda a sua lógica de maps permanece a mesma)
@@ -17,26 +17,23 @@ export default function PedidoCard({ id, peso, prioridade = 'baixa', status = 'a
         entregue: 3
     };
 
-    const handleDelete = (id) => {
-        deleteDroneById(id); 
-    }
-
     async function deleteDroneById(id) {
-            try {
-                const response = await fetch(`http://localhost:8080/pedidos/${id}`, {
-                    method: 'DELETE', 
-                    headers: {
-                        'Content-Type' : 'application/json'
-                    }
-                })
-                if (!response.ok) {
-                    throw new Error("Erro na requisição!"); 
+        console.log(id);
+        try {
+            const response = await fetch(`http://localhost:8080/pedidos/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-            }
-            catch (e) {
-                console.log(e); 
+            })
+            if (!response.ok) {
+                throw new Error("Erro na requisição!");
             }
         }
+        catch (e) {
+            console.log(e);
+        }
+    }
 
     const prioridadeInfo = prioridadeMap[prioridade.toLowerCase()] || { color: 'default', text: prioridade };
     const currentStep = statusSteps[status.toLowerCase()] || 0;
@@ -47,7 +44,7 @@ export default function PedidoCard({ id, peso, prioridade = 'baixa', status = 'a
                 className="font-oxygen-regular text-gray-800"
                 title={
                     <div className="flex justify-between" style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                        {`Pedido ${id}`} <DeleteOutlined onClick={handleDelete} key={id}/>
+                        {`Pedido ${id}`} <DeleteTwoTone twoToneColor={"red"} value={id} onClick={() => deleteDroneById(id)} />
                     </div>
                 }
                 style={{
