@@ -45,6 +45,11 @@ export default function PedidoForm({ open, onClose }) {
             console.log("Pedido criado com sucesso!");
             form.resetFields();
             onClose();
+
+            setTimeout(function() {
+                window.location.reload(); 
+            }, 2000)
+
         } catch (e) {
             console.error(e);
             // Aqui você poderia mostrar uma notificação de erro ao usuário
