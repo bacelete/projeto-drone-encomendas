@@ -29,6 +29,10 @@ export default function PedidoCard({ id, peso, prioridade = 'baixa', status = 'a
             if (!response.ok) {
                 throw new Error("Erro na requisição!");
             }
+            console.log("Pedido excluído com sucesso!"); 
+            setTimeout(function () {
+                window.location.reload();
+            }, 2000)
         }
         catch (e) {
             console.log(e);
