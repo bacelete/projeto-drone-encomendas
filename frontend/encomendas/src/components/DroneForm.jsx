@@ -53,6 +53,25 @@ export default function DroneForm({ open, onClose }) {
             setAlertOpen(true);
         }
     };
+    
+    function AlertToast({ show, onClose, ...props }) {
+            useEffect(() => {
+                if (show) {
+                    const timer = setTimeout(() => onClose(), 4000);
+                    return () => clearTimeout(timer);
+                }
+            }, [show, onClose]);
+    
+            if (!show) return null;
+    
+            return (
+                <Grow in={show}>
+                    <div className="fixed top-5 right-5 z-50 w-96 font-oxygen-regular">
+                        <Alert {...props} />
+                    </div>
+                </Grow>
+            );
+        }
 
     return (
         <>
