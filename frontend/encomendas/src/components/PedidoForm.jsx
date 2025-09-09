@@ -1,38 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Zoom from '@mui/material/Zoom';
-import Alert from '@mui/material/Alert';
-import Grow from '@mui/material/Grow';
 import { Button, Form, InputNumber, Select, Space } from 'antd';
-function AlertToast({ open, message, severity, onClose }) {
-
-    useEffect(() => {
-        if (open) {
-            const timer = setTimeout(() => {
-                onClose();
-            }, 4000);
-            return () => clearTimeout(timer);
-        }
-    }, [open, onClose]);
-
-    if (!open) return null;
-
-    return (
-        <Grow in={open}>
-            <div className="fixed top-5 right-5 z-[9999] w-auto max-w-sm font-sans">
-                <Alert
-                    onClose={onClose}
-                    severity={severity}
-                    sx={{ width: '100%' }}
-                    variant="filled"
-                >
-                    {message}
-                </Alert>
-            </div>
-        </Grow>
-    );
-}
+import AlertToast from './AlertToast';
 
 export default function PedidoForm({ open, onClose }) {
     const [form] = Form.useForm();

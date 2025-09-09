@@ -2,17 +2,21 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Zoom from '@mui/material/Zoom';
 import { Button, Form, InputNumber } from 'antd';
-import AlertDrone from './AlertDrone';
 import { useState } from 'react';
+import AlertToast from './AlertToast';
 
 export default function DroneForm({ open, onClose }) {
     const [form] = Form.useForm();
     const [isLoading, setIsLoading] = useState(false);
-    const [alertOpen, setAlertOpen] = useState(false);
+    const [toastState, setToastState] = useState({
+        open: false,
+        message: '',
+        severity: 'success', // Padrão
+    });
 
-    const handleCloseForm = () => {
-        setAlertOpen(false);
-    }
+    const handleToastClose = () => {
+        setToastState({ ...toastState, open: false });
+    };
 
     const onFinish = async (values) => {
         setIsLoading(true);
@@ -35,51 +39,53 @@ export default function DroneForm({ open, onClose }) {
             });
 
             if (!response.ok) {
+                setToastState({
+                    open: true,
+                    message: "Não foi possível criar o drone!",
+                    severity: 'warning'
+                });
                 throw new Error("Erro na requisição!");
             }
+            else {
+                setToastState({
+                    open: true,
+                    message: "Drone criado com sucesso!",
+                    severity: 'success'
+                });
 
-            console.log("Drone criado com sucesso!");
-            form.resetFields();
+                console.log("Drone criado com sucesso!");
+                form.resetFields();
+            }
+
             onClose();
-
             setTimeout(function () {
                 window.location.reload();
             }, 2000)
+
         } catch (e) {
             console.error(e);
-            // Aqui você poderia mostrar uma notificação de erro ao usuário
+            setToastState({
+                open: true,
+                message: "Falha ao criar o drone. Tente novamente.",
+                severity: 'error'
+            });
         } finally {
             setIsLoading(false);
             setAlertOpen(true);
         }
     };
-    
-    function AlertToast({ show, onClose, ...props }) {
-            useEffect(() => {
-                if (show) {
-                    const timer = setTimeout(() => onClose(), 4000);
-                    return () => clearTimeout(timer);
-                }
-            }, [show, onClose]);
-    
-            if (!show) return null;
-    
-            return (
-                <Grow in={show}>
-                    <div className="fixed top-5 right-5 z-50 w-96 font-oxygen-regular">
-                        <Alert {...props} />
-                    </div>
-                </Grow>
-            );
-        }
+
 
     return (
         <>
-            {alertOpen &&
-                <div className='font-oxygen my-2'>
-                    <AlertDrone status={"success"} message={"Drone criado com sucesso!"} title={"Drone Criado"} onClose={handleCloseForm} />
-                </div>
-            }
+            {/* Componente de alerta padronizado */}
+            <AlertToast
+                open={toastState.open}
+                message={toastState.message}
+                severity={toastState.severity}
+                onClose={handleToastClose}
+            />
+
             <div>
                 <Modal
                     open={open}
