@@ -58,7 +58,7 @@ export default function ModalDrone({open, handleClose, infoDrone}) {
                             <div id="drone-pedidos" className="my-3">
                                 <Typography variant="h4" component="h2" className="flex items-center gap-3 mb-7 font-oxygen">
                                     <img src={OrderIcon} className="w-8 h-8" alt="" />
-                                    <span className="font-oxygen mb-5">Pedidos</span>
+                                    <span className="font-oxygen">Pedidos</span>
                                 </Typography>
                                 {infoDrone.pedidos && infoDrone.pedidos.length > 0 ? (
                                     <div className="infos max-h-48 overflow-y-auto bg-slate-50 rounded-lg p-4 my-6">
@@ -78,7 +78,7 @@ export default function ModalDrone({open, handleClose, infoDrone}) {
                                         </ul>
                                     </div>
                                 ) : (
-                                    <div className="text-center py-4 bg-slate-50 rounded-lg">
+                                    <div className="text-center my-6 py-4 bg-slate-50 rounded-lg">
                                         <p className="text-lg">Este drone não possui pedidos associados.</p>
                                         <img src={NoOrderIcon} alt="" className="w-75 m-auto" />
                                     </div>
