@@ -66,7 +66,7 @@ export default function ModalDrone({open, handleClose, infoDrone}) {
                                             {infoDrone.pedidos.map((pedido) => (
                                                 <li key={pedido.id} className="mb-2">
                                                     <p className="text-2xl"><strong>ID: {pedido.id}</strong></p>
-                                                    <div className="mx-3">
+                                                    <div className="mx-3 p-2">
                                                         <p className="text-lg text-gray-600"><strong>Peso:</strong> {pedido.peso} kg</p>
                                                         <p className="text-lg text-gray-600"><strong>Localização (X, Y): </strong>
                                                             ({pedido.localizacao.x}, {pedido.localizacao.y})
