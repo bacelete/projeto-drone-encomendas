@@ -63,16 +63,23 @@ export default function DroneForm({ open, onClose }) {
             }
             <div>
                 <Modal open={open} onClose={onClose}>
-                    <Box sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: { xs: '90%', sm: '70%', md: '500px' },
-                        bgcolor: 'background.paper',
-                        boxShadow: 24, p: 4, borderRadius: 2
-                    }}>
-                        <Zoom in={open}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '100vh',
+                        }}
+                    >
+                    <Zoom in={open}>
+                        <Box sx={{
+                            margin: '0 auto',
+                            transitionDelay: '2000',
+                            width: { xs: '90%', sm: '70%', md: '500px' },
+                            bgcolor: 'background.paper',
+                            boxShadow: 24, p: 4, borderRadius: 2
+                        }}>
+
                             <div>
                                 <h1 className='text-3xl font-oxygen mb-6'>Adicionar Novo Drone</h1>
                                 {/* 4. Conectar a instância do formulário e usar layout vertical */}
@@ -128,9 +135,12 @@ export default function DroneForm({ open, onClose }) {
                                     </Form.Item>
                                 </Form>
                             </div>
-                        </Zoom>
+
+                        </Box>
+                    </Zoom>
                     </Box>
                 </Modal>
+                
             </div>
         </>
     );
