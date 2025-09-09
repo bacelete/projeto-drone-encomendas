@@ -13,6 +13,7 @@ import DroneForm from "../components/DroneForm";
 import { Divider } from "antd";
 import PedidoForm from '../components/PedidoForm';
 import ModalDrone from "../components/ModalDrone";
+import { PlusOutlined } from "@ant-design/icons";
 
 
 export default function Dashboard() {
@@ -165,7 +166,7 @@ export default function Dashboard() {
             <Box className="my-10">
                 <div className="flex items-center gap-5">
                     <Title text={"Drones"} />
-                    <Button type="primary" size='medium' onClick={handleOpenForm}><span className="font-oxygen-regular">Criar</span></Button>
+                    <Button type="primary" size='medium' onClick={handleOpenForm}><span className="font-oxygen-regular flex gap-1"><PlusOutlined />Criar</span></Button>
                 </div>
 
                 <Divider />
@@ -190,7 +191,7 @@ export default function Dashboard() {
                 {/* Card do Pedidos */}
                 <div className="flex items-center gap-5 mt-20">
                     <Title text={"Pedidos"} />
-                    <Button type="primary" size="medium" onClick={handleOpenPedidoForm}><span className="font-oxygen-regular">Criar</span></Button>
+                    <Button type="primary" size="medium" onClick={handleOpenPedidoForm}><span className="font-oxygen-regular flex gap-1"><PlusOutlined />Criar </span></Button>
                 </div>
                 <Divider />
                 {pedidos.length > 0 ? (
