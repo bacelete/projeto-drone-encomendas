@@ -11,6 +11,10 @@ export default function PedidoForm({ open, onClose }) {
     const [isLoading, setIsLoading] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
 
+    const [status, setStatus] = useState("");
+    const [message, setMessage] = useState("");
+    const [title, setTitle] = useState("");
+
     const handleCloseForm = () => {
         setAlertOpen(false);
     }
@@ -42,13 +46,26 @@ export default function PedidoForm({ open, onClose }) {
                 throw new Error("Erro na requisição!");
             }
 
-            console.log("Pedido criado com sucesso!");
-            form.resetFields();
-            onClose();
+            const data = await response.json();
+            console.log(data);
 
-            setTimeout(function() {
-                window.location.reload(); 
-            }, 2000)
+            if (data.pedidos_rejeitados.length > 0) {
+                setTitle("Pedido Rejeitado");
+                setMessage("Pedido foi rejeitado pois não está de acordo com a(s) capacidade(s) do drone disponível.");
+                setStatus("error");
+            }
+            else {
+                setTitle("Pedido Criado");
+                setMessage("Pedido foi criado com sucesso!");
+                setStatus("success");
+
+                form.resetFields();
+                onClose();
+
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000)
+            }
 
         } catch (e) {
             console.error(e);
@@ -64,7 +81,7 @@ export default function PedidoForm({ open, onClose }) {
         <>
             {alertOpen &&
                 <div className='font-oxygen my-2'>
-                    <AlertDrone status={"success"} message={"Pedido criado com sucesso!"} title={"Pedido Criado"} onClose={handleCloseForm} />
+                    <AlertDrone status={status} message={message} title={title} onClose={handleCloseForm} />
                 </div>
             }
             <div>
@@ -122,7 +139,7 @@ export default function PedidoForm({ open, onClose }) {
                                     <Form.Item
                                         label="Prioridade"
                                         name="prioridade"
-                                        rules={[{ required: true, message: 'Por favor, selecione a prioridade!'}]}
+                                        rules={[{ required: true, message: 'Por favor, selecione a prioridade!' }]}
                                     >
                                         <Select
                                             size='large'
