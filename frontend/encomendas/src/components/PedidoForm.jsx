@@ -54,9 +54,6 @@ export default function PedidoForm({ open, onClose }) {
         }
     };
 
-    const handleChange = value => {
-        console.log(`selected ${value}`);
-    };
 
     return (
         <>
@@ -120,20 +117,18 @@ export default function PedidoForm({ open, onClose }) {
                                     <Form.Item
                                         label="Prioridade"
                                         name="prioridade"
+                                        rules={[{ required: true, message: 'Por favor, selecione a prioridade!'}]}
                                     >
-                                        <Space wrap>
-                                            <Select
-                                                defaultValue=""
-                                                style={{ width: 120 }}
-                                                onChange={handleChange}
-                                                options={[
-                                                    { value: 'Alta', label: 'Alta' },
-                                                    { value: 'Media', label: 'Média' },
-                                                    { value: 'Baixa', label: 'Baixa' },
-                                                ]}
-                                                getPopupContainer={triggerNode => triggerNode.parentNode}
-                                            />
-                                        </Space>
+                                        <Select
+                                            size='large'
+                                            style={{ width: '100%' }}
+                                            options={[
+                                                { value: 'ALTA', label: 'Alta' },
+                                                { value: 'MEDIA', label: 'Média' },
+                                                { value: 'BAIXA', label: 'Baixa' },
+                                            ]}
+                                            getPopupContainer={triggerNode => triggerNode.parentNode}
+                                        />
                                     </Form.Item>
                                     <Form.Item className='mt-6'>
                                         <Button type="primary" htmlType="submit" size='large' block danger loading={isLoading}>
