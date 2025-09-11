@@ -16,8 +16,8 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(value = ExistsLocalizacaoException.class)
     public ResponseEntity<ErrorMessage> notFoundException(ExistsLocalizacaoException exception) {
-        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.METHOD_NOT_ALLOWED, exception.getMessage());
-        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorMessage);
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
     }
 
 }

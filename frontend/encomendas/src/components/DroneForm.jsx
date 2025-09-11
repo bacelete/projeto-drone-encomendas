@@ -77,7 +77,6 @@ export default function DroneForm({ open, onClose }) {
 
     return (
         <>
-            {/* Componente de alerta padronizado */}
             <AlertToast
                 open={toastState.open}
                 message={toastState.message}

@@ -32,6 +32,8 @@ export default function PedidoForm({ open, onClose }) {
             },
         }];
 
+        console.log(dataToSend);
+
         try {
             const response = await fetch(`http://localhost:8080/pedidos`, {
                 method: 'POST',
@@ -41,24 +43,30 @@ export default function PedidoForm({ open, onClose }) {
                 body: JSON.stringify(dataToSend),
             });
 
-            if (!response.ok) {
-                throw new Error("Erro na requisição!");
-            }
-
             const data = await response.json();
             console.log(data);
 
+            if (!response.ok) {
+                setToastState({
+                    open: true,
+                    message: `${data.message} Tente novamente.`,
+                    severity: 'error'
+                });
+
+                return;
+            }
+
             if (data.pedidos_rejeitados && data.pedidos_rejeitados.length > 0) {
-                setToastState({ 
-                    open: true, 
-                    message: "Pedido rejeitado! Não há drone disponível para atender a solicitação.", 
-                    severity: 'warning' 
+                setToastState({
+                    open: true,
+                    message: "Pedido rejeitado! Pedido ultrapassou as capacidades dos drones disponíveis",
+                    severity: 'warning'
                 });
             } else {
-                setToastState({ 
-                    open: true, 
-                    message: "Pedido criado com sucesso!", 
-                    severity: 'success' 
+                setToastState({
+                    open: true,
+                    message: "Pedido criado com sucesso!",
+                    severity: 'success'
                 });
                 form.resetFields();
             }
@@ -70,11 +78,13 @@ export default function PedidoForm({ open, onClose }) {
 
         } catch (e) {
             console.error(e);
-            setToastState({ 
-                open: true, 
-                message: "Falha ao criar o pedido. Tente novamente.", 
-                severity: 'error' 
+
+            setToastState({
+                open: true,
+                message: "Falha ao criar o pedido. Tente novamente.",
+                severity: 'error'
             });
+
         } finally {
             setIsLoading(false);
         }

@@ -2,8 +2,7 @@
 import { Card, Tag, Steps } from "antd";
 import { DeleteTwoTone } from '@ant-design/icons';
 
-export default function PedidoCard({ id, peso, prioridade = 'baixa', status = 'aguardando' }) {
-    // ... (toda a sua lógica de maps permanece a mesma)
+export default function PedidoCard({ id, peso, prioridade, status = 'aguardando' }) {
     const prioridadeMap = {
         alta: { color: 'volcano', text: 'Alta' },
         media: { color: 'orange', text: 'Media' },
