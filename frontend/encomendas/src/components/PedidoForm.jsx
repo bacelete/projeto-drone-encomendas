@@ -104,7 +104,7 @@ export default function PedidoForm({ open, onClose }) {
                         }}
                     >
                         <div>
-                            <h1 className='text-3xl font-sans mb-6'>Adicionar Novo Pedido</h1>
+                            <h1 className='text-3xl font-oxygen mb-6'>Adicionar Novo Pedido</h1>
                             <Form
                                 form={form}
                                 name="pedido_form"

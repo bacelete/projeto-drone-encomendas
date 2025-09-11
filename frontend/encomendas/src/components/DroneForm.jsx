@@ -71,7 +71,6 @@ export default function DroneForm({ open, onClose }) {
             });
         } finally {
             setIsLoading(false);
-            setAlertOpen(true);
         }
     };
 
@@ -104,7 +103,6 @@ export default function DroneForm({ open, onClose }) {
                         >
                             <div>
                                 <h1 className='text-3xl font-oxygen mb-6'>Adicionar Novo Drone</h1>
-                                {/* 4. Conectar a instância do formulário e usar layout vertical */}
                                 <Form
                                     form={form}
                                     name="drone_form"
