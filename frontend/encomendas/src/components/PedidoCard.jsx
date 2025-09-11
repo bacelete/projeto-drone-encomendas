@@ -1,8 +1,32 @@
 // 1. Importe o ícone PushpinOutlined
 import { Card, Tag, Steps } from "antd";
-import { DeleteTwoTone } from '@ant-design/icons';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Button, Popconfirm } from 'antd';
+import { useState } from "react";
 
 export default function PedidoCard({ id, peso, prioridade, status = 'aguardando' }) {
+    const [open, setOpen] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+
+    const showPopconfirm = () => {
+        setOpen(true);
+    };
+
+    const handleOk = (id) => {
+        setConfirmLoading(true);
+
+        deleteDroneById(id);
+
+        setTimeout(() => {
+            setOpen(false);
+            setConfirmLoading(false);
+        }, 2000);
+    };
+
+    const handleCancel = () => {
+        setOpen(false); 
+    }
+
     const prioridadeMap = {
         alta: { color: 'volcano', text: 'Alta' },
         media: { color: 'orange', text: 'Media' },
@@ -28,7 +52,7 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
             if (!response.ok) {
                 throw new Error("Erro na requisição!");
             }
-            console.log("Pedido excluído com sucesso!"); 
+            console.log("Pedido excluído com sucesso!");
             setTimeout(function () {
                 window.location.reload();
             }, 2000)
@@ -42,12 +66,23 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
     const currentStep = statusSteps[status.toLowerCase()] || 0;
 
     return (
-        <div className="flex transition-transform duration-300 ease-in-out hover:scale-105">
+        <div className="flex">
             <Card
                 className="font-oxygen-regular text-gray-800"
                 title={
                     <div className="flex justify-between" style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                        {`Pedido ${id}`} <DeleteTwoTone twoToneColor={"red"} value={id} onClick={() => deleteDroneById(id)} />
+                        {`Pedido ${id}`}
+                        <Popconfirm
+                            open={open}
+                            title="Excluir o pedido"
+                            description="Tem certeza que deseja excluir o pedido?"
+                            onConfirm={() => handleOk(id)}
+                            okButtonProps={{ loading: confirmLoading }}
+                            onCancel={handleCancel}
+                            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                        >
+                            <Button danger onClick={showPopconfirm}>Excluir</Button>
+                        </Popconfirm>
                     </div>
                 }
                 style={{
