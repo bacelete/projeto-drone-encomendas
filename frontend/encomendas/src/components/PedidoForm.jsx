@@ -60,7 +60,7 @@ export default function PedidoForm({ open, onClose }) {
                 setToastState({
                     open: true,
                     message: "Pedido rejeitado! Pedido ultrapassou as capacidades dos drones disponíveis",
-                    severity: 'warning'
+                    severity: 'error'
                 });
             } else {
                 setToastState({
@@ -71,10 +71,13 @@ export default function PedidoForm({ open, onClose }) {
                 form.resetFields();
             }
 
-            onClose(); // Fecha o modal
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
+            if (response.ok && data.pedidos_rejeitados.length == 0) {
+                onClose(); // Fecha o modal
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+
 
         } catch (e) {
             console.error(e);
