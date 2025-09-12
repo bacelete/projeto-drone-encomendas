@@ -1,12 +1,19 @@
 // 1. Importe o ícone PushpinOutlined
-import { Card, Tag, Steps } from "antd";
+import { Card, Tag, Steps, message } from "antd";
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Button, Popconfirm } from 'antd';
 import { useState } from "react";
+import AlertToast from "./AlertToast";
 
 export default function PedidoCard({ id, peso, prioridade, status = 'aguardando' }) {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
+
+    const [alertToast, setAlertToast] = useState({
+        open: false,
+        message: "success",
+        severity: "success"
+    });
 
     const showPopconfirm = () => {
         setOpen(true);
@@ -24,8 +31,15 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
     };
 
     const handleCancel = () => {
-        setOpen(false); 
+        setOpen(false);
     }
+
+    const handleToastClose = () => {
+        setAlertToast(prev => ({
+            ...prev,
+            open: false
+        }));
+    };
 
     const prioridadeMap = {
         alta: { color: 'volcano', text: 'Alta' },
@@ -49,13 +63,28 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
                     'Content-Type': 'application/json'
                 }
             })
+            const data = await response.json();
+            console.log(data.message);
+
             if (!response.ok) {
-                throw new Error("Erro na requisição!");
+                setAlertToast({
+                    open: true,
+                    message: "Não foi possível excluir o pedido!",
+                    severity: "error"
+                })
             }
-            console.log("Pedido excluído com sucesso!");
-            setTimeout(function () {
-                window.location.reload();
-            }, 2000)
+
+            else {
+                console.log("Pedido excluído com sucesso!");
+                setAlertToast({
+                    open: true,
+                    message: "Pedido excluído com sucesso!",
+                    severity: "success"
+                })
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000)
+            }
         }
         catch (e) {
             console.log(e);
@@ -66,63 +95,73 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
     const currentStep = statusSteps[status.toLowerCase()] || 0;
 
     return (
-        <div className="flex">
-            <Card
-                className="font-oxygen-regular text-gray-800"
-                title={
-                    <div className="flex justify-between" style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                        {`Pedido ${id}`}
-                        <Popconfirm
-                            open={open}
-                            title="Excluir o pedido"
-                            description="Tem certeza que deseja excluir o pedido?"
-                            onConfirm={() => handleOk(id)}
-                            okButtonProps={{ loading: confirmLoading }}
-                            onCancel={handleCancel}
-                            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                        >
-                            <Button danger onClick={showPopconfirm}>Excluir</Button>
-                        </Popconfirm>
-                    </div>
-                }
-                style={{
-                    width: 325,
-                    height: 380,
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                    position: 'relative',
-                    overflow: 'hidden'
-                }}
-                key={id}
-            >
+        <>
+            <AlertToast
+                open={alertToast.open}
+                message={alertToast.message}
+                severity={alertToast.severity}
+                onClose={handleToastClose}
+            />
 
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span className="text-[18px]">Peso: <strong>{peso} kg</strong></span>
+            <div className="flex">
+                <Card
+                    className="font-oxygen-regular text-gray-800"
+                    title={
+                        <div className="flex justify-between" style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                            {`Pedido ${id}`}
+                            <Popconfirm
+                                open={open}
+                                title="Excluir o pedido"
+                                description="Tem certeza que deseja excluir o pedido?"
+                                onConfirm={() => handleOk(id)}
+                                okButtonProps={{ loading: confirmLoading }}
+                                onCancel={handleCancel}
+                                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                            >
+                                <Button danger onClick={showPopconfirm}>Excluir</Button>
+                            </Popconfirm>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span className="text-[18px]">Prioridade:</span>
-                            <Tag color={prioridadeInfo.color}>{prioridadeInfo.text}</Tag>
+                    }
+                    style={{
+                        width: 325,
+                        height: 380,
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                        position: 'relative',
+                        overflow: 'hidden'
+                    }}
+                    key={id}
+                >
+
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <span className="text-[18px]">Peso: <strong>{peso} kg</strong></span>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <span className="text-[18px]">Prioridade:</span>
+                                <Tag color={prioridadeInfo.color}>{prioridadeInfo.text}</Tag>
+                            </div>
+                        </div>
+
+                        <div>
+                            <Steps
+                                progressDot
+                                current={currentStep}
+                                direction="vertical"
+                                items={[
+                                    { title: 'Aguardando' },
+                                    { title: 'Preparando' },
+                                    { title: 'Enviado' },
+                                    { title: 'Entregue' },
+                                ]}
+                            />
                         </div>
                     </div>
+                </Card>
+            </div>
+        </>
 
-                    <div>
-                        <Steps
-                            progressDot
-                            current={currentStep}
-                            direction="vertical"
-                            items={[
-                                { title: 'Aguardando' },
-                                { title: 'Preparando' },
-                                { title: 'Enviado' },
-                                { title: 'Entregue' },
-                            ]}
-                        />
-                    </div>
-                </div>
-            </Card>
-        </div>
     );
 }
