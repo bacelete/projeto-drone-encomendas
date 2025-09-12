@@ -1,6 +1,7 @@
 package com.dti.encomendas.model;
 
 import com.dti.encomendas.enums.PrioridadePedido;
+import com.dti.encomendas.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -30,6 +31,8 @@ public class Pedido {
     @Valid
     @Embedded
     private Localizacao localizacao;
+
+    private StatusPedido statusPedido;
 
     @ManyToOne
     @JoinColumn(name="id_drone", nullable = false)
