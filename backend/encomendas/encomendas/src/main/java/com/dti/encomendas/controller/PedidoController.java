@@ -1,6 +1,8 @@
 package com.dti.encomendas.controller;
 
 import com.dti.encomendas.dto.PedidosResponseDTO;
+import com.dti.encomendas.enums.StatusDrone;
+import com.dti.encomendas.exception.NotAbleException;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Pedido;
 import com.dti.encomendas.service.PedidoService;
@@ -36,6 +38,16 @@ public class PedidoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deletePedido(@PathVariable Long id) {
+        if (pedidoService.findById(id).isEmpty()) {
+            throw new NotFoundException("Produto não encontrado!");
+        }
+
+        Pedido pedido = pedidoService.findById(id).get();
+
+        if (!pedido.getDrone().getStatus().toString().equals("IDLE")) {
+            throw new NotAbleException("Pedido está em vôo.");
+        }
+
         pedidoService.deleteById(id);
         return ResponseEntity.ok().build();
     }

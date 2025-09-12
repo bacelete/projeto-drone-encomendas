@@ -20,4 +20,10 @@ public class RestExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
     }
 
+    @ExceptionHandler(value = NotAbleException.class)
+    public ResponseEntity<ErrorMessage> notAbleException(NotAbleException exception) {
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.METHOD_NOT_ALLOWED, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorMessage);
+    }
+
 }

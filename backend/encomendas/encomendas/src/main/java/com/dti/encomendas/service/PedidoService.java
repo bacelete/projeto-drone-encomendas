@@ -23,6 +23,8 @@ public class PedidoService {
     @Autowired
     private DroneService droneService;
 
+    public Optional<Pedido> findById(Long id) { return pedidoRepository.findById(id); }
+
     public List<Pedido> getPedidos() { return pedidoRepository.findAll(); }
 
     public void deleteById(Long id) { pedidoRepository.deleteById(id);}
