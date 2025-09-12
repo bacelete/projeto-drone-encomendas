@@ -221,7 +221,7 @@ export default function Dashboard() {
                             <PedidoCard id={pedido.id} key={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade}></PedidoCard>
                         ))
                     ) : (
-                        <div className="w-110 m-auto text-center">
+                        <div className="w-110 m-auto text-center col-span-4">
                             <img src={EmptyCartIcon} alt="" />
                             <p className="text-2xl font-oxygen-regular my-5">Não há pedidos no momento...</p>
                         </div>
