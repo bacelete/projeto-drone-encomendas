@@ -21,12 +21,17 @@ import DroneCardSkeleton from "../components/DroneCardSkeleton";
 export default function Dashboard() {
     const [drones, setDrones] = useState([]);
     const [pedidos, setPedidos] = useState([]);
-    const [open, setOpen] = useState(false);
+
     const [infoDrone, setInfoDrone] = useState({})
     const [alert, setAlert] = useState(null); // {status, title, message}
+
+    const [openModal, setOpenModal] = useState(false);
     const [openForm, setOpenForm] = useState(false);
     const [openPedidoForm, setOpenPedidoForm] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+
+    const [isDronesLoading, setIsDronesLoading] = useState(true);
+    const [isPedidosLoading, setIsPedidosLoading] = useState(true);
+
 
     async function fetchDroneById(id) {
         try {
@@ -68,7 +73,7 @@ export default function Dashboard() {
         }
         finally {
             setTimeout(() => {
-                setIsLoading(false)
+                setIsDronesLoading(false)
             }, 2000);
         }
     }
@@ -97,11 +102,11 @@ export default function Dashboard() {
     }
 
     const handleOpen = (id) => {
-        setOpen(true)
+        setOpenModal(true)
         fetchDroneById(id);
     };
 
-    const handleClose = () => setOpen(false);
+    const handleClose = () => setOpenModal(false);
 
     useEffect(() => {
         fetchPedidos();
@@ -179,7 +184,7 @@ export default function Dashboard() {
 
                 <Divider />
                 <div className="grid grid-cols-3 gap-6 my-10 bg-gray-20 p-7 rounded-lg shadow-sm w-full">
-                    {isLoading ? (
+                    {isDronesLoading ? (
                         Array.from(new Array(3)).map((_, index) => <DroneCardSkeleton key={index} />) //ia que gerou essa parte.
                     ) : drones.length > 0 ? (
                         drones.map((drone) => (
@@ -221,7 +226,7 @@ export default function Dashboard() {
 
                 {/* Modal do Drone */}
                 <div>
-                    <ModalDrone open={open} handleClose={handleClose} infoDrone={infoDrone}></ModalDrone>
+                    <ModalDrone open={openModal} handleClose={handleClose} infoDrone={infoDrone}></ModalDrone>
                 </div>
             </Box >
         </>
