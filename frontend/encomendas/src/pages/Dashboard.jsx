@@ -13,7 +13,9 @@ import DroneForm from "../components/DroneForm";
 import { Divider } from "antd";
 import PedidoForm from '../components/PedidoForm';
 import ModalDrone from "../components/ModalDrone";
+import { Skeleton } from 'antd';
 import { PlusOutlined } from "@ant-design/icons";
+import DroneCardSkeleton from "../components/DroneCardSkeleton";
 
 
 export default function Dashboard() {
@@ -24,6 +26,7 @@ export default function Dashboard() {
     const [alert, setAlert] = useState(null); // {status, title, message}
     const [openForm, setOpenForm] = useState(false);
     const [openPedidoForm, setOpenPedidoForm] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     async function fetchDroneById(id) {
         try {
@@ -63,6 +66,9 @@ export default function Dashboard() {
         catch (e) {
             console.log(e);
         }
+        finally {
+            setIsLoading(false);
+        }
     }
 
     async function fetchPedidos() {
@@ -83,6 +89,9 @@ export default function Dashboard() {
         catch (e) {
             console.log(e);
         }
+        finally {
+
+        }
     }
 
     const handleOpen = (id) => {
@@ -93,13 +102,10 @@ export default function Dashboard() {
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
+        fetchPedidos();
         fetchDrones();
         const interval = setInterval(fetchDrones, 8000);
         return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {
-        fetchPedidos();
     }, []);
 
 
@@ -170,20 +176,23 @@ export default function Dashboard() {
                 </div>
 
                 <Divider />
-                {drones.length > 0 ? (
-                    <div className="grid grid-cols-3 gap-6 my-10 bg-gray-20 p-7 rounded-lg shadow-sm w-full">
-                        {drones.map((drone) => (
+                <div className="grid grid-cols-3 gap-6 my-10 bg-gray-20 p-7 rounded-lg shadow-sm w-full">
+                    {isLoading ? (
+                        Array.from(new Array(3)).map((_, index) => <DroneCardSkeleton key={index} />) //ia que gerou essa parte.
+                    ) : drones.length > 0 ? (
+                        drones.map((drone) => (
                             <DroneCard key={drone.id} drone={drone} onClick={() => {
                                 handleOpen(drone.id);
                             }} />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="w-110 m-auto text-center">
-                        <img src={NoDronesIcon} alt="" />
-                        <p className="text-2xl font-oxygen-regular my-5">Não há drones disponíveis no momento...</p>
-                    </div>
-                )}
+                        ))
+                    ) : (
+                        <div className="w-110 m-auto text-center col-span-3">
+                            <img src={NoDronesIcon} alt="" />
+                            <p className="text-2xl font-oxygen-regular my-5">Não há drones disponíveis no momento...</p>
+                        </div>
+                    )}
+                </div>
+
 
                 {/* Form do Pedido */}
                 <PedidoForm open={openPedidoForm} onClose={handleClosePedidoForm}></PedidoForm>
