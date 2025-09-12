@@ -67,7 +67,9 @@ export default function Dashboard() {
             console.log(e);
         }
         finally {
-            setIsLoading(false);
+            setTimeout(() => {
+                setIsLoading(false)
+            }, 2000);
         }
     }
 
@@ -90,7 +92,7 @@ export default function Dashboard() {
             console.log(e);
         }
         finally {
-
+            //...
         }
     }
 
