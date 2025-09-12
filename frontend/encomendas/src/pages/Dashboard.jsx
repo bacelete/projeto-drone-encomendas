@@ -16,6 +16,7 @@ import ModalDrone from "../components/ModalDrone";
 import { Skeleton } from 'antd';
 import { PlusOutlined } from "@ant-design/icons";
 import DroneCardSkeleton from "../components/DroneCardSkeleton";
+import PedidoCardSkeleton from "../components/PedidoCardSkeleton";
 
 
 export default function Dashboard() {
@@ -97,7 +98,9 @@ export default function Dashboard() {
             console.log(e);
         }
         finally {
-            //...
+            setTimeout(() => {
+                setIsPedidosLoading(false)
+            }, 2000);
         }
     }
 
@@ -210,19 +213,20 @@ export default function Dashboard() {
                     <Button type="primary" size="medium" onClick={handleOpenPedidoForm}><span className="font-oxygen-regular flex gap-1"><PlusOutlined />Criar </span></Button>
                 </div>
                 <Divider />
-                {pedidos.length > 0 ? (
-                    <div className="flex gap-4">
-                        {pedidos.map((pedido) => (
+                <div className="grid grid-cols-4">
+                    {isPedidosLoading ? (
+                        Array.from(new Array(4)).map((_, index) => <PedidoCardSkeleton key={index} />) //ia que gerou essa parte.
+                    ) : pedidos.length > 0 ? (
+                        pedidos.map((pedido) => (
                             <PedidoCard id={pedido.id} key={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade}></PedidoCard>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="w-110 m-auto text-center">
-                        <img src={EmptyCartIcon} alt="" />
-                        <p className="text-2xl font-oxygen-regular my-5">Não há pedidos no momento...</p>
-                    </div>
-                )}
-
+                        ))
+                    ) : (
+                        <div className="w-110 m-auto text-center">
+                            <img src={EmptyCartIcon} alt="" />
+                            <p className="text-2xl font-oxygen-regular my-5">Não há pedidos no momento...</p>
+                        </div>
+                    )}
+                </div>
 
                 {/* Modal do Drone */}
                 <div>
