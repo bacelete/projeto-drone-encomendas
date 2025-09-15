@@ -49,9 +49,8 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
 
     const statusSteps = {
         aguardando: 0,
-        preparando: 1,
-        enviado: 2,
-        entregue: 3
+        enviado: 1,
+        entregue: 2
     };
 
     async function deleteDroneById(id) {
@@ -152,7 +151,6 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
                                 direction="vertical"
                                 items={[
                                     { title: 'Aguardando' },
-                                    { title: 'Preparando' },
                                     { title: 'Enviado' },
                                     { title: 'Entregue' },
                                 ]}
