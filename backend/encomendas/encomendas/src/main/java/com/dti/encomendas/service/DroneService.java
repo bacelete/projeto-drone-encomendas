@@ -64,7 +64,6 @@ public class DroneService {
 
         for (Drone drone : dronesComPedidos) {
             List<Pedido> pedidos = pedidoRepository.findByDrone_Id(drone.getId());
-            System.out.println(pedidos.toString());
             drone.setPedidos(pedidos);
         }
 

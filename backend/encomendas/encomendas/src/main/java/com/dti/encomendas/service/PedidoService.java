@@ -3,6 +3,7 @@ package com.dti.encomendas.service;
 import com.dti.encomendas.dto.PedidoDTO;
 import com.dti.encomendas.dto.PedidosResponseDTO;
 import com.dti.encomendas.enums.StatusDrone;
+import com.dti.encomendas.enums.StatusPedido;
 import com.dti.encomendas.exception.ExistsLocalizacaoException;
 import com.dti.encomendas.exception.NotFoundException;
 import com.dti.encomendas.model.Drone;
@@ -100,6 +101,7 @@ public class PedidoService {
                 //check if order satisfies the drone conditions;
                 if ((pesoPedido <= pesoRestante) && (distancia <= kmRestante)) {
                     pedido.setDrone(drone);
+                    pedido.setStatusPedido(StatusPedido.ENVIADO);
 
                     mapPedidos.get(drone).add(pedidoDTO);
                     mapPeso.put(drone, pesoRestante - pesoPedido);

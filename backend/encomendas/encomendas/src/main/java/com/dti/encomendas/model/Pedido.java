@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Entity
 @AllArgsConstructor
@@ -32,7 +33,8 @@ public class Pedido {
     @Embedded
     private Localizacao localizacao;
 
-    private StatusPedido statusPedido;
+    @Enumerated(EnumType.STRING)
+    private StatusPedido statusPedido = StatusPedido.AGUARDANDO;
 
     @ManyToOne
     @JoinColumn(name="id_drone", nullable = false)
