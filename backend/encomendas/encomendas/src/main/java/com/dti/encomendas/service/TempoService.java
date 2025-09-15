@@ -38,8 +38,10 @@ public class TempoService {
 
         for (Drone drone : drones) {
             List<Pedido> pedidos = pedidoRepository.findByDrone_Id(drone.getId());
+            List<Pedido> pedidosParaEntrega = pedidos.stream()
+                    .filter(pedido -> pedido.getStatusPedido().equals(StatusPedido.ENVIADO)).toList();
 
-            if (!pedidos.isEmpty()) { //precisa adicionar a verificacao de status pro pedido;
+            if (!pedidosParaEntrega.isEmpty()) { //precisa adicionar a verificacao de status pro pedido;
                 System.out.println(pedidos.toString());
                 Entrega entrega = entregaService.criarEntrega(drone);
 
@@ -66,7 +68,7 @@ public class TempoService {
         droneAtualizado.setStatus(StatusDrone.ENTREGANDO);
         droneRepository.save(droneAtualizado);
 
-        Pedido pedido = drone.getPedidos().stream()
+        Pedido pedido = droneAtualizado.getPedidos().stream()
                 .filter((p) -> p.getStatusPedido().equals(StatusPedido.ENVIADO))
                 .findFirst().
                 orElse(null);
