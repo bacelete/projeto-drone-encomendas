@@ -114,8 +114,12 @@ export default function Dashboard() {
     useEffect(() => {
         fetchPedidos();
         fetchDrones();
-        const interval = setInterval(fetchDrones, 8000);
-        return () => clearInterval(interval);
+        const intervalDrones = setInterval(fetchDrones, 8000);
+        const intervalPedidos = setInterval(fetchPedidos, 8000); 
+        return () => {
+            clearInterval(intervalDrones);
+            clearInterval(intervalPedidos);
+        }
     }, []);
 
 
@@ -218,7 +222,7 @@ export default function Dashboard() {
                         Array.from(new Array(4)).map((_, index) => <PedidoCardSkeleton key={index} />) //ia que gerou essa parte.
                     ) : pedidos.length > 0 ? (
                         pedidos.map((pedido) => (
-                            <PedidoCard id={pedido.id} key={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade}></PedidoCard>
+                            <PedidoCard id={pedido.id} key={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade} status={pedido.statusPedido}></PedidoCard>
                         ))
                     ) : (
                         <div className="w-90 m-auto text-center col-span-4">
