@@ -65,29 +65,32 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
             const data = await response.json();
             console.log(data.message);
 
-            if (!response.ok) {
-                setAlertToast({
-                    open: true,
-                    message: "Não foi possível excluir o pedido!",
-                    severity: "error"
-                })
-            }
-
-            else {
-                console.log("Pedido excluído com sucesso!");
+            if (response.ok) {
                 setAlertToast({
                     open: true,
                     message: "Pedido excluído com sucesso!",
                     severity: "success"
-                })
-                setTimeout(function () {
-                    window.location.reload();
-                }, 2000)
+                });
+            } else {
+                setAlertToast({
+                    open: true,
+                    message: data.message || "Não foi possível excluir o pedido!",
+                    severity: "error"
+                });
             }
+
         }
         catch (e) {
             console.log(e);
+            setAlertToast({
+                open: true,
+                message: "Erro ao excluir o pedido!",
+                severity: "error"
+            });
         }
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000)
     }
 
     const prioridadeInfo = prioridadeMap[prioridade.toLowerCase()] || { color: 'default', text: prioridade };
