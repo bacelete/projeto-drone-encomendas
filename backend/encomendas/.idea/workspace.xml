@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f90904cf-9439-467b-a987-89b6267720ef" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/EncomendasApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/EncomendasApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/controller/DroneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/controller/DroneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/controller/EntregaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/controller/EntregaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/controller/PedidoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/controller/PedidoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/controller/RelatorioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/controller/RelatorioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/dto/DroneRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/dto/DroneRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/dto/DroneResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/dto/DroneResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/dto/PedidoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/dto/PedidoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/dto/PedidosResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/dto/PedidosResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/dto/RelatorioDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/dto/RelatorioDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/enums/PrioridadePedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/enums/PrioridadePedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/enums/StatusDrone.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/enums/StatusDrone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/enums/StatusPedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/enums/StatusPedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/exception/ErrorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/exception/ErrorMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/exception/ExistsLocalizacaoException.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/exception/ExistsLocalizacaoException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/exception/NotAbleException.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/exception/NotAbleException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/exception/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/exception/NotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/exception/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/exception/RestExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/factory/DroneFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/factory/DroneFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/model/Drone.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/model/Drone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/model/Entrega.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/model/Entrega.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/model/Localizacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/model/Localizacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/model/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/model/Pedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/repository/DroneRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/repository/DroneRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/repository/EntregaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/repository/EntregaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/repository/PedidoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/repository/PedidoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/service/BateriaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/service/BateriaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/service/DroneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/service/DroneService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/service/EntregaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/service/EntregaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/service/PedidoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/service/PedidoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/service/RelatorioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/service/RelatorioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/service/TempoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/service/TempoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/utils/Calculo.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/utils/Calculo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encomendas/src/main/java/com/dti/encomendas/utils/Sort.java" beforeDir="false" afterPath="$PROJECT_DIR$/encomendas/src/main/java/com/app/encomendas/utils/Sort.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="331SYycR8Bjr3hsFSjkRyLhbZWP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/arthu/OneDrive/Área de Trabalho/repositorios/projeto-drone-encomendas/projeto-drone-encomendas/backend/encomendas"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f90904cf-9439-467b-a987-89b6267720ef" name="Changes" comment="" />
+      <created>1758483136424</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1758483136424</updated>
+    </task>
+    <servers />
+  </component>
+</project>

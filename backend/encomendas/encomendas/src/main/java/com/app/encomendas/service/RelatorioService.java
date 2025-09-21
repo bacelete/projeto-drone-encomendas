@@ -1,0 +1,57 @@
+package com.app.encomendas.service;
+
+import com.app.encomendas.dto.DroneResponseDTO;
+import com.app.encomendas.model.Drone;
+import com.app.encomendas.model.Entrega;
+import com.app.encomendas.repository.EntregaRepository;
+import com.app.encomendas.utils.Calculo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class RelatorioService {
+    @Autowired
+    private EntregaService entregaService;
+
+    @Autowired
+    private DroneService droneService;
+
+    public int calculaQuantidadeEntregas() {
+        return entregaService.getAllEntregas().size();
+    }
+
+    public DroneResponseDTO getDroneMaisEficiente() {
+        List<Entrega> entregas = entregaService.getAllEntregas();
+        Map<Drone, Long> mapDroneEficiencia = new HashMap<>();
+
+        for (Entrega entrega : entregas) {
+            Drone drone = entrega.getDrone();
+            long eficiencia = Calculo.calcularEficienciaDrone(entrega.getQuantidade_pedidos(), entrega.getDuracao_ms());
+            mapDroneEficiencia.merge(drone, eficiencia, Long::sum);
+        }
+
+        Drone droneMaisEficiente = null;
+        double maiorEficiencia = Long.MIN_VALUE;
+
+        for (Map.Entry<Drone, Long> entry : mapDroneEficiencia.entrySet()) {
+            if (entry.getValue() > maiorEficiencia) {
+                maiorEficiencia = entry.getValue();
+                droneMaisEficiente = entry.getKey();
+            }
+        }
+
+        DroneResponseDTO drone = new DroneResponseDTO(droneMaisEficiente.getId(),
+                droneMaisEficiente.getBateria(), droneMaisEficiente.getStatus());
+
+        return drone;
+    }
+
+    public long getTempoMedio() {
+        List<Entrega> entregas = entregaService.getAllEntregas();
+        return Calculo.calcularTempoMedio(entregas);
+    }
+}
