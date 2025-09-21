@@ -1,4 +1,4 @@
-package com.app.encomendas;
+package com.app.encomendas.unit;
 
 import com.app.encomendas.model.Drone;
 import com.app.encomendas.model.Entrega;
