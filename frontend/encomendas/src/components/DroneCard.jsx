@@ -2,8 +2,8 @@ import DroneIcon from '../assets/icons/drone.png';
 import BateriaDrone from './BateriaDrone';
 import StatusDrone from './StatusDrone';
 
-export default function DroneCard({ drone, onClick }) {
 
+export default function DroneCard({ drone, onClick }) {
     return (
         <>
             <div onClick={onClick}
@@ -16,7 +16,9 @@ export default function DroneCard({ drone, onClick }) {
                     className="w-18 h-18 object-contain my-auto mx-2 hover:translate-y-2 duration-300 ease-out hover:scale-110"
                 />
                 <div id="card-drone" className='mx-3'>
-                    <p id='titulo' className='font-oxygen font-bold text-2xl'>Drone {drone.id}</p>
+                    <div className='flex'>
+                        <p id='titulo' className='font-oxygen font-bold text-2xl'>Drone {drone.id}</p>
+                    </div>
                     <div id="infos" className='py-3 mx-2'>
                         <BateriaDrone battery={drone.bateria} />
                         <StatusDrone status={drone.statusDrone} />

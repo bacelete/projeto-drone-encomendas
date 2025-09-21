@@ -7,9 +7,53 @@ import StatusDrone from "../components/StatusDrone";
 import NoOrderIcon from '../assets/icons/no-order.png'
 import Zoom from '@mui/material/Zoom';
 import Box from '@mui/material/Box';
+import { Button, Popconfirm } from 'antd';
+import { useState } from 'react';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
+export default function ModalDrone({ open, handleClose, infoDrone }) {
+    const [openPopConfirm, setOpenPopConfirm] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
 
-export default function ModalDrone({open, handleClose, infoDrone}) {
+    const showPopconfirm = () => {
+        setOpenPopConfirm(true);
+    };
+
+    const handleCancel = () => {
+        setOpenPopConfirm(false);
+    }
+
+    const handleOk = (id) => {
+        setConfirmLoading(true);
+        deleteDroneById(id);
+
+        setTimeout(() => {
+            setOpenPopConfirm(false);
+            setConfirmLoading(false);
+        }, 2000);
+
+    };
+
+    async function deleteDroneById(id) {
+        console.log(id);
+        try {
+            const response = await fetch(`http://localhost:8080/drones/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const data = await response.json();
+            console.log(data.message);
+        }
+        catch (e) {
+            console.log(e);
+        }
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000)
+    }
+
     return (
         <>
             <Modal
@@ -28,6 +72,8 @@ export default function ModalDrone({open, handleClose, infoDrone}) {
                             position: 'absolute',
                             width: { xs: '90%', sm: '70%', md: '50%', lg: '40%' },
                             minHeight: 400,
+                            maxHeight: '90vh',
+                            overflowY: 'auto',
                             bgcolor: 'background.paper',
                             boxShadow: 24,
                             overflowY: 'auto',
@@ -35,7 +81,7 @@ export default function ModalDrone({open, handleClose, infoDrone}) {
                             borderRadius: 2,
                         }}>
 
-                            <div className="flex justify-between items-center mb-4">
+                            <div className="flex justify-between items-center mb-4 gap-2">
                                 <Typography id="modal-title" variant="h4" component="h2" className="flex items-center gap-3 font-oxygen">
                                     <img src={InfoIcon} className="w-8 h-8" alt="Info Icon" />
                                     <span className="font-oxygen">Drone #{infoDrone.id}</span>
@@ -82,7 +128,11 @@ export default function ModalDrone({open, handleClose, infoDrone}) {
                                         <p className="text-lg">Este drone não possui pedidos associados.</p>
                                         <img src={NoOrderIcon} alt="" className="w-75 m-auto" />
                                     </div>
-                                )}
+                                )
+                                }
+                                <div className='flex flex-row-reverse space-x-reverse'>
+                                    <Button danger onClick={() => deleteDroneById(id)}>Excluir</Button>
+                                </div>
                             </div>
                         </Box>
                     </Zoom>

@@ -22,7 +22,7 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
     const handleOk = (id) => {
         setConfirmLoading(true);
 
-        deleteDroneById(id);
+        deletePedidoById(id);
 
         setTimeout(() => {
             setOpen(false);
@@ -53,7 +53,7 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
         entregue: 2
     };
 
-    async function deleteDroneById(id) {
+    async function deletePedidoById(id) {
         console.log(id);
         try {
             const response = await fetch(`http://localhost:8080/pedidos/${id}`, {
