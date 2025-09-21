@@ -1,7 +1,7 @@
 # Projeto: Sistema de Entrega com Drones 🚁
 
 ## 📌 Descrição
-Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando regras de capacidade, distância e prioridade de entrega. O sistema aloca os pacotes nos drones com o menor número de viagens possível, respeitando as regras.
+Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando regras de capacidade, distância e prioridade de entrega. O sistema aloca os pacotes nos drones com o menor número de viagens possível, respeitando as regras. O projeto conta com um backend robusto para gerenciar a lógica e uma interface de frontend para visualização e interação.
 
 ## ✅ Funcionalidades
 - [x] CRUD de Pedidos
@@ -10,156 +10,91 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 - [x] Alocação Automática de Drones
 - [X] Gerenciamento do Tempo de Entrega
 - [X] Geração de Histórico de Pedidos
-- [x] Geração de Relatórios
+- [x] Geração de Relatórios de Eficiência
 - [x] Tratamento de Erros
 - [x] Simulação da Bateria do Drone
 - [X] Cobertura de Testes Unitários
+- [x] Interface Gráfica com React para monitoramento e interação.
 
 ## 🧠 Tecnologias utilizadas
-- Java 21 + Spring Boot 3.4.3
-- Vite.js + React
-- TailwindCSS
-- IntelliJ IDEA 
-- MySQL
-- Postman
+- **Backend**: Java 21 + Spring Boot 3.4.3
+- **Frontend**: Vite.js + React
+- **Estilização**: TailwindCSS, Ant Design, Material UI
+- **Banco de Dados**: MySQL
+- **Ferramentas**: IntelliJ IDEA, Postman
 
 ## 🚀 Como executar
-Siga as instruções abaixo para executar o projeto em sua máquina local. <br>
+Siga as instruções abaixo para executar o projeto em sua máquina local.
 
 ### Pré-requisitos
 - Java 21: Certifique-se de ter o JDK 21 instalado.
-- Maven: O projeto utiliza o Maven para gerenciamento de dependências. Ele já vem incluído no wrapper do Maven (mvnw), então não é necessária uma instalação manual.
+- Maven: O projeto utiliza o Maven para gerenciamento de dependências. Ele já vem incluído no wrapper (mvnw), então não é necessária uma instalação manual.
+- Node.js e npm (ou yarn): Para executar a aplicação frontend.
 - MySQL: É necessário ter um servidor MySQL em execução.
-- Postman (ou similar): Uma ferramenta para testar os endpoints da API.
 
-1. Clone este repositório
-`git clone https://github.com/bacelete/projeto-drone-encomendas.git
-cd projeto-drone-encomendas/backend/encomendas/encomendas`<br>
+### Backend
+1.  **Clone este repositório**
+    ```bash
+    git clone [https://github.com/bacelete/projeto-drone-encomendas.git](https://github.com/bacelete/projeto-drone-encomendas.git)
+    ```
 
-2. Configure o banco de dados
-- Crie um banco de dados com nome de **encomendas_dti**
-- No arquivo application.properties, altere as configurações de acordo com o usuário e senha do seu banco de dados (o meu por padrão, o usuário e senha é root).<br>
+2.  **Configure o banco de dados**
+    - Crie um banco de dados com nome de **encomendas_dti**.
+    - No arquivo `application.properties`, altere as configurações de acordo com o usuário e senha do seu banco de dados.
 
-<img width="682" height="143" alt="image" src="https://github.com/user-attachments/assets/bfd69c96-f951-4a5e-9ed1-67cc37cc5e6c" /><br>
+3.  **Execute a aplicação**
+    Navegue até a pasta `backend/encomendas/encomendas` e execute a aplicação Spring Boot. O servidor iniciará em `http://localhost:8080/`.
 
-3. Execute a aplicação SpringBoot em **EncomendasApplication**. Ele vai gerar um servidor local com a URL **http://localhost:8080/** por padrão<br>
+### Frontend
+1.  **Navegue até a pasta do frontend**
+    ```bash
+    cd frontend/encomendas
+    ```
+2.  **Instale as dependências**
+    ```bash
+    npm install
+    ```
+3.  **Execute a aplicação**
+    ```bash
+    npm run dev
+    ```
+    A aplicação React estará disponível em `http://localhost:5173`.
 
-4. Teste de ENDPOINTS pelo Postman: <br>
-- `POST /drones`
-- `POST /pedidos`
-- `GET /drones/{id}`
-- `GET /entregas`
-- `GET /drones/status`
-- `GET /relatorio`
-
-5. Exemplos de requisições feitas em JSON no Postman:<br><br>
-`POST /drones`<br><br>
-<img width="409" height="384" alt="image" src="https://github.com/user-attachments/assets/f7043e0e-c748-4276-9298-a116a7673b58" /><br>
-`POST /pedidos`<br><br>
-<img width="584" height="592" alt="image" src="https://github.com/user-attachments/assets/98eaaf73-a22c-482d-b141-702ce6e5fad6" /><br>
-
-## 📂 Estrutura do projeto
-<img width="394" height="278" alt="image" src="https://github.com/user-attachments/assets/44b42511-1db0-496a-bc96-947008a965f1" />
-
+### Endpoints da API
+- `POST /drones`: Cria um ou mais drones.
+- `GET /drones/{id}`: Busca um drone pelo seu ID.
+- `GET /drones/status`: Retorna a lista de drones com seus status atuais.
+- `POST /pedidos`: Cria um ou mais pedidos e os aloca aos drones disponíveis.
+- `GET /pedidos`: Retorna a lista de todos os pedidos.
+- `DELETE /pedidos/{id}`: Deleta um pedido pelo seu ID.
+- `GET /entregas`: Retorna o histórico de todas as entregas realizadas.
+- `GET /relatorio`: Gera um relatório com métricas de entregas e eficiência dos drones.
 
 ## 🔍 Lógicas Aplicadas
-### Lógica de ordenação:
-**Quem faz?**<br>
-A lógica de ordenação ficou sob a responsabilidade da classe **Sort**. A função `public void ordenarPedidosPorPeso(List<Pedido> pedido)` deverá ser chamada, recebendo uma lista de pedidos a serem ordenados.
-<br><br>
-**O que faz?**<br>
-Ordena os pedidos com base no **peso**. Para isso, utilizei uma interface **Comparator** que me permite fazer ordenações customizadas na linha de código: `Collections.sort(pedidos, new Comparator<Pedido>()`
 
-### Lógica de alocação de pedidos:
-**Quem faz?**<br>
-A lógica de alocação ficou sob a responsabilidade da classe **ProdutoService**. A função `private PedidosResponseDTO alocarPedidos(List<Pedido> pedidos, List<Drone> drones,
-                               Map<Drone, List<PedidoDTO>> mapPedidos,
-                               Map<Drone, Double> mapKm,
-                               Map<Drone, Double> mapPeso)` deverá ser chamada. <br><br>
-**O que faz?**<br>
-Cada pedido com seu respectivo peso e distância, deve ser alocado para um drone disponível que possui capacidade e alcance possível para aquele pedido e se baseando no **menor número de viagens possíveis**.
+### Ordenação e Alocação de Pedidos
+- **Responsabilidade**: A lógica de ordenação está na classe `Sort`, enquanto a alocação é gerenciada pelo `PedidoService`.
+- **Funcionamento**: Os pedidos são primeiramente ordenados por peso em ordem decrescente para otimizar a capacidade dos drones. Em seguida, cada pedido é alocado a um drone disponível que possua capacidade de peso e alcance (distância de ida e volta) suficientes. A distância é calculada considerando a base como ponto (0,0). O estado de cada drone (peso e alcance restantes) é atualizado dinamicamente usando estruturas de `Map` para garantir o menor número de viagens.
 
-**1. O Uso de Map**<br>
-Para guardar os estados de cada drone (i.e, o peso, alcance e lista de pedidos), foi utilizado uma estratégia baseada na interface **Map** do Java. Foi utilizado essa estratégia pois assim, para cada pedido que respeite as condições daquele drone, o estado do peso e alcance do drone são atualizados para o próximo pedido. No projeto são instanciados três estruturas do tipo map: 
+### Simulação de Voo e Entrega
+- **Responsabilidade**: As classes `TempoService`, `EntregaService` e `BateriaService` gerenciam o ciclo de vida de uma entrega.
+- **Funcionamento**:
+    1.  O `DroneService` inicia o processo, passando os drones com pedidos alocados para o `TempoService`.
+    2.  O `TempoService`, de forma assíncrona (`@Async`), simula o tempo de voo e entrega usando `Thread.sleep()`. Durante este processo, o status do drone é atualizado (e.g., `EM_VOO`, `ENTREGANDO`) e salvo no banco de dados.
+    3.  O `EntregaService` é responsável por criar um registro de `Entrega` no início do voo e finalizá-lo ao término, calculando a duração total.
 
-- `Map<Drone, List<PedidoDTO>> mapDronePedidos = new HashMap<>()`
-- `Map<Drone, Double> mapDronePeso = new HashMap<>()`
-- `Map<Drone, Double> mapDroneKm = new HashMap<>()`<br>
+### Simulação de Bateria
+- **Responsabilidade**: `BateriaService`.
+- **Funcionamento**: Um método agendado (`@Scheduled`) executa periodicamente para simular o consumo e recarga da bateria. A taxa de consumo varia conforme o status do drone (e.g., `EM_VOO` consome mais que `ENTREGANDO`). Quando a bateria está baixa, o drone entra automaticamente em modo `CARREGANDO`.
 
-> Por que **PedidoDTO** em **Map<Drone, List<PedidoDTO>>**?<br>
-> Foi utilizado o DTO do Pedido pois eu precisava setar a **distância** calculada em algum lugar, já que a entidade Pedido não possui esse campo. A distância é necessária para calcular o tempo estimado da entrega, é usada no controle da bateria do drone, etc. 
+## 📸 Interface
+A interface do sistema, desenvolvida em React, oferece uma visão em tempo real da frota de drones e da fila de pedidos.
 
-**2. Distância do Pedido**<br>
-Calculada apartir da função `private double calcularDistancia(int x, int y)`<br>
-
-Para o cálculo da distância de um pedido, tomei como referência as coordenadas **(0, 0)** como a "base" dos drones, assim, usei a fórmula da distância entre dois pontos multiplicado por 2 (considerando ida e volta), porém adaptada para este contexto. Isto é: <br>
-
-`2 * Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))`
-
-> Por padrão a fórmula da distância entre dois pontos é `Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))`, porém assumi que (x1, y1) = (0, 0);<br>
-
-**3. Alocação dos Pedidos**<br>
-Para cada pedido enviado na requisição (array de pedidos), é avaliado se há um drone disponível dentro dos valores do **peso** e **alcance** do pedido. Isso é realizado através da sentença: <br>
-`(pesoPedido <= pesoRestante) && (distanciaPedido <= kmRestante)`<br><br>
-Se há um drone disponível que satisfaça as condições: <br>
-- É sétado esse drone ao pedido através da linha `pedido.setDrone(drone)`
-- É criada setada a variável de controle `foiAlocado = true`
-- É adicionado esse pedido a lista de pedidos alocados no drone através do `mapPedidos.get(drone).add(pedido).`
-- É atualizado os valores de peso e alcance atual do drone através do `mapPeso.put(drone, pesoRestante - pesoPedido)` e `mapKm.put(drone, kmRestante - distanciaPedido)`<br><br>
-Se não há um drone disponível:
-- O pedido é adicionado para a lista de pacotes rejeitados
-
-**4. Retorno como ProdutosResponseDTO**<br>
-Para cada pedido aprovado ou não, eles são adicionados em listas do tipo `List<Pedido> pedidos_alocados` e `List<Pedido> pedidos_rejeitados` na classe **ProdutosResponseDTO** que serão retornadas como resposta da requisição. 
-
-### Lógica de Setar Pedidos
-**Quem faz?**<br>
-A lógica de entregas ficou sob a responsabilidade da classe **DroneService**. A função `public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos)` deverá ser chamada.<br><br>
-**O que faz?**<br>
-Seta os pedidos para os drones e chama a função de gerenciar o tempo. 
-
-- A função percorre de drone em drone através do `mapDronePedidos.keySet()`, que retorna um obj. do tipo `Set`.
-- Ela busca os pedidos alocados para aquele drone através do **Repository** do pedido, na seguinte linha: `List<Pedido> pedidosReais = pedidoRepository.findByDrone(drone)`, pois o mapDronePedidos retorna uma lista do tipo **PedidoDTO**, e não **Pedido**, como esperamos.
-- Para cada drone, é setado uma lista de pedidos a ele: `drone.setPedidos(pedidosReais)`
-- A função de gerenciar tempo de entrega é chamada: `tempoService.gerenciarTempoDeVoo(mapDronePedidos)`
-
-### Lógica de Simulação de Tempo de Entrega
-**Quem faz?**<br>
-A lógica de gerenciamento de tempo de entrega ficou sob a responsabilidade da classe **TempoService**. A função 
-`@Async
-public void gerenciarTempoDeVoo(Map<Drone, List<PedidoDTO>> entregas)` deverá ser chamada.<br><br>
-**O que faz?**<br>
-
-- A função percorre cada drone do `Map<Drone, List<PedidoDTO>> entregas` e cria uma instância do tipo **Entrega**, passando aquele drone como parâmetro.
-- O status do drone é atualizado para **EM_VOO** e salvo no banco de dados.
-- O tempo estimado de entrega dos pedidos de cada drone é calculado a partir do método `private long calcularTempoTotalEntrega(double distancia)`, onde o parâmetro distância é a soma das distâncias dos pedidos. Além disso, tomei como base que a velocidade média dos drones é constante e de **80km/h**.
-- Utilização de `Thread.sleep()` para simulação do tempo de vôo e tempo de entrega.
-> Velocidade média representada como `public static final long VELOCIDADE_MEDIA = 80`
-
-### Lógica de Gerenciamento da Entrega
-**Quem faz?**<br>
-A lógica de criação/finalização da entrega ficou sob a responsabilidade da classe **EntregaService**.<br><br>
-**O que faz?**<br>
-- O método `public Entrega criarEntrega(Drone drone)` seta um drone para aquela entrega, um instante de início dessa entrega e a quantidaed de pedidos.
-- O método `public void finalizarEntrega(Entrega entrega)` seta o instante final da entrega e a duração total da entrega.
-
-
-## 📸 Prints 
-Exemplo de resposta da requisição do `POST /pedidos`<br><br>
-<img width="483" height="617" alt="image" src="https://github.com/user-attachments/assets/e03ee83e-11d3-4be0-9651-082eebfe7bac" /><br><br>
-<img width="505" height="428" alt="image" src="https://github.com/user-attachments/assets/028b1efe-0882-4dc8-aa97-ad11f3507e61" />
-
-
-Exemplo de resposta da requisição do `GET /entregas`<br><br>
-<img width="620" height="516" alt="image" src="https://github.com/user-attachments/assets/c1b1d3c1-1cca-483d-8bc1-f87a86eb8028" /><br><br>
-
-Exemplo de resposta da requisição do `GET /relatorio`<br><br>
-<img width="452" height="223" alt="image" src="https://github.com/user-attachments/assets/701ebd0e-eee4-4c0a-92b3-95326e67e5e2" />
-<br><br>
-
-Exemplo de resposta da requisição do `GET /drones/status`<br><br>
-<img width="466" height="400" alt="image" src="https://github.com/user-attachments/assets/38a50af7-c4db-4eb9-841c-18c0a054e133" /><br><br>
-
+### Dashboard Principal
+- **Visualização de Drones**: Apresenta cards para cada drone, exibindo seu ID, nível de bateria com ícones representativos e status atual (Disponível, Em Voo, Entregando, Carregando).
+- **Fila de Pedidos**: Mostra os pedidos pendentes e em andamento, detalhando seu ID, peso, prioridade e o status atual do processo de entrega (Aguardando, Enviado, Entregue).
+- **Interatividade**: Permite criar novos drones e pedidos através de formulários modais, além de visualizar detalhes de um drone específico e seus pedidos associados.
+- **Feedback ao Usuário**: Notificações (toasts) são exibidas para informar sobre eventos importantes, como a saída de um drone para entrega ou o sucesso na criação/exclusão de um pedido.
 
 ## 👨‍💻 Autor
 Arthur Bacelete
