@@ -31,6 +31,8 @@ public class DroneService {
 
     public static final long VELOCIDADE_MEDIA = 80;
 
+    public void deleteById(Long id) { droneRepository.deleteById(id);}
+
     public void save(DroneRequestDTO droneRequestDTO) {
         Drone novo = DroneFactory.createDrone();
         novo.setBateria(droneRequestDTO.getBateria());

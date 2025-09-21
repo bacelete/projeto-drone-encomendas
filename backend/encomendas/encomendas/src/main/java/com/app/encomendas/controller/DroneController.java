@@ -49,4 +49,13 @@ public class DroneController {
         List<DroneResponseDTO> drones = droneService.getDronesComStatus();
         return ResponseEntity.ok(drones);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteDrone(@PathVariable Long id) {
+        if (droneService.getDroneById(id).isEmpty()) {
+            throw new NotFoundException("Drone não encontrado");
+        }
+        droneService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }
