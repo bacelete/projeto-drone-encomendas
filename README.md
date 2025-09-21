@@ -14,6 +14,7 @@ Sistema que gerencia as entregas, drones e seus respectivos voos, respeitando re
 - [x] Tratamento de Erros
 - [x] Simulação da Bateria do Drone
 - [X] Cobertura de Testes Unitários
+- [X] Interface gráfica com React
 
 ## 🧠 Tecnologias utilizadas
 - Java 21 + Spring Boot 3.4.3
