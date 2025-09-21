@@ -122,7 +122,7 @@ public class PedidoService {
             pedidoRepository.saveAll(alocados);
         }
 
-        droneService.iniciarEntregas(mapPedidos);
+        droneService.entregarPedidos(mapPedidos);
         return new PedidosResponseDTO(alocados, rejeitados);
     }
 

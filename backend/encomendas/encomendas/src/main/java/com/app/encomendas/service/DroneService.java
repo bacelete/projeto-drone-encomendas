@@ -59,7 +59,7 @@ public class DroneService {
         return droneRepository.findById(id);
     }
 
-    public void iniciarEntregas(Map<Drone, List<PedidoDTO>> mapDronePedidos) {
+    public void entregarPedidos(Map<Drone, List<PedidoDTO>> mapDronePedidos) {
         Set<Drone> dronesComPedidos = mapDronePedidos.keySet();
 
         for (Drone drone : dronesComPedidos) {

@@ -42,8 +42,8 @@ public class TempoService {
             List<Pedido> pedidosParaEntrega = pedidos.stream()
                     .filter(pedido -> pedido.getStatusPedido().equals(StatusPedido.ENVIADO)).toList();
 
-            if (!pedidosParaEntrega.isEmpty()) { //precisa adicionar a verificacao de status pro pedido;
-                System.out.println(pedidos);
+            if (!pedidosParaEntrega.isEmpty() && bateriaService.isBatteryOk(drone)) {
+                //se o pedido para entrega nao estiver vazio e a bateria ok:
                 Entrega entrega = entregaService.criarEntrega(drone);
 
                 drone.setStatus(StatusDrone.EM_VOO);
@@ -75,12 +75,8 @@ public class TempoService {
                 orElse(null);
 
         if (pedido != null) {
-            System.out.println("Antes de salvar pedido: Drone está = " + pedido.getDrone().getStatus());
-
             pedido.setStatusPedido(StatusPedido.ENTREGUE);
             pedidoRepository.save(pedido);
-            System.out.println("Depois de salvar pedido: Drone está = " + pedido.getDrone().getStatus());
-
         }
 
         try {
@@ -99,7 +95,6 @@ public class TempoService {
         Drone droneAtualizado = droneRepository.findById(drone.getId()).orElse(drone);
         droneAtualizado.setStatus(StatusDrone.IDLE);
 
-        System.out.println("Salvando drone como IDLE: " + droneAtualizado.getId());
         droneRepository.saveAndFlush(droneAtualizado);
     }
 

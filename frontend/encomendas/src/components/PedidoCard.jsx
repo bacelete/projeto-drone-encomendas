@@ -120,7 +120,7 @@ export default function PedidoCard({ id, peso, prioridade, status = 'aguardando'
                                 onCancel={handleCancel}
                                 icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                             >
-                                <Button danger onClick={showPopconfirm}>Excluir</Button>
+                                <Button danger size="small" onClick={showPopconfirm}>Excluir</Button>
                             </Popconfirm>
                         </div>
                     }
