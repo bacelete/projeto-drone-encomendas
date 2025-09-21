@@ -26,4 +26,10 @@ public class RestExceptionHandler {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorMessage);
     }
 
+    @ExceptionHandler(value = NotEnoughBatteryToOrder.class)
+    public ResponseEntity<ErrorMessage> notEnoughBattery(NotEnoughBatteryToOrder exception) {
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.METHOD_NOT_ALLOWED, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorMessage);
+    }
+
 }

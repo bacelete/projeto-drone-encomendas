@@ -2,6 +2,7 @@ package com.app.encomendas.service;
 
 import com.app.encomendas.enums.StatusDrone;
 import com.app.encomendas.enums.StatusPedido;
+import com.app.encomendas.exception.NotEnoughBatteryToOrder;
 import com.app.encomendas.exception.NotFoundException;
 import com.app.encomendas.model.Drone;
 import com.app.encomendas.model.Entrega;
@@ -42,7 +43,10 @@ public class TempoService {
             List<Pedido> pedidosParaEntrega = pedidos.stream()
                     .filter(pedido -> pedido.getStatusPedido().equals(StatusPedido.ENVIADO)).toList();
 
-            if (!pedidosParaEntrega.isEmpty() && bateriaService.isBatteryOk(drone)) {
+            if (!pedidosParaEntrega.isEmpty()) {
+                if (!bateriaService.isBatteryOk(drone)) {
+                    throw new NotEnoughBatteryToOrder("Bateria insuficiente para entregar pedido!");
+                }
                 //se o pedido para entrega nao estiver vazio e a bateria ok:
                 Entrega entrega = entregaService.criarEntrega(drone);
 
@@ -56,9 +60,7 @@ public class TempoService {
                 }
                 entregarPedido(drone, entrega);
             }
-
         }
-
     }
 
     @Transactional
