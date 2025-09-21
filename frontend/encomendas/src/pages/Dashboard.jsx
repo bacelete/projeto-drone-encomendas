@@ -17,6 +17,7 @@ import { Skeleton } from 'antd';
 import { PlusOutlined } from "@ant-design/icons";
 import DroneCardSkeleton from "../components/DroneCardSkeleton";
 import PedidoCardSkeleton from "../components/PedidoCardSkeleton";
+import AppFooter from "../components/AppFooter";
 
 
 export default function Dashboard() {
@@ -115,7 +116,7 @@ export default function Dashboard() {
         fetchPedidos();
         fetchDrones();
         const intervalDrones = setInterval(fetchDrones, 8000);
-        const intervalPedidos = setInterval(fetchPedidos, 8000); 
+        const intervalPedidos = setInterval(fetchPedidos, 8000);
         return () => {
             clearInterval(intervalDrones);
             clearInterval(intervalPedidos);
@@ -174,69 +175,72 @@ export default function Dashboard() {
 
     return (
         <>
+            <div className="main">
+                {/* Form do Drone */}
+                <DroneForm open={openForm} onClose={handleCloseForm}></DroneForm>
 
-            {/* Form do Drone */}
-            <DroneForm open={openForm} onClose={handleCloseForm}></DroneForm>
+                <ReloadButton />
+                {/* Alerta */}
+                <AlertToast show={!!alert} onClose={() => setAlert(null)} {...alert} />
 
-            <ReloadButton />
-            {/* Alerta */}
-            <AlertToast show={!!alert} onClose={() => setAlert(null)} {...alert} />
+                {/* Card do Drone */}
+                <Box className="my-10">
+                    <div className="flex items-center gap-5">
+                        <Title text={"Drones"} />
+                        <Button type="primary" size='medium' onClick={handleOpenForm}><span className="font-oxygen-regular flex gap-1"><PlusOutlined />Criar</span></Button>
+                    </div>
 
-            {/* Card do Drone */}
-            <Box className="my-10">
-                <div className="flex items-center gap-5">
-                    <Title text={"Drones"} />
-                    <Button type="primary" size='medium' onClick={handleOpenForm}><span className="font-oxygen-regular flex gap-1"><PlusOutlined />Criar</span></Button>
-                </div>
-
-                <Divider />
-                <div className="grid grid-cols-3 gap-6 my-10 bg-gray-20 p-7 rounded-lg shadow-sm w-full">
-                    {isDronesLoading ? (
-                        Array.from(new Array(3)).map((_, index) => <DroneCardSkeleton key={index} />) //ia que gerou essa parte.
-                    ) : drones.length > 0 ? (
-                        drones.map((drone) => (
-                            <DroneCard key={drone.id} drone={drone} onClick={() => {
-                                handleOpen(drone.id);
-                            }} />
-                        ))
-                    ) : (
-                        <div className="w-90 m-auto text-center col-span-3">
-                            <img src={NoDronesIcon} alt="" />
-                            <p className="text-2xl font-oxygen-regular my-5">Não há drones disponíveis no momento...</p>
-                        </div>
-                    )}
-                </div>
+                    <Divider />
+                    <div className="grid grid-cols-3 gap-6 my-10 bg-gray-20 p-7 rounded-lg shadow-sm w-full">
+                        {isDronesLoading ? (
+                            Array.from(new Array(3)).map((_, index) => <DroneCardSkeleton key={index} />) //ia que gerou essa parte.
+                        ) : drones.length > 0 ? (
+                            drones.map((drone) => (
+                                <DroneCard key={drone.id} drone={drone} onClick={() => {
+                                    handleOpen(drone.id);
+                                }} />
+                            ))
+                        ) : (
+                            <div className="w-90 m-auto text-center col-span-3">
+                                <img src={NoDronesIcon} alt="" />
+                                <p className="text-2xl font-oxygen-regular my-5">Não há drones disponíveis no momento...</p>
+                            </div>
+                        )}
+                    </div>
 
 
-                {/* Form do Pedido */}
-                <PedidoForm open={openPedidoForm} onClose={handleClosePedidoForm}></PedidoForm>
+                    {/* Form do Pedido */}
+                    <PedidoForm open={openPedidoForm} onClose={handleClosePedidoForm}></PedidoForm>
 
-                {/* Card do Pedidos */}
-                <div className="flex items-center gap-5 mt-20">
-                    <Title text={"Pedidos"} />
-                    <Button type="primary" size="medium" onClick={handleOpenPedidoForm}><span className="font-oxygen-regular flex gap-1"><PlusOutlined />Criar </span></Button>
-                </div>
-                <Divider />
-                <div className="grid grid-cols-4">
-                    {isPedidosLoading ? (
-                        Array.from(new Array(4)).map((_, index) => <PedidoCardSkeleton key={index} />) //ia que gerou essa parte.
-                    ) : pedidos.length > 0 ? (
-                        pedidos.map((pedido) => (
-                            <PedidoCard id={pedido.id} key={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade} status={pedido.statusPedido}></PedidoCard>
-                        ))
-                    ) : (
-                        <div className="w-90 m-auto text-center col-span-4">
-                            <img src={EmptyCartIcon} alt="" />
-                            <p className="text-2xl font-oxygen-regular my-5">Não há pedidos no momento...</p>
-                        </div>
-                    )}
-                </div>
+                    {/* Card do Pedidos */}
+                    <div className="flex items-center gap-5 mt-20">
+                        <Title text={"Pedidos"} />
+                        <Button type="primary" size="medium" onClick={handleOpenPedidoForm}><span className="font-oxygen-regular flex gap-1"><PlusOutlined />Criar </span></Button>
+                    </div>
+                    <Divider />
+                    <div className="grid grid-cols-4">
+                        {isPedidosLoading ? (
+                            Array.from(new Array(4)).map((_, index) => <PedidoCardSkeleton key={index} />) //ia que gerou essa parte.
+                        ) : pedidos.length > 0 ? (
+                            pedidos.map((pedido) => (
+                                <PedidoCard id={pedido.id} key={pedido.id} peso={pedido.peso} prioridade={pedido.prioridade} status={pedido.statusPedido}></PedidoCard>
+                            ))
+                        ) : (
+                            <div className="w-90 m-auto text-center col-span-4">
+                                <img src={EmptyCartIcon} alt="" />
+                                <p className="text-2xl font-oxygen-regular my-5">Não há pedidos no momento...</p>
+                            </div>
+                        )}
+                    </div>
 
-                {/* Modal do Drone */}
-                <div>
-                    <ModalDrone open={openModal} handleClose={handleClose} infoDrone={infoDrone}></ModalDrone>
-                </div>
-            </Box >
+                    {/* Modal do Drone */}
+                    <div>
+                        <ModalDrone open={openModal} handleClose={handleClose} infoDrone={infoDrone}></ModalDrone>
+                    </div>
+                </Box >
+                <AppFooter />
+            </div>
+
         </>
     )
 }
